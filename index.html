@@ -20,7 +20,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Noto Sans JP',sans-serif;
   radial-gradient(ellipse 50% 40% at 95% 90%,rgba(232,160,32,.07),transparent 50%)}
 
 /* HEADER */
-header{padding:14px 16px 0;border-bottom:1px solid var(--bd);position:relative}
+header{padding:14px 16px 0;border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:25;background:rgba(11,10,20,.97);backdrop-filter:blur(14px)}
 header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);
   width:100px;height:2px;background:linear-gradient(90deg,transparent,var(--acc2),transparent)}
 .h-title{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:17px;letter-spacing:.06em;
@@ -93,9 +93,21 @@ input::placeholder{color:var(--ts)}
 .toggle-label{font-size:10px;color:var(--tm);white-space:nowrap}
 .sbar-cnt{font-weight:700;color:var(--tx);font-size:12px}
 /* データ管理ボタン */
-.data-btn{background:none;border:1px solid var(--bd2);border-radius:7px;padding:3px 9px;
-  color:var(--tm);font-family:inherit;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.data-btn:hover{border-color:var(--acc2);color:var(--tx)}
+.warn-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;padding:20px}
+.warn-overlay.open{display:flex}
+.warn-box{background:var(--s1);border:1px solid var(--bd2);border-radius:14px;padding:20px 18px;width:100%;max-width:340px}
+.warn-icon{font-size:28px;text-align:center;margin-bottom:8px}
+.warn-msg{font-size:13px;line-height:1.7;color:var(--tx);margin-bottom:16px;text-align:center}
+.warn-btns{display:flex;gap:8px}
+.warn-btn{flex:1;padding:9px;border-radius:9px;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.warn-btn.cancel{background:var(--s2);border:1px solid var(--bd2);color:var(--tm)}
+.warn-btn.ok{background:linear-gradient(135deg,#ff7043,#f9a825);color:#fff}
+.data-fab{position:fixed;top:10px;right:10px;z-index:90;
+  background:var(--s2);border:1px solid var(--bd2);border-radius:8px;
+  padding:5px 10px;color:var(--tm);font-family:inherit;font-size:12px;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.data-fab:hover{border-color:var(--acc2);color:var(--tx);background:var(--s1)}
 .data-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
   z-index:200;align-items:flex-end;justify-content:center}
 .data-modal-overlay.open{display:flex}
@@ -168,6 +180,10 @@ input::placeholder{color:var(--ts)}
 .myset-pane{flex:1;overflow-y:auto;padding:12px}
 /* マイセット内コンテンツ */
 .myset-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.myset-title-input{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;
+  color:#f9a825;background:none;border:none;border-bottom:1px solid transparent;
+  outline:none;flex:1;min-width:0;padding:1px 2px;transition:border-color .2s}
+.myset-title-input:focus{border-bottom-color:#f9a825;background:rgba(249,168,37,.05);border-radius:4px 4px 0 0}
 .myset-title{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;color:#f9a825;flex:1}
 .myset-del-btn{background:none;border:none;font-size:17px;color:var(--ts);
   cursor:pointer;padding:2px 5px;border-radius:5px;transition:all .15s}
@@ -198,6 +214,48 @@ input::placeholder{color:var(--ts)}
   cursor:pointer;padding:1px 4px;border-radius:4px;transition:all .15s;flex-shrink:0}
 .myset-remove-btn:hover{color:var(--red);background:rgba(255,80,80,.1)}
 /* 必要カード */
+/* 編成カード枠 */
+.deck-section{margin-bottom:12px}
+.deck-title{font-size:10px;color:var(--ts);letter-spacing:.08em;font-weight:700;margin-bottom:6px}
+.deck-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:4px}
+.deck-slot{border:1.5px dashed var(--bd2);border-radius:9px;padding:6px 8px;
+  cursor:pointer;transition:all .15s;min-height:52px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;gap:2px;user-select:none}
+.deck-slot:hover{border-color:#f9a825;background:rgba(249,168,37,.05)}
+.deck-slot.filled{border-style:solid;border-color:var(--bd);background:var(--s1)}
+.deck-slot.filled:hover{border-color:#f9a825}
+.deck-slot.rental{border-color:rgba(195,125,255,.4)}
+.deck-slot.rental.filled{border-color:rgba(195,125,255,.6);background:rgba(195,125,255,.05)}
+.deck-slot-label{font-size:9px;color:var(--ts);font-weight:700}
+.deck-slot.rental .deck-slot-label{color:rgba(195,125,255,.7)}
+.deck-slot-card{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:11px;
+  color:var(--tx);line-height:1.2;word-break:break-all}
+.deck-slot-owned{font-size:9px;color:#43a047}
+.deck-slot-empty{font-size:18px;color:var(--bd2)}
+.deck-slot-cnt{font-size:9px;color:var(--ts)}
+/* カード選択ピッカー */
+.card-picker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;
+  align-items:flex-end;justify-content:center}
+.card-picker-overlay.open{display:flex}
+.card-picker{background:var(--s1);border:1px solid var(--bd2);border-radius:16px 16px 0 0;
+  width:100%;max-width:600px;padding:14px 14px 28px;max-height:70vh;display:flex;flex-direction:column}
+.card-picker-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0}
+.card-picker-title{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px}
+.card-picker-close{background:none;border:none;color:var(--tm);font-size:20px;cursor:pointer}
+.card-picker-list{overflow-y:auto;flex:1}
+.card-picker-item{display:flex;align-items:center;gap:8px;padding:9px 4px;
+  border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s}
+.card-picker-item:hover{background:var(--s2)}
+.card-picker-item.selected{color:#f9a825;font-weight:700}
+.card-picker-name{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:13px;flex:1}
+.card-picker-cnt{font-size:10px;color:var(--ts);flex-shrink:0}
+.card-picker-clear{padding:10px 4px;font-size:12px;color:var(--ts);cursor:pointer;
+  display:flex;align-items:center;gap:6px;transition:color .15s}
+.card-picker-clear:hover{color:var(--red)}
+/* ロード閃き枠 */
+.flash-section{border:1px dashed rgba(195,125,255,.3);border-radius:10px;
+  padding:8px 10px;margin-top:4px;background:rgba(195,125,255,.03)}
+.flash-title{font-size:10px;color:rgba(195,125,255,.8);letter-spacing:.08em;font-weight:700;margin-bottom:6px}
 .myset-cn-item{display:flex;align-items:center;justify-content:space-between;gap:6px;
   padding:6px 9px;border-radius:8px;background:var(--s1);border:1px solid var(--bd);
   margin-bottom:4px}
@@ -344,13 +402,14 @@ input::placeholder{color:var(--ts)}
 .owned-stats{font-size:11px;color:var(--tm)}
 .owned-hint{font-size:11px;color:var(--ts);margin-bottom:10px}
 .owned-card-item{display:flex;align-items:center;justify-content:space-between;
-  padding:8px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--s1);
-  margin-bottom:5px;cursor:pointer;transition:all .15s;user-select:none}
+  padding:7px 10px;border-radius:10px;border:1px solid var(--bd);background:var(--s1);
+  cursor:pointer;transition:all .15s;user-select:none}
 .owned-card-item:hover{border-color:var(--bd2)}
 .owned-card-item.owned{border-color:rgba(67,160,71,.5);background:rgba(67,160,71,.08)}
-.owned-card-name{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:13px}
-.owned-card-mark{font-size:16px;flex-shrink:0}
+.owned-card-name{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:12px}
+.owned-card-mark{font-size:15px;flex-shrink:0}
 .owned-card-count{font-size:10px;color:var(--ts);margin-top:1px}
+#owned-card-list{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 
 .col-empty{text-align:center;padding:50px 20px;color:var(--ts)}
 .col-empty-ico{font-size:34px;margin-bottom:10px}
@@ -361,6 +420,7 @@ input::placeholder{color:var(--ts)}
 
 <header>
   <div class="h-title">🐉 LINEモンスターファーム 能力データベース</div>
+  <button class="data-fab" id="data-manage-btn">💾</button>
   <div class="page-tabs">
     <button class="ptab owned-tab" data-page="owned">✅ 所持カード <span class="badge" id="owned-tab-cnt">0</span></button>
     <button class="ptab on" data-page="db">🗂️ 能力DB <span class="badge" id="db-cnt">256</span></button>
@@ -403,6 +463,7 @@ input::placeholder{color:var(--ts)}
     </div>
     <div class="fscroll" id="effect-tags">
       <button class="tb on" data-g="all">すべて</button>
+      <button class="tb" data-g="所持カード">✅ 所持カード</button>
       <button class="tb" data-g="追撃連撃">追撃/連撃</button>
       <button class="tb" data-g="シールド">シールド</button>
       <button class="tb" data-g="被ダメ軽減">被ダメ軽減</button>
@@ -413,7 +474,6 @@ input::placeholder{color:var(--ts)}
       <button class="tb" data-g="無効化">無効化</button>
       <button class="tb" data-g="回避">回避</button>
       <button class="tb" data-g="命中強化">命中強化</button>
-      <button class="tb" data-g="所持カード">✅ 所持カード</button>
     </div>
     <div class="cbrow">
       <span class="cblbl">オーラ:</span>
@@ -428,9 +488,9 @@ input::placeholder{color:var(--ts)}
       <span class="cblbl">タイミング:</span>
       <label class="cbl"><input type="checkbox" data-f="序盤"> 序盤</label>
       <label class="cbl"><input type="checkbox" data-f="中盤"> 中盤</label>
+      <label class="cbl"><input type="checkbox" data-f="終盤"> 終盤</label>
       <label class="cbl"><input type="checkbox" data-f="前半"> 前半</label>
       <label class="cbl"><input type="checkbox" data-f="後半"> 後半</label>
-      <label class="cbl"><input type="checkbox" data-f="終盤"> 終盤</label>
       <label class="cbl"><input type="checkbox" data-f="有利時"> 有利時</label>
       <label class="cbl"><input type="checkbox" data-f="不利以外"> 不利以外</label>
     </div>
@@ -454,7 +514,6 @@ input::placeholder{color:var(--ts)}
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span id="fav-cnt" style="color:var(--tm)"></span>
-      <button class="data-btn" id="data-manage-btn">💾 データ管理</button>
       <label class="toggle-wrap" title="カードの表示切り替え">
         <input type="checkbox" id="expand-toggle">
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
@@ -489,6 +548,29 @@ input::placeholder{color:var(--ts)}
       </div>
       <div class="data-hint">⚠️ インポートすると現在のデータは上書きされます。</div>
     </div>
+  </div>
+</div>
+
+<!-- WARN MODAL -->
+<div class="warn-overlay" id="warn-overlay">
+  <div class="warn-box">
+    <div class="warn-icon">⚠️</div>
+    <div class="warn-msg" id="warn-msg"></div>
+    <div class="warn-btns">
+      <button class="warn-btn cancel" id="warn-cancel">キャンセル</button>
+      <button class="warn-btn ok" id="warn-ok">設定する</button>
+    </div>
+  </div>
+</div>
+
+<!-- CARD PICKER -->
+<div class="card-picker-overlay" id="card-picker-overlay">
+  <div class="card-picker">
+    <div class="card-picker-head">
+      <div class="card-picker-title" id="card-picker-title">カードを選択</div>
+      <button class="card-picker-close" id="card-picker-close">✕</button>
+    </div>
+    <div class="card-picker-list" id="card-picker-list"></div>
   </div>
 </div>
 
@@ -754,6 +836,10 @@ function openSetPicker(){
   }
   picker.innerHTML=
     '<div class="set-picker-head">⭐ セット選択</div>'+
+    `<div class="set-picker-item${activeSetId===null?' active':''}" id="picker-none">
+      <div class="set-picker-dot"></div>
+      <span style="flex:1;color:var(--ts)">選択なし</span>
+    </div>`+
     mySets.map(s=>`<div class="set-picker-item${s.id===activeSetId?' active':''}" data-sid="${s.id}">
       <div class="set-picker-dot"></div>
       <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</span>
@@ -761,7 +847,12 @@ function openSetPicker(){
     </div>`).join('')+
     '<div class="set-picker-new" id="picker-new">＋ 新規セット作成</div>';
   picker.classList.add('open');
-  picker.querySelectorAll('.set-picker-item').forEach(el=>{
+  picker.querySelector('#picker-none').addEventListener('click',()=>{
+    activeSetId=null; saveSets();
+    picker.classList.remove('open');
+    updateSbarMyset(); render();
+  });
+  picker.querySelectorAll('.set-picker-item[data-sid]').forEach(el=>{
     el.addEventListener('click',()=>{
       activeSetId=el.dataset.sid; saveSets();
       picker.classList.remove('open');
@@ -781,65 +872,108 @@ function openSetModal(){
 
 function renderMyset(){
   document.getElementById('myset-tab-cnt').textContent=getActiveItems().size;
-  // タブバー
   const tabbar=document.getElementById('myset-set-tabs');
   tabbar.innerHTML=mySets.map(s=>`<button class="myset-set-tab${s.id===activeSetId?' active':''}" data-sid="${s.id}">${esc(s.name)}</button>`).join('');
   tabbar.querySelectorAll('.myset-set-tab').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      activeSetId=btn.dataset.sid; saveSets(); renderMyset(); render();
-    });
+    btn.addEventListener('click',()=>{ activeSetId=btn.dataset.sid; saveSets(); renderMyset(); render(); });
   });
-  // コンテンツペイン
   const pane=document.getElementById('myset-pane');
   const set=getActiveSet();
   if(!set){
     pane.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--ts)"><div style="font-size:32px;margin-bottom:8px">⭐</div><div style="font-size:12px;line-height:1.7">セットがまだありません<br>「＋」ボタンで作成してください</div></div>';
     return;
   }
-  const items=set.items;
-  // 必要カード一覧
+  // deck: {own:[card|null x5], rental:card|null}
+  if(!set.deck) set.deck={own:[null,null,null,null,null],rental:null};
+
+  // セットに含まれるカード一覧
   const cardMap={};
-  for(const id of items){
+  for(const id of set.items){
     const a=abilities.find(x=>x.id===id); if(!a) continue;
     if(!cardMap[a.card]) cardMap[a.card]=[];
     cardMap[a.card].push(a);
   }
-  const sorted=Object.entries(cardMap).sort((a,b)=>{
-    const ao=ownedCards.has(a[0])?0:1, bo=ownedCards.has(b[0])?0:1;
-    return ao-bo||b[1].length-a[1].length;
-  });
-  const cnHtml=sorted.map(([card,abs])=>{
-    const own=ownedCards.has(card);
-    return `<div class="myset-cn-item">
-      <div style="flex:1;min-width:0">
-        <div class="myset-cn-name">${own?'✅':'📛'} ${esc(card)}${own?'<span class="myset-owned-badge" style="margin-left:4px">所持済</span>':''}</div>
-        <div class="myset-cn-abilities">${abs.map(a=>esc(a.name)).join('・')}</div>
-      </div>
-      <div class="myset-cn-count">${abs.length}件</div>
+  const allCards=Object.keys(cardMap);
+
+  // 編成に入っているカード一覧
+  const deckCards=[...set.deck.own, set.deck.rental].filter(Boolean);
+
+  // 編成外カード（ロード閃き枠）
+  const flashCards=allCards.filter(c=>!deckCards.includes(c));
+
+  // 編成枠HTML
+  function slotHtml(card, idx, isRental){
+    const slotClass=`deck-slot${card?' filled':''}${isRental?' rental':''}`;
+    const label=isRental?'レンタル':`自前${idx+1}`;
+    if(card){
+      const own=ownedCards.has(card);
+      const cnt=cardMap[card]?cardMap[card].length:0;
+      return `<div class="${slotClass}" data-slot="${isRental?'rental':idx}">
+        <div class="deck-slot-label">${label}</div>
+        <div class="deck-slot-card">${esc(card)}</div>
+        <div class="deck-slot-owned">${own?'✅所持':'📛未所持'}</div>
+        <div class="deck-slot-cnt">能力${cnt}件</div>
+      </div>`;
+    }
+    return `<div class="${slotClass}" data-slot="${isRental?'rental':idx}">
+      <div class="deck-slot-label">${label}</div>
+      <div class="deck-slot-empty">＋</div>
     </div>`;
-  }).join('');
-  // 能力一覧（カード別）
-  const abHtml=sorted.map(([card,abs])=>{
-    const own=ownedCards.has(card);
-    const rows=abs.map(a=>`<div class="myset-ability-row" data-id="${a.id}">
-      <div class="myset-ability-name">${esc(a.name)}</div>
-      <button class="myset-remove-btn" data-id="${a.id}" title="削除">×</button>
-    </div>`).join('');
-    return `<div class="myset-card-group">
-      <div class="myset-card-label">${own?'✅':'📛'} ${esc(card)}${own?'<span class="myset-owned-badge">所持済</span>':''}
-        <span class="myset-count-badge">${abs.length}</span></div>
-      ${rows}
-    </div>`;
-  }).join('');
+  }
+  const ownSlots=set.deck.own.map((c,i)=>slotHtml(c,i,false)).join('');
+  const rentalSlot=slotHtml(set.deck.rental,0,true);
+
+  // 能力一覧HTML生成
+  function abilityGroupHtml(cards, isFlash){
+    if(cards.length===0) return '';
+    return cards.map(card=>{
+      const abs=cardMap[card]||[];
+      const own=ownedCards.has(card);
+      const rows=abs.map(a=>`<div class="myset-ability-row">
+        <div class="myset-ability-name">${esc(a.name)}</div>
+        <button class="myset-remove-btn" data-id="${a.id}">×</button>
+      </div>`).join('');
+      const groupClass=isFlash?'myset-card-group flash-group':'myset-card-group';
+      return `<div class="${groupClass}">
+        <div class="myset-card-label">${own?'✅':'📛'} ${esc(card)}${own?'<span class="myset-owned-badge">所持済</span>':''}
+          <span class="myset-count-badge">${abs.length}</span></div>
+        ${rows}
+      </div>`;
+    }).join('');
+  }
+
+  const deckAbilityCards=deckCards.filter(c=>cardMap[c]);
+  const deckAbilityHtml=abilityGroupHtml(deckAbilityCards, false);
+  const flashHtml=abilityGroupHtml(flashCards, true);
+
   pane.innerHTML=`
     <div class="myset-header">
-      <div class="myset-title">${esc(set.name)}</div>
-      <button class="myset-del-btn" id="myset-del-btn" title="このセットを削除">🗑️</button>
+      <input class="myset-title-input" id="myset-title-input" value="${esc(set.name)}" placeholder="セット名">
+      <button class="myset-del-btn" id="myset-del-btn">🗑️</button>
     </div>
     <textarea class="myset-memo" id="myset-memo" placeholder="メモ（任意）...">${esc(set.memo||'')}</textarea>
-    ${items.length===0?'<div style="text-align:center;padding:30px;color:var(--ts);font-size:12px">📋 能力DBのチェックボックスから追加してください</div>':
-    `<div class="myset-section-title">📦 必要カード一覧</div>${cnHtml}
-     <div class="myset-section-title">能力一覧（カード別）</div>${abHtml}`}`;
+    <div class="deck-section">
+      <div class="deck-title">🃏 編成カード（タップで設定）</div>
+      <div class="deck-slots">${ownSlots}</div>
+      <div class="deck-slots" style="grid-template-columns:1fr 1fr 1fr">${rentalSlot}<div></div><div></div></div>
+    </div>
+    ${set.items.length===0
+      ?'<div style="text-align:center;padding:20px;color:var(--ts);font-size:12px">📋 能力DBのチェックボックスから追加してください</div>'
+      :`${deckAbilityHtml
+          ?`<div class="myset-section-title">📋 編成カードの能力</div>${deckAbilityHtml}`:''}
+        ${flashHtml
+          ?`<div class="flash-section"><div class="flash-title">💡 ロード閃き枠</div>${flashHtml}</div>`
+          :''}`}`;
+
+  // 編成枠タップ → カード選択
+  pane.querySelectorAll('.deck-slot').forEach(slot=>{
+    slot.addEventListener('click',()=>{
+      const slotKey=slot.dataset.slot;
+      const isRental=slotKey==='rental';
+      openCardPicker(allCards, set, slotKey, isRental);
+    });
+  });
+
   pane.querySelector('#myset-del-btn').addEventListener('click',()=>{
     if(!confirm(`「${set.name}」を削除しますか？`)) return;
     mySets=mySets.filter(s=>s.id!==set.id);
@@ -848,12 +982,78 @@ function renderMyset(){
   });
   const memoEl=pane.querySelector('#myset-memo');
   memoEl&&memoEl.addEventListener('input',e=>{ set.memo=e.target.value; saveSets(); });
+  const titleInput=pane.querySelector('#myset-title-input');
+  titleInput&&titleInput.addEventListener('input',e=>{
+    set.name=e.target.value; saveSets();
+    // タブバーも更新
+    document.querySelectorAll('.myset-set-tab').forEach(btn=>{
+      if(btn.dataset.sid===set.id) btn.textContent=e.target.value||'（名前なし）';
+    });
+  });
   pane.querySelectorAll('.myset-remove-btn').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const id=+btn.dataset.id;
       const idx=set.items.indexOf(id);
       if(idx>=0) set.items.splice(idx,1);
+      // 対応する編成枠もクリア
+      if(set.deck){
+        const a=abilities.find(x=>x.id===id);
+        if(a){
+          const remaining=set.items.filter(i=>{ const x=abilities.find(y=>y.id===i); return x&&x.card===a.card; });
+          if(remaining.length===0){
+            set.deck.own=set.deck.own.map(c=>c===a.card?null:c);
+            if(set.deck.rental===a.card) set.deck.rental=null;
+          }
+        }
+      }
       saveSets(); renderMyset(); render();
+    });
+  });
+}
+
+function openCardPicker(cards, set, slotKey, isRental){
+  const overlay=document.getElementById('card-picker-overlay');
+  const titleEl=document.getElementById('card-picker-title');
+  const listEl=document.getElementById('card-picker-list');
+  const isRentalSlot=slotKey==='rental';
+  titleEl.textContent=isRentalSlot?'レンタル枠のカードを選択':`自前${+slotKey+1}枠のカードを選択`;
+
+  const currentCard=isRentalSlot?set.deck.rental:set.deck.own[+slotKey];
+  // 既に他の枠に入っているカード（同じ枠は除く）
+  const usedCards=new Set([...set.deck.own, set.deck.rental].filter(Boolean));
+  if(currentCard) usedCards.delete(currentCard);
+
+  listEl.innerHTML=
+    `<div class="card-picker-clear" id="picker-clear">✕ 枠をクリア</div>`+
+    cards.map(card=>{
+      const own=ownedCards.has(card);
+      const disabled=usedCards.has(card);
+      const sel=card===currentCard;
+      return `<div class="card-picker-item${sel?' selected':''}${disabled?' disabled':''}" data-card="${esc(card)}" style="${disabled?'opacity:.35;pointer-events:none':''}">
+        <span>${own?'✅':'📛'}</span>
+        <span class="card-picker-name">${esc(card)}</span>
+        ${own?'<span class="card-picker-cnt" style="color:#43a047">所持済</span>':''}
+        ${sel?'<span style="color:#f9a825;font-size:11px">選択中</span>':''}
+      </div>`;
+    }).join('');
+
+  overlay.classList.add('open');
+  listEl.querySelector('#picker-clear').addEventListener('click',()=>{
+    if(isRentalSlot) set.deck.rental=null; else set.deck.own[+slotKey]=null;
+    saveSets(); overlay.classList.remove('open'); renderMyset();
+  });
+  listEl.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const card=el.dataset.card;
+      if(!isRentalSlot && !ownedCards.has(card)){
+        showWarn(`「${card}」は未所持のカードです。自前枠に設定しますか？`, ()=>{
+          set.deck.own[+slotKey]=card;
+          saveSets(); overlay.classList.remove('open'); renderMyset();
+        });
+        return;
+      }
+      if(isRentalSlot) set.deck.rental=card; else set.deck.own[+slotKey]=card;
+      saveSets(); overlay.classList.remove('open'); renderMyset();
     });
   });
 }
@@ -1007,6 +1207,26 @@ document.getElementById('set-modal-save').addEventListener('click',()=>{
 
 // myset-new-btn
 document.getElementById('myset-new-btn').addEventListener('click', openSetModal);
+// カスタム警告モーダル
+function showWarn(msg, onOk){
+  document.getElementById('warn-msg').textContent=msg;
+  document.getElementById('warn-overlay').classList.add('open');
+  const ok=document.getElementById('warn-ok');
+  const cancel=document.getElementById('warn-cancel');
+  const close=()=>document.getElementById('warn-overlay').classList.remove('open');
+  const okClone=ok.cloneNode(true); ok.parentNode.replaceChild(okClone,ok);
+  const cancelClone=cancel.cloneNode(true); cancel.parentNode.replaceChild(cancelClone,cancel);
+  document.getElementById('warn-ok').addEventListener('click',()=>{ close(); onOk(); });
+  document.getElementById('warn-cancel').addEventListener('click',close);
+}
+
+// card-picker close
+document.getElementById('card-picker-close').addEventListener('click',()=>
+  document.getElementById('card-picker-overlay').classList.remove('open'));
+document.getElementById('card-picker-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('card-picker-overlay'))
+    document.getElementById('card-picker-overlay').classList.remove('open');
+});
 
 
 // データ管理モーダル
