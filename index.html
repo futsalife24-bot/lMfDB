@@ -13,6 +13,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
 :root{
   --bg:#0b0a14;
+  --densho-svg:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27120%27%20viewBox%3D%270%200%20200%20120%27%3E%3Cpolygon%20points%3D%27200.0%2C0.0%20145.4%2C56.2%20100.0%2C120.0%20154.6%2C63.8%27%20fill%3D%27rgba%28200%2C100%2C255%2C0.28%29%27/%3E%3Cpolygon%20points%3D%27172.0%2C0.0%20115.1%2C54.2%2072.0%2C120.0%20128.9%2C65.8%27%20fill%3D%27rgba%28200%2C100%2C255%2C0.35%29%27/%3E%3Cpolygon%20points%3D%27144.0%2C0.0%2089.4%2C56.2%2044.0%2C120.0%2098.6%2C63.8%27%20fill%3D%27rgba%28200%2C100%2C255%2C0.22%29%27/%3E%3C/svg%3E");
   --header-bg:rgba(11,10,20,.97);
   --fz:1;--s1:#16142a;--s2:#1e1c34;
   --bd:#302c55;--bd2:#3d3870;
@@ -688,7 +689,19 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 .densho-ability-row>*{position:relative;z-index:1}
 .densho-ability-name{flex:1;font-size:12px;color:#c084fc;font-weight:600}
 .densho-ability-desc{font-size:11px;color:var(--tm);line-height:1.5;padding:4px 8px 6px;background:rgba(180,100,255,.05);border-radius:0 0 6px 6px;border:1px solid rgba(180,100,255,.15);border-top:none;margin-bottom:4px}
-.densho-card-label{font-size:10px;color:var(--ts);letter-spacing:.08em;margin-bottom:4px;margin-top:8px}
+.densho-card-label{font-size:13px;color:var(--tm);letter-spacing:.08em;font-weight:700;margin-bottom:4px;margin-top:8px;padding-left:12px;position:relative}
+.densho-card-label::before{content:'┗';position:absolute;left:0;color:var(--ts)}
+.densho-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:2px}
+.densho-btn{cursor:pointer;padding:6px 8px;background:rgba(180,100,255,.08);border:1px solid rgba(180,100,255,.25);border-radius:8px;position:relative;overflow:hidden;text-align:left;font-family:inherit}
+.densho-btn::before{content:'';position:absolute;inset:0;background:var(--densho-svg) no-repeat right center / auto 100%;pointer-events:none;z-index:0}
+.densho-btn span{position:relative;z-index:1;font-size:11px;color:#c084fc;font-weight:600;display:block;line-height:1.4}
+.densho-btn:active{background:rgba(180,100,255,.18)}
+.densho-popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:400;align-items:flex-end;justify-content:center;padding:0}
+.densho-popup-overlay.open{display:flex}
+.densho-popup{background:var(--s1);border:1px solid rgba(180,100,255,.5);border-radius:14px 14px 0 0;padding:16px;width:100%;max-width:480px;max-height:60vh;overflow-y:auto}
+.densho-popup-name{font-size:14px;color:#c084fc;font-weight:700;margin-bottom:10px}
+.densho-popup-desc{font-size:12px;color:var(--cd-color,#e8e4f4);line-height:1.8}
+.densho-popup-close{display:block;margin-top:14px;width:100%;padding:10px;background:rgba(180,100,255,.15);border:1px solid rgba(180,100,255,.3);border-radius:8px;color:#c084fc;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center}
 </style>
 </head>
 <body>
@@ -931,6 +944,13 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 
 
 <!-- DEL CONFIRM MODAL -->
+<div class="densho-popup-overlay" id="densho-popup-overlay">
+  <div class="densho-popup">
+    <div class="densho-popup-name" id="densho-popup-name"></div>
+    <div class="densho-popup-desc" id="densho-popup-desc"></div>
+    <button class="densho-popup-close" id="densho-popup-close">閉じる</button>
+  </div>
+</div>
 <div class="del-confirm-overlay" id="del-confirm-overlay">
   <div class="del-confirm-modal">
     <div class="del-confirm-title">🗑️ セットを削除しますか？</div>
@@ -1691,12 +1711,22 @@ function renderMyset(){
     const byCard={};
     matched.forEach(a=>{ (byCard[a.card]=byCard[a.card]||[]).push(a); });
     listEl.innerHTML=Object.entries(byCard).map(([card,abs])=>`
-      <div class="densho-card-label">📍 ${esc(card)}</div>
-      ${abs.map(a=>`
-        <div class="densho-ability-row"><span class="densho-ability-name">${esc(a.name)}</span></div>
-        <div class="densho-ability-desc">${descHtml(a.desc)}</div>
-      `).join('')}
+      <div class="densho-card-label">${esc(card)}</div>
+      <div class="densho-grid">
+        ${abs.map(a=>`<button class="densho-btn" data-densho-id="${a.id}"><span>${esc(a.name)}</span></button>`).join('')}
+      </div>
     `).join('');
+    // タップでポップアップ
+    listEl.querySelectorAll('.densho-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const id=parseInt(btn.dataset.denshoId);
+        const a=abilities.find(x=>x.id===id);
+        if(!a) return;
+        document.getElementById('densho-popup-name').textContent=a.name;
+        document.getElementById('densho-popup-desc').innerHTML=descHtml(a.desc);
+        document.getElementById('densho-popup-overlay').classList.add('open');
+      });
+    });
   }
   renderDenshoList(set.monsType||'');
   const monsTypeEl=pane.querySelector('#mons-type-select');
@@ -2351,6 +2381,14 @@ fontSizeBtn.addEventListener('click',()=>{
   fontSizeBtn.style.color=isLarge?'#f9a825':'';
   localStorage.setItem('mf_font',isLarge?'large':'small');
   updateCtrlHeight();
+});
+
+// denshoポップアップ閉じる
+document.getElementById('densho-popup-close').addEventListener('click',()=>{
+  document.getElementById('densho-popup-overlay').classList.remove('open');
+});
+document.getElementById('densho-popup-overlay').addEventListener('click',e=>{
+  if(e.target===e.currentTarget) e.currentTarget.classList.remove('open');
 });
 
 // テーマ切替
