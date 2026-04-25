@@ -677,6 +677,18 @@ body.light-theme .card.tier-rainbow{border-color:rgba(160,80,220,.5);background:
 .rarity-tab.active[data-rarity="その他"]{border-bottom-color:#c084fc;color:#c084fc}
 .owned-rarity-tab.active.その他{color:#c084fc;border-bottom-color:#c084fc}
 .owned-rarity-tab.active.その他 .owned-tab-count{background:rgba(192,132,252,.2);color:#c084fc}
+body.light-theme .flash-section{
+  background:#fffbeb;
+  border:1px solid rgba(180,120,0,.3);
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(180,120,0,.12);
+}
+body.light-theme .flash-title{color:#92600a}
+body.light-theme .flash-card-label{color:#5a3e00}
+body.light-theme .myset-ability-row{background:#fff;border-color:rgba(180,120,0,.2)}
+body.light-theme .myset-ability-row:hover{border-color:rgba(180,120,0,.4)}
+body.light-theme .flash-place-btn{background:#fff3cd;border-color:#b07800;color:#6b4700;font-weight:800}
+body.light-theme .flash-place-btn:hover{background:#ffe082;border-color:#8a5a00}
 body.light-theme .card.tier-densho{border-color:rgba(150,80,220,.4);background:linear-gradient(135deg,#f5eeff,#ede8ff)}
 body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 
@@ -702,6 +714,13 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 .densho-popup-name{font-size:14px;color:#c084fc;font-weight:700;margin-bottom:10px}
 .densho-popup-desc{font-size:12px;color:var(--cd-color,#e8e4f4);line-height:1.8}
 .densho-popup-close{display:block;margin-top:14px;width:100%;padding:10px;background:rgba(180,100,255,.15);border:1px solid rgba(180,100,255,.3);border-radius:8px;color:#c084fc;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center}
+
+.unowned-section{margin-top:8px}
+.unowned-title{font-size:11px;color:var(--ts);font-weight:700;letter-spacing:.06em;
+  text-align:center;padding:6px 8px;
+  display:flex;align-items:center;gap:6px}
+.unowned-title::before,.unowned-title::after{content:'';flex:1;height:1px;background:rgba(255,80,80,.35)}
+.unowned-title-text{white-space:nowrap;color:rgba(255,100,80,.9)}
 </style>
 </head>
 <body>
@@ -1598,9 +1617,9 @@ function renderMyset(){
       const isExCard2=EX_CARDS.has(card);
       const rowsHtml=abs.map(a=>{
         const place=getFlacePlace(a);
-        const placeLabel=place==='deck'?'編成':place==='flash'?(a.source==='EXトレ'?'EX':'閃き'):'両方';
-        const placeBtn=place!==null
-          ?`<button class="flash-place-btn" data-id="${a.id}" data-place="${place}">${placeLabel}</button>`:'';
+        // 編成カードの能力にもplace-btn表示
+        const placeLabel=place==='flash'?(a.source==='EXトレ'?'EX':'閃き枠'):place==='both'?'どっちも':'編成アシカ';
+        const placeBtn=`<button class="flash-place-btn" data-id="${a.id}" data-place="${place||'deck'}">${placeLabel}</button>`;
         return `<div class="myset-ability-row">
           <div class="myset-ability-name" data-id="${a.id}">${esc(a.name)}</div>
           ${placeBtn}
@@ -1620,14 +1639,33 @@ function renderMyset(){
   const exDeckCards=Object.keys(cardMap).filter(c=>EX_CARDS.has(c)&&(cardMap[c]||[]).some(a=>{ const p=getFlacePlace(a); return p==='deck'||p==='both'; }));
   const deckAbilityCards=[...deckCards.filter(c=>cardMap[c]), ...exDeckCards.filter(c=>!deckCards.includes(c))];
   const deckAbilityHtml=abilityGroupHtmlFiltered(deckAbilityCards, false);
-  // ロード閃き枠（編成外カード＋閃きのflash/both）
-  const allFlashCards=[...new Set([...flashCards, ...exCards, ...allCards.filter(c=>
-    (cardMap[c]||[]).some(a=>{ const p=getFlacePlace(a); return p==='flash'||p==='both'; })
+  // ロード閃き枠（編成外カード＋閃きのflash/both）※未所持カードは除外
+  const allFlashCards=[...new Set([...flashCards.filter(c=>ownedCards.has(c)||EX_CARDS.has(c)), ...exCards, ...allCards.filter(c=>
+    (ownedCards.has(c)||EX_CARDS.has(c))&&(cardMap[c]||[]).some(a=>{ const p=getFlacePlace(a); return p==='flash'||p==='both'; })
   )])];
   const flashHtml=abilityGroupHtmlFiltered(allFlashCards, true);
   const flashCount=allFlashCards.reduce((n,c)=>{
     return n+(cardMap[c]||[]).filter(a=>{ const p=getFlacePlace(a); return p==='flash'||p==='both'||(!deckCards.includes(c)&&p===null); }).length;
   },0);
+
+  // 未所持カード能力一覧
+  const unownedItems=set.items
+    .map(id=>abilities.find(x=>x.id===id))
+    .filter(a=>{
+      if(!a) return false;
+      if(EX_CARDS.has(a.card)||BOSS_CARDS.has(a.card)) return false;
+      if(ownedCards.has(a.card)) return false; // 所持カードは除外
+      if(deckCards.includes(a.card)) return false; // 編成済みは除外
+      return true; // 未所持かつ編成外 → unowned一覧に表示
+    });
+  const unownedHtml=unownedItems.length===0?'':unownedItems.map(a=>{
+    const rowsHtml=`<div class="myset-ability-row">
+      <div class="myset-ability-name" data-id="${a.id}">${esc(a.name)}</div>
+      <div style="font-size:10px;color:var(--ts)">${esc(a.card)}</div>
+      <button class="myset-remove-btn" data-id="${a.id}">×</button>
+    </div>`;
+    return rowsHtml;
+  }).join('');
 
   pane.innerHTML=`
     <div class="myset-header">
@@ -1659,6 +1697,9 @@ function renderMyset(){
           ?`<div class="myset-section-title">📋 編成カードの能力</div>${deckAbilityHtml}`:''}
         ${flashHtml
           ?`<div class="flash-section"><div class="flash-title">💡 ロード閃き/EX枠<span class="myset-count-badge" style="margin-left:7px">計${flashCount}個</span></div>${flashHtml}</div>`
+          :''}
+        ${unownedHtml
+          ?`<div class="unowned-section"><div class="unowned-title"><span class="unowned-title-text">📛 未所持カード能力一覧（⚠️レンタル枠以外での取得❌）</span></div><div class="myset-ability-grid">${unownedHtml}</div></div>`
           :''}`}`;
 
   // 編成枠×ボタン → クリア
@@ -1676,7 +1717,7 @@ function renderMyset(){
     slot.addEventListener('click',()=>{
       const slotKey=slot.dataset.slot;
       const isRental=slotKey==='rental';
-      openCardPicker(allCards, set, slotKey, isRental);
+      openCardPicker(allCards.filter(c=>!EX_CARDS.has(c)), set, slotKey, isRental);
     });
   });
 
@@ -1870,7 +1911,22 @@ function openCardPicker(cards, set, slotKey, isRental){
 
   overlay.classList.add('open');
   listEl.querySelector('#picker-clear').addEventListener('click',()=>{
-    if(isRentalSlot) set.deck.rental=null; else set.deck.own[+slotKey]=null;
+    if(isRentalSlot){
+      const prevCard=set.deck.rental;
+      set.deck.rental=null;
+      // レンタル枠クリア時、未所持カードの能力をunownedに戻す
+      if(prevCard&&!ownedCards.has(prevCard)){
+        set.items.forEach(id=>{
+          const ab=abilities.find(x=>x.id===id);
+          if(ab&&ab.card===prevCard){
+            if(!set.flashSettings) set.flashSettings={};
+            set.flashSettings[id]='unowned';
+          }
+        });
+      }
+    } else {
+      set.deck.own[+slotKey]=null;
+    }
     saveSets(); overlay.classList.remove('open'); renderMyset();
   });
   listEl.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>{
@@ -1883,7 +1939,33 @@ function openCardPicker(cards, set, slotKey, isRental){
         });
         return;
       }
-      if(isRentalSlot) set.deck.rental=card; else set.deck.own[+slotKey]=card;
+      if(isRentalSlot){
+        const prevCard=set.deck.rental;
+        // 前のカードが未所持だったらunownedに戻す
+        if(prevCard&&prevCard!==card&&!ownedCards.has(prevCard)){
+          set.items.forEach(id=>{
+            const ab=abilities.find(x=>x.id===id);
+            if(ab&&ab.card===prevCard){
+              if(!set.flashSettings) set.flashSettings={};
+              set.flashSettings[id]='unowned';
+            }
+          });
+        }
+        set.deck.rental=card;
+        // 新しいカードが未所持ならunowned解除→編成へ
+        if(!ownedCards.has(card)){
+          if(set.flashSettings){
+            Object.keys(set.flashSettings).forEach(sid=>{
+              const ab=abilities.find(x=>x.id===+sid);
+              if(ab&&ab.card===card&&set.flashSettings[sid]==='unowned'){
+                delete set.flashSettings[sid];
+              }
+            });
+          }
+        }
+      } else {
+        set.deck.own[+slotKey]=card;
+      }
       saveSets(); overlay.classList.remove('open'); renderMyset();
     });
   });
@@ -2125,17 +2207,34 @@ document.getElementById('page-db').addEventListener('click', e=>{
   }
   const a=abilities.find(x=>x.id===id);
   if(!a) return;
-  // 同名の能力が他カードにもあるか確認
-  const sameNameAbilities=abilities.filter(x=>x.name===a.name);
-  if(sameNameAbilities.length>1){
-    openCardSelectModal(sameNameAbilities, chk, s);
-  } else if(a.source==='閃き'||a.source==='EXトレ'){
-    openFlashPlaceModal(id, chk, s, null);
-  } else if(a.name.startsWith('超')){
+  // 伝授は即追加
+  if(BOSS_CARDS.has(a.card)){
     addToSet(id, chk, s, null);
-  } else {
-    addToSet(id, chk, s, null);
+    return;
   }
+  // 同名能力が複数カードにある場合
+  const sameNameAbilities=abilities.filter(x=>x.name===a.name && !BOSS_CARDS.has(x.card));
+  if(sameNameAbilities.length>1){
+    // 所持・未所持を分けて処理
+    const ownedCandidates=sameNameAbilities.filter(x=>ownedCards.has(x.card)||EX_CARDS.has(x.card));
+    const unownedCandidates=sameNameAbilities.filter(x=>!ownedCards.has(x.card)&&!EX_CARDS.has(x.card));
+    // 未所持は即unowned追加
+    unownedCandidates.forEach(x=>{
+      if(!s.items.includes(x.id)) addToSet(x.id, document.querySelector(`.card-check[data-chk="${x.id}"]`)||chk, s, 'unowned');
+    });
+    // 所持分は選択肢モーダル
+    if(ownedCandidates.length>0){
+      openCardSelectModal(ownedCandidates, chk, s);
+    }
+    return;
+  }
+  // 単一カード
+  if(!ownedCards.has(a.card) && !EX_CARDS.has(a.card)){
+    addToSet(id, chk, s, 'unowned');
+    return;
+  }
+  // 所持カード or EX → 選択肢モーダル
+  openFlashPlaceModal(id, chk, s, null);
 }, true);
 
 function addToSet(id, chk, s, place){
@@ -2150,35 +2249,26 @@ function openCardSelectModal(candidates, chk, s){
   const overlay=document.getElementById('card-sel-overlay');
   const title=document.getElementById('card-sel-title');
   const list=document.getElementById('card-sel-list');
-  const isFlash=candidates[0].source==='閃き' && !candidates[0].name.startsWith('超');
   title.textContent=`「${candidates[0].name}」— カードを選択`;
   list.innerHTML='';
   candidates.forEach(a=>{
-    const own=ownedCards.has(a.card);
+    const own=ownedCards.has(a.card)||EX_CARDS.has(a.card);
     const item=document.createElement('div');
     item.className='card-sel-item';
-    if(isFlash){
-      item.innerHTML=`<div class="card-sel-card-name">${own?'✅':'📛'} ${esc(a.card)}</div>
-        <div class="card-sel-place-row">
-          <button class="card-sel-place-btn deck-btn" data-id="${a.id}" data-place="deck">📋 編成カードの能力</button>
-          <button class="card-sel-place-btn flash-btn" data-id="${a.id}" data-place="flash">💡 ロード閃き/EX枠</button>
-          <button class="card-sel-place-btn both-btn" data-id="${a.id}" data-place="both">📋💡 両方</button>
-        </div>`;
-      item.querySelectorAll('.card-sel-place-btn').forEach(btn=>{
-        btn.addEventListener('click',ev=>{
-          ev.stopPropagation();
-          addToSet(+btn.dataset.id, chk, s, btn.dataset.place);
-          overlay.classList.remove('open');
-        });
-      });
-    } else {
-      item.innerHTML=`<button class="card-sel-plain-btn" data-id="${a.id}">${own?'✅':'📛'} ${esc(a.card)}</button>`;
-      item.querySelector('.card-sel-plain-btn').addEventListener('click',ev=>{
+    item.innerHTML=`<div class="card-sel-card-name">${own?'✅':'📛'} ${esc(a.card)}</div>
+      <div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.5">📋 編成アシカ：編成カードの能力として使用<br>💡 ロードに仕込む：ロード時に閃きやEX枠へ</div>
+      <div class="card-sel-place-row">
+        <button class="card-sel-place-btn deck-btn" data-id="${a.id}" data-place="deck">📋 編成枠へ</button>
+        <button class="card-sel-place-btn flash-btn" data-id="${a.id}" data-place="flash">💡 ロード閃き/EX枠へ</button>
+        <button class="card-sel-place-btn both-btn" data-id="${a.id}" data-place="both">📋💡 両方へ</button>
+      </div>`;
+    item.querySelectorAll('.card-sel-place-btn').forEach(btn=>{
+      btn.addEventListener('click',ev=>{
         ev.stopPropagation();
-        addToSet(+ev.currentTarget.dataset.id, chk, s, null);
+        addToSet(+btn.dataset.id, chk, s, btn.dataset.place);
         overlay.classList.remove('open');
       });
-    }
+    });
     list.appendChild(item);
   });
   overlay.classList.add('open');
@@ -2191,8 +2281,8 @@ function openFlashPlaceModal(id, chk, s, _unused){
   menu.id='flash-add-menu';
   menu.className='flash-place-menu';
   menu.innerHTML=
-    '<div style="padding:8px 14px 6px;font-size:10px;color:var(--ts);font-weight:700;border-bottom:1px solid var(--bd)">どこに追加しますか？</div>'+
-    [['deck','📋 編成カードの能力'],['flash','💡 ロード閃き/EX枠'],['both','📋💡 両方に表示']]
+    '<div style="padding:8px 14px 6px;font-size:10px;color:var(--ts);font-weight:700;border-bottom:1px solid var(--bd)">獲得タイミングは？</div>'+
+    [['deck','📋 編成枠へ'],['flash','💡 ロード閃き/EX枠へ'],['both','📋💡 両方へ']]
       .map(([v,l])=>`<div class="flash-place-item" data-v="${v}">${l}</div>`).join('');
   const r=chk.getBoundingClientRect();
   document.body.appendChild(menu);
