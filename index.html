@@ -1618,7 +1618,7 @@ function renderMyset(){
       const rowsHtml=abs.map(a=>{
         const place=getFlacePlace(a);
         // 編成カードの能力にもplace-btn表示
-        const placeLabel=place==='flash'?(a.source==='EXトレ'?'EX':'閃き枠'):place==='both'?'どっちも':'編成アシカ';
+        const placeLabel=place==='flash'?(a.source==='EXトレ'?'EX':'閃き枠'):place==='both'?'両方':'編成';
         const placeBtn=`<button class="flash-place-btn" data-id="${a.id}" data-place="${place||'deck'}">${placeLabel}</button>`;
         return `<div class="myset-ability-row">
           <div class="myset-ability-name" data-id="${a.id}">${esc(a.name)}</div>
@@ -2256,7 +2256,7 @@ function openCardSelectModal(candidates, chk, s){
     const item=document.createElement('div');
     item.className='card-sel-item';
     item.innerHTML=`<div class="card-sel-card-name">${own?'✅':'📛'} ${esc(a.card)}</div>
-      <div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.5">📋 編成アシカ：編成カードの能力として使用<br>💡 ロードに仕込む：ロード時に閃きやEX枠へ</div>
+      <div style="font-size:10px;color:var(--ts);padding:2px 0 6px;line-height:1.5">📋 編成：編成カードの能力として使用<br>💡 ロードに仕込む：ロード時に閃きやEX枠へ</div>
       <div class="card-sel-place-row">
         <button class="card-sel-place-btn deck-btn" data-id="${a.id}" data-place="deck">📋 編成枠へ</button>
         <button class="card-sel-place-btn flash-btn" data-id="${a.id}" data-place="flash">💡 ロード閃き/EX枠へ</button>
