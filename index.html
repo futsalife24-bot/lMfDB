@@ -736,6 +736,7 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 <body>
 
 <header>
+  <a href="https://line-monster-farm-tetteikouryaku.com/index.html" style="display:inline-block;font-size:10px;color:var(--tm);text-decoration:none;padding:2px 0 4px;opacity:.8">← LINEモンスターファーム徹底攻略に戻る</a>
   <div style="display:flex;align-items:center;gap:8px;padding-bottom:7px">
     <div style="display:flex;flex-direction:column;flex:1;min-width:0">
       <div class="h-title" id="h-title">🐉 LINEモンスターファーム 能力DB</div>
@@ -983,9 +984,9 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
 </div>
 <div class="del-confirm-overlay" id="del-confirm-overlay">
   <div class="del-confirm-modal">
-    <div class="del-confirm-title">🗑️ セットを削除しますか？</div>
+    <div class="del-confirm-title" id="del-confirm-title">🗑️ セットを削除しますか？</div>
     <div class="del-confirm-name" id="del-confirm-name"></div>
-    <div class="del-confirm-sub">このセットを削除します。この操作は取り消せません。</div>
+    <div class="del-confirm-sub" id="del-confirm-sub">このセットを削除します。この操作は取り消せません。</div>
     <div class="del-confirm-btns">
       <button class="del-confirm-cancel" id="del-confirm-cancel">キャンセル</button>
       <button class="del-confirm-ok" id="del-confirm-ok">削除する</button>
@@ -1986,6 +1987,14 @@ function openCardPicker(cards, set, slotKey, isRental){
       if(!isRentalSlot && !ownedCards.has(card)){
         showWarn(`「${card}」は未所持のカードです。自前枠に設定しますか？`, ()=>{
           set.deck.own[+slotKey]=card;
+          // 未所持カードの能力をunowned→deck（編成）に移動
+          set.items.forEach(id=>{
+            const ab=abilities.find(x=>x.id===id);
+            if(ab&&ab.card===card){
+              if(!set.flashSettings) set.flashSettings={};
+              set.flashSettings[id]='deck';
+            }
+          });
           saveSets(); overlay.classList.remove('open'); renderMyset();
         });
         return;
