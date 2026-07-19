@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="LINEモンスターファーム「ロードオブマスターズ」秘伝ガイド。ノーブル・ボスモン・ロード秘伝の役割、系統勝負、ひらめき、パッケージ運用までを1ページに統合。">
+<title>ロードオブマスターズ 秘伝ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2ebda;
+  --card:#fffdf5;
+  --ink:#29262f;
+  --navy:#1e2a4d;
+  --navy-d:#141d3a;
+  --line:#e1d6ba;
+  --muted:#756e59;
+  --noble:#1794c6;
+  --boss:#e8830f;
+  --lord:#dc4655;
+  --gold:#d3a31c;
+  --pink:#ef6ea3;
+  --disp:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Noto Sans JP","Hiragino Sans",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-size:15px;line-height:1.85;font-feature-settings:"palt";
+}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+p{margin:.45em 0}
+b,strong{font-weight:700}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;padding:30px 0 22px;
+  background:linear-gradient(155deg,#273662 0%,#1b2650 55%,#141d3a 100%);
+  border-bottom:4px solid var(--gold)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.4px);
+  background-size:16px 16px}
+.hero .wrap{position:relative}
+.kicker{margin:0 0 4px;font-size:10.5px;font-weight:700;letter-spacing:.24em;color:#8fa1d2}
+.series{margin:0;font-family:var(--disp);font-weight:900;font-size:16px;letter-spacing:.1em;color:#c6d1f1}
+.titlerow{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:2px 0 8px}
+h1{margin:0;font-family:var(--disp);font-weight:900;line-height:1.15;
+  font-size:clamp(34px,11vw,52px);letter-spacing:.02em}
+.stamp{flex:0 0 auto;width:66px;height:66px;border:3px solid #f0606d;border-radius:50%;
+  display:grid;place-items:center;color:#f4707c;transform:rotate(10deg);
+  box-shadow:inset 0 0 0 1.5px rgba(240,96,109,.35)}
+.stamp i{font-style:normal;writing-mode:vertical-rl;font-family:var(--disp);
+  font-weight:900;font-size:22px;letter-spacing:5px;line-height:1}
+.lead{margin:0 0 10px;font-size:13.5px;font-weight:700;color:#cdd7f0}
+.t-noble{color:#5fd0f5}.t-boss{color:#ffb45e}.t-lord{color:#ff8b96}.t-w{color:#fff}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;
+  font-size:10.5px;color:#8fa1d2}
+
+/* ---------- badges / chips ---------- */
+.b{display:inline-block;font-size:10.5px;font-weight:800;line-height:1;
+  border-radius:6px;padding:4px 7px;vertical-align:1px}
+.b-ok{background:#e0f2e8;color:#177a4d;border:1px solid #b9e0ca}
+.b-res{background:#fdf3d8;color:#8f6a0d;border:1px solid #eeda9f}
+.b-gs{background:#ece7da;color:#6d6754;border:1px solid #d9d0ba}
+.chip{display:inline-block;font-size:11px;font-weight:800;line-height:1;color:#fff;
+  border-radius:999px;padding:4px 10px;vertical-align:2px}
+.chip-noble{background:var(--noble)}
+.chip-boss{background:var(--boss)}
+.chip-lord{background:var(--lord)}
+.chip-pink{background:var(--pink)}
+.c-noble{color:var(--noble)}.c-boss{color:var(--boss)}.c-lord{color:var(--lord)}
+
+/* ---------- tabs ---------- */
+.tabs{position:sticky;top:0;z-index:40;display:flex;gap:8px;overflow-x:auto;
+  padding:10px 16px;border-bottom:1px solid var(--line);
+  background:rgba(242,235,218,.92);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;appearance:none;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--card);color:#514b3a;
+  border-radius:999px;padding:9px 15px;
+  font-family:var(--disp);font-size:13px;font-weight:700;line-height:1;
+  transition:background .15s,color .15s,border-color .15s}
+.tab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ---------- panels / headings ---------- */
+main{scroll-margin-top:64px;display:block}
+.panel{display:none;padding:20px 0 8px}
+.panel.on{display:block;animation:rise .28s ease}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:30px 0 12px;
+  font-family:var(--disp);font-weight:900;font-size:19px;line-height:1.4}
+h2::before{content:"";flex:0 0 auto;width:11px;height:11px;border-radius:3.5px;background:var(--navy)}
+.panel>h2:first-child{margin-top:4px}
+#mother h2::before{background:var(--noble)}
+#father h2::before{background:var(--lord)}
+#operation h2::before{background:var(--boss)}
+h3{margin:0 0 6px;font-size:15.5px;font-weight:800}
+
+/* ---------- cards / notes ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:16px;margin:0 0 12px;box-shadow:0 1px 2px rgba(60,45,15,.06)}
+.card>:first-child{margin-top:0}
+.card>:last-child{margin-bottom:0}
+.acc{border-left:5px solid var(--navy)}
+.acc-noble{border-left:5px solid var(--noble)}
+.acc-boss{border-left:5px solid var(--boss)}
+.acc-lord{border-left:5px solid var(--lord)}
+.note{background:#faf3e0;border:1.5px dashed #d4c391;border-radius:12px;
+  padding:10px 13px;font-size:13px;color:#655e46;margin:10px 0 0}
+.note b{color:#4b4430}
+.callout{margin:14px 0;padding:15px 16px;border:2px dashed var(--navy);border-radius:16px;
+  background:var(--card);text-align:center}
+.callout .cs{display:block;font-size:11.5px;font-weight:800;color:var(--muted);letter-spacing:.1em}
+.callout .cb{display:block;margin-top:4px;font-family:var(--disp);font-weight:900;
+  font-size:17px;line-height:1.65}
+.small{font-size:12px;color:var(--muted)}
+
+/* ---------- lists ---------- */
+ul.dots{margin:8px 0 0;padding:0;list-style:none}
+ul.dots li{position:relative;padding-left:16px;margin:0 0 7px;font-size:13.5px}
+ul.dots li:last-child{margin-bottom:0}
+ul.dots li::before{content:"";position:absolute;left:2px;top:.66em;width:6px;height:6px;
+  border-radius:2px;background:var(--gold)}
+ol.steps{list-style:none;margin:4px 0 0;padding:0;counter-reset:s}
+ol.steps li{position:relative;counter-increment:s;padding:0 0 16px 46px;font-size:14px}
+ol.steps li:last-child{padding-bottom:2px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-1px;
+  width:31px;height:31px;border-radius:50%;background:var(--navy);color:#fff;
+  font-family:var(--disp);font-weight:900;font-size:14px;display:grid;place-items:center}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:15px;top:33px;bottom:2px;
+  width:2px;background:var(--line)}
+ol.steps .st{display:block;font-weight:800;font-size:14.5px}
+ol.steps.cycle li::before{content:"";background:var(--boss)}
+ol.steps.cycle li{padding-left:46px}
+ol.steps.cycle li::before{content:counter(s)}
+
+/* ---------- grids / tables ---------- */
+.grid{display:grid;gap:12px;margin:0 0 12px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.grid .card{margin:0}
+@media (max-width:640px){.g3{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0 0;
+  border:1px solid var(--line);border-radius:13px;background:var(--card)}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:300px}
+.tbl th{background:#efe4c8;color:#5a5136;text-align:left;font-size:11.5px;
+  letter-spacing:.04em;padding:8px 12px;white-space:nowrap}
+.tbl td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:700}
+.tbl .num{font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;
+  vertical-align:-1px;border:1px solid rgba(0,0,0,.18)}
+
+/* ---------- rank tiles ---------- */
+.ranks{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:10px 0 0}
+.rank{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  text-align:center;padding:9px 2px 8px}
+.rank .sym{display:block;font-family:var(--disp);font-weight:900;font-size:16px;line-height:1.2}
+.rank .pct{display:block;font-size:10.5px;font-weight:700;color:var(--muted);margin-top:2px}
+.rank.warm{border-color:#eec25f;background:#fdf5df}
+.rank.hot{background:var(--lord);border-color:var(--lord);color:#fff}
+.rank.hot .pct{color:#ffd9dd}
+@media (max-width:430px){.ranks{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- VS diagram ---------- */
+.vs{display:grid;grid-template-columns:1fr 40px 1fr;gap:8px;align-items:stretch;margin:12px 0 4px}
+.lcol{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--card)}
+.lcol .lh{padding:8px 4px;text-align:center;color:#fff;font-family:var(--disp);
+  font-weight:900;font-size:13.5px}
+.lcol.f .lh{background:#3d5da8}
+.lcol.m .lh{background:#d4638d}
+.lcol .lr{padding:7px 4px;text-align:center;font-size:13px;border-top:1px solid var(--line)}
+.lcol .lr:first-of-type{border-top:0}
+.vsmid{align-self:center;justify-self:center;width:38px;height:38px;border-radius:50%;
+  background:var(--navy);color:#fff;display:grid;place-items:center;
+  font-family:var(--disp);font-weight:900;font-size:12px}
+.exrow{display:flex;flex-direction:column;gap:8px;margin:10px 0 0}
+.ex{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;
+  padding:9px 12px;font-size:13.5px;background:var(--card)}
+.ex.win{border-color:var(--lord);background:#fdf0f1}
+.ex .tag{flex:0 0 auto;font-weight:900;font-size:12px;color:var(--muted)}
+.ex.win .tag{color:var(--lord)}
+.ex .sum{margin-left:auto;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wbadge{flex:0 0 auto;background:var(--lord);color:#fff;font-size:11px;font-weight:900;
+  border-radius:999px;padding:4px 9px}
+
+/* ---------- stars ---------- */
+.sg{color:#dfa713}.sp{color:var(--pink)}.se{color:#cfc3a2}
+.stars{font-size:16px;letter-spacing:2px;white-space:nowrap}
+.srow{display:grid;grid-template-columns:60px 92px 1fr;gap:10px;align-items:center;
+  padding:8px 2px;border-top:1px dashed var(--line);font-size:13px}
+.srow:first-of-type{border-top:0}
+.srow .sl{font-weight:800}
+
+/* ---------- TLDR ---------- */
+.tldr{background:linear-gradient(150deg,#26345f,#151e3c);border:1px solid #33406b;
+  border-radius:18px;color:#eef2ff;padding:18px 18px 15px;margin:22px 0 10px}
+.tldr h2{color:#ffd76a;margin:0 0 10px}
+.tldr h2::before{background:#ffd76a}
+.tldr ol{margin:0;padding-left:24px}
+.tldr li{margin:0 0 9px;font-size:14px}
+.tldr li:last-child{margin-bottom:0}
+.tldr li::marker{font-weight:900;color:#ffd76a}
+.tldr b{color:#8fd8ff}
+
+/* ---------- pedigree ---------- */
+.tree{text-align:center;padding:4px 0 2px}
+.tp-m{border-top:5px solid var(--noble)}
+.tp-f{border-top:5px solid var(--lord)}
+.mcard{display:inline-block;background:var(--card);border:1.5px solid var(--line);
+  border-radius:14px;padding:10px 12px 9px;min-width:116px;vertical-align:top}
+.mcard .nm{display:block;font-family:var(--disp);font-weight:900;font-size:14px;line-height:1.4}
+.mcard .rl{display:block;font-size:11px;font-weight:700;color:var(--muted);margin:2px 0 5px;line-height:1.5}
+.avatar{width:46px;height:46px;border-radius:50%;margin:0 auto 7px;display:grid;place-items:center;
+  color:#fff;font-family:var(--disp);font-weight:900;font-size:19px;
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}
+.av-noble{background:var(--noble)}.av-lord{background:var(--lord)}
+.av-sub{background:#5c6c96}.av-gold{background:#c59d24}
+.conn{width:2px;height:16px;background:#cfc3a2;margin:6px auto}
+.branch{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.branch .mcard{min-width:108px}
+.gtitle{font-size:11.5px;font-weight:800;color:var(--muted);letter-spacing:.06em;margin:0 0 8px}
+
+/* ---------- package generations ---------- */
+.gens{display:flex;flex-direction:column;gap:10px;margin:10px 0 0}
+.gen{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12.5px}
+.gen .gl{flex:0 0 58px;font-weight:800;font-size:12px;color:var(--muted)}
+.gk{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;
+  background:var(--navy);color:#fff;font-family:var(--disp);font-weight:900;font-size:13.5px}
+.gk.f{background:#ccd5ea;color:#4b5a90}
+.gen .gnote{flex-basis:100%;padding-left:65px;font-size:11.5px;color:var(--muted);line-height:1.6}
+.keyrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:12px 0 0;
+  font-size:12px;color:var(--muted)}
+.keyrow .gk{width:24px;height:24px;font-size:12px;border-radius:7px}
+
+/* ---------- glossary ---------- */
+dl.dict{margin:4px 0 0}
+.drow{display:grid;grid-template-columns:104px 1fr;gap:10px;padding:9px 2px;
+  border-top:1px dashed var(--line);font-size:13.5px}
+.drow:first-child{border-top:0}
+.drow dt{margin:0;font-weight:800;color:var(--navy)}
+.drow dd{margin:0}
+
+/* ---------- footer ---------- */
+footer{padding:28px 16px 44px;text-align:center;font-size:11.5px;color:var(--muted)}
+footer .rule{width:56px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 12px}
+
+@media (prefers-reduced-motion:reduce){
+  .panel.on{animation:none}
+  .tab{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">LINEモンスターファーム</p>
+    <p class="series">ロードオブマスターズ</p>
+    <div class="titlerow">
+      <h1>秘伝ガイド</h1>
+      <span class="stamp" aria-hidden="true"><i>秘伝</i></span>
+    </div>
+    <p class="lead">強さは伝授で決まる ─ <span class="t-w">母</span>＝<span class="t-noble">ノーブル</span>＋<span class="t-boss">ボスモン</span> ／ <span class="t-w">父</span>＝<span class="t-lord">ロード</span></p>
+    <p class="legend"><span class="b b-ok">確定</span><span class="b b-res">個人調べ</span><span class="b b-gs">推測</span><span>＝データの確度。無印は資料の記述どおり</span></p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="章の切り替え">
+  <button class="tab" role="tab" id="tb-overview" data-t="overview" aria-controls="overview" aria-selected="true">全体像</button>
+  <button class="tab" role="tab" id="tb-mother" data-t="mother" aria-controls="mother" aria-selected="false">母側</button>
+  <button class="tab" role="tab" id="tb-father" data-t="father" aria-controls="father" aria-selected="false">父側</button>
+  <button class="tab" role="tab" id="tb-mechanics" data-t="mechanics" aria-controls="mechanics" aria-selected="false">仕組み</button>
+  <button class="tab" role="tab" id="tb-operation" data-t="operation" aria-controls="operation" aria-selected="false">星と運用</button>
+  <button class="tab" role="tab" id="tb-summary" data-t="summary" aria-controls="summary" aria-selected="false">まとめ</button>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ 全体像 ============ -->
+<section class="panel on" id="overview" role="tabpanel" aria-labelledby="tb-overview">
+
+  <div class="card acc">
+    <h3>伝授モンスター2体で強さが決まる</h3>
+    <p>育成開始時、育成済みのマスターモンスター（マスモン）を<b>伝授モンスター</b>として<b>2体（父・母）</b>セットできる。この2体に<b>何の秘伝を持たせるか</b>で、育成の強さがほぼ決まる。</p>
+  </div>
+
+  <div class="callout">
+    <span class="cs">理想の役割分担</span>
+    <span class="cb">片側を<span class="c-noble">ノーブル</span>＋<span class="c-boss">ボスモン</span>／<br>もう片側を<span class="c-lord">ロード</span>で固める</span>
+  </div>
+
+  <h2>3種の秘伝と役割</h2>
+  <div class="grid g3">
+    <div class="card acc-noble">
+      <h3><span class="chip chip-noble">ノーブル</span></h3>
+      <p style="font-size:13.5px">水色「高貴なる○○」。<b>相性値を底上げ</b>する秘伝。母ラインの土台になる。</p>
+    </div>
+    <div class="card acc-boss">
+      <h3><span class="chip chip-boss">ボスモン</span></h3>
+      <p style="font-size:13.5px">橙。<b>モン類が一致</b>すると強力な<b>「レネゲイド」系能力</b>を獲得。本作では必須級。</p>
+    </div>
+    <div class="card acc-lord">
+      <h3><span class="chip chip-lord">ロード</span></h3>
+      <p style="font-size:13.5px">赤「○○の先導者」。<b>能力の確定継承</b>と本命の<b>ひらめき</b>。編成外の能力も持ち込める。</p>
+    </div>
+  </div>
+
+  <h2>ロード秘伝の本命は「ひらめき」</h2>
+  <div class="card acc-lord">
+    <p>育成に持ち込める自前アシカ（アシストカード）は<b>5枚</b>だけ。しかし別カードの能力をロード秘伝に<b>パッケージ</b>しておけば、編成していなくても<b>ひらめき</b>でその能力を取得できる。つまり<b>デッキ5枚の枠を超えて能力を持ち込む仕組み</b>。</p>
+    <ul class="dots">
+      <li>仕込める数に<b>上限なし</b>。世代を重ねればいくつでも積める</li>
+      <li>伝授時の<b>能力Pt・先導はオマケ</b>。星と血統は<b>ひらめきのために積む</b></li>
+      <li>ロード秘伝は<b>1モンスター1個</b>。オーラ色ごとに6種類（下表）</li>
+    </ul>
+    <div class="tw"><table class="tbl">
+      <tr><th>オーラ色</th><th>名称</th></tr>
+      <tr><td><span class="dot" style="background:#d8383f"></span>赤</td><td>紅華の先導者</td></tr>
+      <tr><td><span class="dot" style="background:#2f6fd0"></span>青</td><td>蒼空の先導者</td></tr>
+      <tr><td><span class="dot" style="background:#2b9455"></span>緑</td><td>深翠の先導者</td></tr>
+      <tr><td><span class="dot" style="background:#e5b81f"></span>黄</td><td>陽光の先導者</td></tr>
+      <tr><td><span class="dot" style="background:#f5f2e8"></span>白</td><td>晧白の先導者</td></tr>
+      <tr><td><span class="dot" style="background:#26242a"></span>黒</td><td>漆黒の先導者</td></tr>
+    </table></div>
+  </div>
+
+  <div class="tldr">
+    <h2>★ 迷ったらこれだけ</h2>
+    <ol>
+      <li><b>星6が出る育成</b>（能力数70〜80＋総合25000）を回して<b>片ラインに星を集約</b></li>
+      <li>相性は<b>「王冠」</b>で150Pt確定</li>
+      <li><b>パッケージは計画してから</b>。数はひらめき期待回数に合わせて絞る</li>
+      <li><b>血統書は月1枚の切り札</b>。色替えと確定付与に温存</li>
+    </ol>
+  </div>
+
+</section>
+
+<!-- ============ 母側 ============ -->
+<section class="panel" id="mother" role="tabpanel" aria-labelledby="tb-mother">
+
+  <div class="card acc-noble">
+    <h3><span class="chip chip-noble">母側</span>　母＝相性＆レネゲイド</h3>
+    <p>母ラインは<b>ノーブル＋ボスモン</b>で固め、<b>相性値の底上げ</b>と<b>「レネゲイド」系能力の獲得</b>を担当する。</p>
+  </div>
+
+  <h2>ノーブル秘伝 ─ 相性値の底上げ</h2>
+  <div class="card acc-noble">
+    <p><b>相性値を底上げ</b>する秘伝（水色「高貴なる○○」）。獲得は<b>ノーブル個体の育成</b>か<b>ノーブル血統書</b>。</p>
+    <div class="note"><b>星のコツ</b>：星は最大6・★4以上が難しい／<b>サブ血統がノーブル</b>のモンスターは高星が付きやすい</div>
+  </div>
+
+  <h2>ボスモン秘伝 ─ レネゲイドの鍵</h2>
+  <div class="card acc-boss">
+    <p><b>モン類が一致</b>するボスモン秘伝があると、強力な<b>「レネゲイド」系能力</b>を獲得できる。ロードオブマスターズでは<b>必須</b>。ただし<b>付く確率は低め</b>。</p>
+  </div>
+
+  <h2>母の作り方（おすすめ）</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><span class="st">ノーブル個体で素体を作る</span>狙うモン類の<b>ボスモン秘伝</b>を付けつつ、<b>ノーブル★4以上</b>（できれば5〜6）を狙う</li>
+      <li><span class="st">祖父母分として2体育成する</span>手順1のモンスターを<b>母側の祖父母分として2体</b>用意する</li>
+      <li><span class="st">その2体を親に、最終的な母を育成する</span></li>
+      <li><span class="st">ボスモンは祖父母の段階で付けておく</span>付与確率が低いため。母本体の育成は<b>ノーブルの星が高く付けばOK</b></li>
+    </ol>
+  </div>
+
+</section>
+
+<!-- ============ 父側 ============ -->
+<section class="panel" id="father" role="tabpanel" aria-labelledby="tb-father">
+
+  <div class="card acc-lord">
+    <h3><span class="chip chip-lord">父側</span>　父＝ロード秘伝（能力の確定継承）</h3>
+    <p>ロード秘伝持ちを<b>親に置く</b>と、育成中のトレーニングに<b>紫の電球マーク</b>で出現。実行すると完了時に<b>その能力を1つ確定で継承</b>する。編成外カードの能力も取れて<b>勝率が大きく上がる</b>。</p>
+    <div class="note"><b>継承の対象外</b>：レンタルカード由来／ステータス変換で得た能力（他にも一部あり）</div>
+  </div>
+
+  <h2>押さえる3ポイント</h2>
+  <div class="grid g3">
+    <div class="card">
+      <h3>獲得と星</h3>
+      <p style="font-size:13.5px"><b>ロード血統書</b>で獲得。星は育成中の<b>能力数</b>で決まる（<b>70〜80個で★4〜6</b>が目安）。<b>ステ変換で数を稼ぐ</b>と◎。</p>
+    </div>
+    <div class="card">
+      <h3>オーラ色</h3>
+      <p style="font-size:13.5px">育成モンスターと<b>色を揃える</b>と出現率UP（例：陽光＝黄）。<b>別色が混ざると狙いと違う色が付く</b>ので注意。</p>
+    </div>
+    <div class="card">
+      <h3>父もボスモン <span class="chip chip-pink">狙える</span></h3>
+      <p style="font-size:13.5px">両祖父母の<b>ボスモン秘伝が多いほど</b>、本番でレネゲイド系能力の<b>初期獲得率UP</b>。狙えるなら狙う。</p>
+    </div>
+  </div>
+
+  <h2>父の作り方（祖父母の役割）</h2>
+  <div class="card">
+    <p><b>ハニエル＝継承の本体</b>：繰り返し育成で能力を揃える。星は高め <span class="stars"><span class="sg">★★★★★</span><span class="se">☆</span></span> <b>5-5-5</b></p>
+    <p><b>ニャハト＝底上げ＆出現調整</b> <span class="chip chip-noble">ノーブル</span>：相性底上げ用（陽光＋ノーブル）。<span class="stars"><span class="sg">★★★★★</span><span class="se">☆</span></span> <b>5-4-4</b>・レンタル可</p>
+    <div class="note"><b>星数ルール</b>：祖父母込みで<b>星が多い方が出現</b>／同数はランダム→<b>揃えない</b>。最後は<b>ジャック（父本体）を育成して能力を取り切り＋ロード付与</b>で完成。</div>
+  </div>
+
+  <h2>補足：黄オーラ限定「オーラ超ワイルド」</h2>
+  <div class="card acc-boss">
+    <p>アシストカード<b>「メタビー」</b>の<b>「オーラ超ワイルド」</b>を使うと、<b>黄オーラ育成時のみボスモンと確定遭遇</b>できる（通常はたまに出現＋倒しても秘伝が付くかは不確定）。</p>
+    <p>ただし<b>黄色のノーブルモンスターは7/18時点で存在しない</b>ため、黄色の場合のみ、ロード秘伝側（父・祖父母）の育成で<b>ボスモン秘伝を付ける際に活用</b>するのがおすすめ。</p>
+  </div>
+
+</section>
+
+<!-- ============ 仕組み ============ -->
+<section class="panel" id="mechanics" role="tabpanel" aria-labelledby="tb-mechanics">
+
+  <h2>発動の流れ</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><span class="st">相性値の決定</span>6体すべての秘伝から相性ランクが決まる</li>
+      <li><span class="st">系統勝負</span>父ライン vs 母ラインの<b>合計星数</b>で勝負（同数時は未確定）</li>
+      <li><span class="st">発動判定</span>勝ったラインの3枠が<b>各枠独立で抽選</b></li>
+      <li><span class="st">効果発生</span>発動した分だけ<b>能力Pt・先導・ひらめき</b></li>
+    </ol>
+  </div>
+
+  <h2>系統勝負 ─ 発動は片ラインのみ</h2>
+  <div class="card">
+    <div class="vs">
+      <div class="lcol f">
+        <div class="lh">父ライン</div>
+        <div class="lr">父親</div><div class="lr">父祖父</div><div class="lr">父祖母</div>
+      </div>
+      <div class="vsmid">VS</div>
+      <div class="lcol m">
+        <div class="lh">母ライン</div>
+        <div class="lr">母親</div><div class="lr">母祖父</div><div class="lr">母祖母</div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:12.5px;color:var(--muted);margin:8px 0 0">育成構成はこの6体。合計星数が高い方の<b>3枠のみ発動</b>（最大3発動）。<b>負けたラインは丸ごとゼロ</b></p>
+    <div class="exrow">
+      <div class="ex win"><span class="tag">ラインA</span><span>★4＋★6＋★5</span><span class="sum">＝15</span><span class="wbadge">勝</span></div>
+      <div class="ex"><span class="tag">ラインB</span><span>★5＋★4＋★5</span><span class="sum">＝14</span></div>
+    </div>
+    <ul class="dots">
+      <li>オーラ色が混ざっていても、<b>合計星数だけ</b>で勝敗が決まる</li>
+      <li>同数時の挙動は<b>未確定</b>→同数は避けて<b>差をつける</b>のが安全</li>
+      <li>相性値は6体全員で決まる→<b>負けるライン（逆親）も相性要員として無駄にならない</b></li>
+    </ul>
+  </div>
+
+  <h2>相性と発動率 <span class="b b-gs">推測</span></h2>
+  <div class="card">
+    <div class="ranks">
+      <div class="rank"><span class="sym">×</span><span class="pct">不明</span></div>
+      <div class="rank"><span class="sym">△</span><span class="pct">不明</span></div>
+      <div class="rank"><span class="sym">○</span><span class="pct">約40%</span></div>
+      <div class="rank"><span class="sym">◎</span><span class="pct">約60%</span></div>
+      <div class="rank warm"><span class="sym">☆</span><span class="pct">約80%</span></div>
+      <div class="rank hot"><span class="sym">王冠</span><span class="pct">100%確定</span></div>
+    </div>
+    <ul class="dots">
+      <li>能力Pt：1発動<b>＋50固定</b>（相性補正なし）／最大150 <span class="b b-ok">確定</span></li>
+      <li>先導：1発動<b>約10%</b>で付与（最大約30%）→ 効果は育成中の能力Pt<b>＋20%</b> <span class="b b-ok">確定</span></li>
+    </ul>
+  </div>
+
+  <h2>ひらめき（本命） <span class="b b-res">個人調べ</span></h2>
+  <div class="card acc-lord">
+    <ul class="dots" style="margin-top:0">
+      <li>出現するのは<b>勝ったラインの親マスモン1体</b>のみ（レンタルでは出ない）</li>
+      <li>出現率は勝ったライン3体の<b>合計星数</b>で決まり、<b>毎ターン抽選</b></li>
+      <li><b>ロード秘伝の色・親の色・育成モンスターの色</b>が揃うと出現率アップ</li>
+    </ul>
+    <div class="tw"><table class="tbl">
+      <tr><th>合計星数</th><th>色不一致（約1%/星）</th><th>色一致（約1.5%/星）</th></tr>
+      <tr><td class="num">12</td><td class="num">約12%<br><span class="small">44Tで約5.3回</span></td><td class="num">約18%<br><span class="small">約7.9回</span></td></tr>
+      <tr><td class="num">15</td><td class="num">約15%<br><span class="small">約6.6回</span></td><td class="num"><b>約22.5%</b><br><span class="small">約9.9回</span></td></tr>
+      <tr><td class="num">18（最大）</td><td class="num">約18%<br><span class="small">約7.9回</span></td><td class="num"><b>約27%</b><br><span class="small">約11.9回</span></td></tr>
+    </table></div>
+    <p class="small" style="margin-top:8px">※育成は実質最大44ターン（デビュー5＋ジュニア/ミドル/プロ各11＋英雄杯1＋ILF最大5）</p>
+    <ul class="dots">
+      <li>ひらめきLv：<b>Lv1でその能力が取得可能</b>（割引0%）→ 1Lvごとに10%オフ、<b>Lv5で最大40%オフ</b> <span class="b b-ok">確定</span></li>
+      <li>ロードのひらめきは<b>ビカビカ光る紫電球</b>。通常のひらめき（普通の電球）と区別</li>
+      <li>マスモンの仕込み内容は、伝授選択画面の<b>左上アイコン→「能力」タブ</b>で確認できる</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ 星と運用 ============ -->
+<section class="panel" id="operation" role="tabpanel" aria-labelledby="tb-operation">
+
+  <h2>星数の決まり方 <span class="b b-res">個人調べ・信頼性高</span></h2>
+  <div class="card">
+    <div class="tw" style="margin-top:0"><table class="tbl">
+      <tr><th>育成中に覚えた能力数</th><th>付く星数</th></tr>
+      <tr><td>70〜80以上</td><td><b>★4〜6</b></td></tr>
+      <tr><td>それ以下</td><td>★0〜3（0＝付かない）</td></tr>
+    </table></div>
+    <ul class="dots">
+      <li>総合力25000以下は<b>下振れの可能性</b>あり <span class="b b-gs">推測</span></li>
+      <li><b>星は継承されない＝毎回再抽選</b>。育成の質がそのまま星になる。星上げに裏技はない</li>
+      <li>期末の<b>能力変換（3回）で約15個</b>稼げる。還元率が高くステータスもほぼ落ちない（ようす・適性はカウント外）</li>
+    </ul>
+  </div>
+
+  <h2>星数の読み方</h2>
+  <div class="card">
+    <div class="srow"><span class="sl">星1〜3</span><span class="stars"><span class="sg">★★★</span></span><span>金の数がそのまま星数</span></div>
+    <div class="srow"><span class="sl">星4</span><span class="stars"><span class="sp">★</span><span class="sg">★★</span></span><span>ピンク1個</span></div>
+    <div class="srow"><span class="sl">星5</span><span class="stars"><span class="sp">★★</span><span class="sg">★</span></span><span>ピンク2個</span></div>
+    <div class="srow"><span class="sl">星6</span><span class="stars"><span class="sp">★★★</span></span><span>ピンク3個</span></div>
+  </div>
+
+  <h2>入手ルートと血統書の使い方</h2>
+  <div class="card">
+    <div class="tw" style="margin-top:0"><table class="tbl">
+      <tr><th>ルート</th><th>内容</th></tr>
+      <tr><td>ロードモンスター育成</td><td>ガチャ産（赤・青・緑実装）。そのモンスターのオーラ色が付く</td></tr>
+      <tr><td>ロード血統書</td><td>ソロモンクエスト報酬・<b>月1枚</b>。<b>付与確定＆オーラ色も確定</b></td></tr>
+    </table></div>
+    <ul class="dots">
+      <li>祖先が秘伝持ちだと色に<b>引っ張り</b>が発生（星が高い色ほど付きやすい）。<b>狙った色を確実に取れるのは血統書だけ</b></li>
+      <li>血統書は<b>年12枚</b>。雑に使うと星1〜3で終わる→<b>星6が狙える育成に合わせて切る</b></li>
+    </ul>
+  </div>
+
+  <h2>運用サイクル</h2>
+  <div class="card">
+    <ol class="steps cycle">
+      <li><span class="st">初回</span>血統書 or ロードモンスターで<b>秘伝持ちが誕生</b></li>
+      <li><span class="st">継承</span>親・祖父母に配置→<b>次世代へ受け継がれる</b></li>
+      <li><span class="st">蓄積</span><b>片ラインに星を集約</b>→合計星数と相性を上げる</li>
+      <li><span class="st">運用</span>ひらめき出現率UP＋能力Pt＋先導</li>
+    </ol>
+  </div>
+
+  <h2>パッケージ＝能力の仕込み</h2>
+  <div class="card">
+    <p><b>ひらめかせたい能力をマスモンに仕込んでおく</b>こと。一番大事なのは<b>計画</b>：<b>①最終型の編成 → ②仕込む能力 → ③数の確認</b>の順で決める。</p>
+    <div class="tw"><table class="tbl">
+      <tr><th>条件</th><th>仕込む数の目安</th></tr>
+      <tr><td>オーラ色一致</td><td><b>6〜多くて9程度</b></td></tr>
+      <tr><td>オーラ色不一致</td><td>3〜多くて6程度</td></tr>
+    </table></div>
+    <div class="note">目安の根拠＝<b>ひらめき期待回数</b>。「仕込んだ能力に1回ずつ行き渡るか」で決める。多すぎると抽選が薄まり弱トレ強要も増える／少なすぎるとひらめき枠を持て余す</div>
+    <div class="gens">
+      <div class="gen"><span class="gl">1世代目</span><span class="gk">A</span><span class="gk">B</span><span class="gnote">まずA・Bを編成して仕込む</span></div>
+      <div class="gen"><span class="gl">2世代目</span><span class="gk f">A</span><span class="gk f">B</span><span class="gk">C</span><span class="gk">D</span><span class="gnote">A・Bはひらめきで回収し、空いた編成枠でC・Dを追加</span></div>
+      <div class="gen"><span class="gl">3世代目</span><span class="gk f">A</span><span class="gk f">B</span><span class="gk f">C</span><span class="gk f">D</span><span class="gk">E</span><span class="gnote">以降も同じ要領で積み増していく</span></div>
+    </div>
+    <div class="keyrow"><span><span class="gk" style="display:inline-grid;vertical-align:middle">C</span>＝新規に編成して仕込む</span><span><span class="gk f" style="display:inline-grid;vertical-align:middle">A</span>＝ひらめきで回収（編成枠不要）</span></div>
+    <ul class="dots">
+      <li>ひらめき対象は<b>自前アシカ能力＋EXトレボーナス由来のみ</b></li>
+      <li>対象外：レンタルアシカ／ストレイ○○／レネゲイド○○／モン類レベル／状態変化／殿堂／固有／英雄能力</li>
+      <li>アシカイベントの能力は<b>白（下位）/金（上位）がランダム</b>。金を確実に付けたい能力は、編成するカードでも<b>あえてパッケージに入れる</b>（1枠消費と天秤）</li>
+      <li><b>1世代で完成させようとしない</b>。前世代の成果はひらめきで回収できるので育成が無駄になりにくい</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ まとめ ============ -->
+<section class="panel" id="summary" role="tabpanel" aria-labelledby="tb-summary">
+
+  <h2>完成系譜図</h2>
+  <div class="grid g2">
+    <div class="card tp-m tree">
+      <p class="gtitle">母側 ─ 相性＆レネゲイド</p>
+      <div class="mcard">
+        <span class="avatar av-noble">母</span>
+        <span class="nm">グレイスウィッチ</span>
+        <span class="rl">相性＆レネゲイド</span>
+        <span class="chip chip-noble">ノーブル</span>
+      </div>
+      <div class="conn"></div>
+      <p class="gtitle">祖父母（ノーブル個体×2）</p>
+      <div class="branch">
+        <div class="mcard"><span class="avatar av-sub">祖</span><span class="nm">ディアブロ</span><span class="rl">ボスモン付き</span><span class="chip chip-noble">ノーブル</span></div>
+        <div class="mcard"><span class="avatar av-sub">祖</span><span class="nm">ディアブロ</span><span class="rl">ボスモン付き</span><span class="chip chip-noble">ノーブル</span></div>
+      </div>
+    </div>
+    <div class="card tp-f tree">
+      <p class="gtitle">父側 ─ 能力の確定継承</p>
+      <div class="mcard">
+        <span class="avatar av-lord">父</span>
+        <span class="nm">ジャック</span>
+        <span class="rl">能力の確定継承</span>
+        <span class="chip chip-lord">ロード</span>
+      </div>
+      <div class="conn"></div>
+      <p class="gtitle">祖父母（ロード＋α）</p>
+      <div class="branch">
+        <div class="mcard"><span class="avatar av-gold">祖</span><span class="nm">ハニエル</span><span class="rl">継承の本体</span></div>
+        <div class="mcard"><span class="avatar av-sub">祖</span><span class="nm">ニャハト</span><span class="rl">底上げ役</span><span class="chip chip-noble">ノーブル</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="cs">二本柱</span>
+    <span class="cb"><span class="c-noble">母＝相性＆レネゲイド</span> ／ <span class="c-lord">父＝能力継承</span></span>
+  </div>
+
+  <div class="note" style="margin:0 0 12px">モンスター名・アイコンは資料の一例。最終的に育てたいモンスターとの相性で構成は変わる。</div>
+
+  <h2>用語ミニ辞典</h2>
+  <div class="card">
+    <dl class="dict">
+      <div class="drow"><dt>マスモン</dt><dd>伝授モンスターとして選んだ自分のモンスター</dd></div>
+      <div class="drow"><dt>伝授元</dt><dd>そのマスモンの伝授に使われたモンスター（育成モンスターから見た祖父母）</dd></div>
+      <div class="drow"><dt>ライン</dt><dd>親＋祖父＋祖母の3体セット。父ラインと母ラインがある</dd></div>
+      <div class="drow"><dt>逆親</dt><dd>系統勝負に負けた側のライン。発動しないが相性値には貢献する</dd></div>
+      <div class="drow"><dt>パッケージ</dt><dd>ひらめかせたい能力をマスモンに仕込んでおくこと（プレイヤー用語）</dd></div>
+      <div class="drow"><dt>紫電球</dt><dd>ロード秘伝のひらめきが来ているサイン。ビカビカ光る</dd></div>
+      <div class="drow"><dt>ロード血統書</dt><dd>ソロモンクエスト報酬（月1枚）。秘伝を確定付与、オーラ色も確定</dd></div>
+      <div class="drow"><dt>アシカ</dt><dd>アシストカードの略。「自前アシカ」＝自分で編成したカード</dd></div>
+    </dl>
+  </div>
+
+  <div class="note">※本ガイドの確率・星数の一部は個人調べ・推測ベースの情報です。確度は各所の <span class="b b-ok">確定</span> <span class="b b-res">個人調べ</span> <span class="b b-gs">推測</span> バッジを参照。</div>
+
+</section>
+
+</main>
+
+<footer>
+  <div class="rule"></div>
+  LINEモンスターファーム／ロードオブマスターズ 秘伝ガイド
+</footer>
+
+<noscript><style>.panel{display:block}.tabs{display:none}</style></noscript>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  function show(id,scroll){
+    tabs.forEach(function(t){
+      var on=t.dataset.t===id;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+    });
+    panels.forEach(function(p){p.classList.toggle('on',p.id===id);});
+    try{history.replaceState(null,'','#'+id);}catch(e){}
+    if(scroll){
+      var m=document.querySelector('main');
+      if(m&&m.scrollIntoView){m.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.dataset.t,true);});
+    t.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowRight'?1:(e.key==='ArrowLeft'?-1:0);
+      if(d){
+        e.preventDefault();
+        var n=tabs[(i+d+tabs.length)%tabs.length];
+        n.focus();
+        show(n.dataset.t,true);
+      }
+    });
+  });
+  var h=location.hash.replace('#','');
+  var ok=panels.some(function(p){return p.id===h;});
+  show(ok?h:'overview',false);
+})();
+</script>
+</body>
+</html>
