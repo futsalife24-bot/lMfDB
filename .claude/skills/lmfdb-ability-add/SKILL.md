@@ -46,6 +46,10 @@ description: lMfDB（LINEモンスターファーム能力DB）の index.html �
 
 ## 補足
 
+- push / PR ごとに `.github/workflows/check.yml` が `check.sh` を実行する。
+  CI は最後の砦なので、ローカルで通してからコミットすること。
+- `rarity` は省略不可。無いと SR タブに紛れ込み本来のタブから消える。
+  原則としてカードのレアリティをそのまま入れる。
 - `source` は `イベント` / `閃き` / `EXトレ` / `伝授` の4種のみ。
 - `rarity` は `SSR` / `MR` / `SR` / `その他` の4種のみ。
 - 別カードで同名の能力があるのは正常。一意なのは `id` だけ。

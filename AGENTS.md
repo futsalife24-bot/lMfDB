@@ -15,7 +15,11 @@ lom-hiden-infographic.html  秘伝ガイド（インフォグラフィック版�
 AGENTS.md                   このファイル（Codex 用）
 .claude/skills/             ClaudeCode 用 Skill
 tools/lmfdb-ability-add/    能力追加ツール一式（ClaudeCode / Codex 共通）
+.github/workflows/check.yml push / PR ごとに check.sh を実行する CI
 ```
+
+CI があるので壊れたまま main に入ることは無いが、**ローカルで check.sh を
+通してからコミットする**のが原則（CI は最後の砦）。
 
 ## 能力追加をするとき
 

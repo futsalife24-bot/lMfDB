@@ -49,8 +49,9 @@ KNOWN_TAGS = (
     "雪山", "森林", "砂漠",
 )
 
-# 既存データに存在する既知の例外。check.sh はこれらをエラー扱いしない。
-KNOWN_MISSING_RARITY_IDS = (1120, 1128, 1144)
+# rarity 欠落を許す既知の例外。id=1120/1128/1144 は補完済みなので現在は空。
+# 新たに例外を足さないこと（欠落すると SR タブに誤って出る）。
+KNOWN_MISSING_RARITY_IDS = ()
 
 
 class LmfdbError(Exception):

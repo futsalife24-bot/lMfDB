@@ -1,0 +1,25 @@
+name: check
+
+# index.html は GitHub Pages でそのまま公開されるため、
+# 壊れたまま main に入らないよう push / PR ごとに check.sh を走らせる。
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: index.html をチェック
+        run: bash tools/lmfdb-ability-add/scripts/check.sh index.html
