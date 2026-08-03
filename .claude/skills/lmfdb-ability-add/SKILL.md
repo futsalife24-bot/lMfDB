@@ -16,7 +16,7 @@ description: lMfDB（LINEモンスターファーム能力DB）の index.html �
 |---|---|
 | `add_ability.py` | 能力の追加。ID採番・書式検証・更新表示の同期・カードリスト追加まで自動 |
 | `check.sh` | エラーチェック。「✅ 全項目クリア」が出れば合格 |
-| `git_commit_push.sh` | **ユーザー承認後の** commit + push |
+| `git_commit_push.sh` | **チェック成功後に自動実行する** commit + push |
 | `validate.py` | `check.sh` が内部で呼ぶ検証本体（単体でも実行可） |
 | `lmfdb_common.py` | 共通ロジック。`KNOWN_TAGS` の追加はここ |
 
@@ -30,8 +30,7 @@ description: lMfDB（LINEモンスターファーム能力DB）の index.html �
 5. **書き込み** — 上記から `--dry-run` を外して実行
 6. **チェック** — `bash tools/lmfdb-ability-add/scripts/check.sh index.html`
    「✅ 全項目クリア」が出るまで直す
-7. **承認を取る** — 追加内容・総件数・最大ID・更新日をユーザーに提示して待つ
-8. **push** — 承認後のみ
+7. **commit + push** — `check.sh` 成功後に自動実行
    `bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: 〇〇の能力を追加"`
 
 ## 画像（スクショ）を渡された場合
@@ -40,12 +39,14 @@ description: lMfDB（LINEモンスターファーム能力DB）の index.html �
 JSON に書き起こしてから `add_ability.py` に渡す。
 
 `check.sh` は JSON として正しければ通るため、誤字・数値の取り違え・全角半角の
-ズレ・カードの版違い・タグの選択ミスは**検出できない**。したがって手順3の前に:
+ズレ・カードの版違い・タグの選択ミスは**検出できない**。通常は xhigh 相当の
+読み取りを前提に、読み取り結果の表提示・ユーザー確認を省略して進める。
+ただし、画像が不鮮明・情報が欠落・タグ/レアリティ/入手先の判断に迷う場合は:
 
-- 読み取り結果を表で提示する（能力名 / 効果 / カード名 / レアリティ / 入手先 / タグとその理由）
-- ユーザーが画像と突き合わせて承認するまで書き込まない
+- 進行を止め、読み取り結果を表で提示する
+- ユーザーに確認してから JSON 化する
 
-承認ポイントは2回（読み取り確認・push前）になる。
+明確に読み取れる場合は、dry-run → 書き込み → check.sh → commit + push まで自動で行う。
 読み取り時の注意（全角数値、`I`/`II` は半角ラテン文字、`<br>` 改行、
 画像に無い情報は推測しない）は `reference/rules.md` を参照。
 
@@ -56,7 +57,8 @@ JSON に書き起こしてから `add_ability.py` に渡す。
 - `ABILITIES` の閉じ括弧直後に並ぶ大量の `;` を消さない。
 - `desc` の改行は `<br>`。数値は全角＋`＜ ＞` 囲み。
 - タグは既存語彙（`lmfdb_common.py` の `KNOWN_TAGS`）から選ぶ。新語は要相談。
-- **チェックが通る前・ユーザー承認が出る前に push しない。**
+- **`check.sh` が通る前に push しない。** チェック成功後は、メロニキから明示的に
+  許可された lMfDB の能力追加作業に限り、自動で commit + push する。
 - 壊したら `git checkout -- index.html` で戻してやり直す。
 
 ## 補足

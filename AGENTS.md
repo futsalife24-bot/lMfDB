@@ -33,7 +33,7 @@ CI があるので壊れたまま main に入ることは無いが、**ローカ
 |---|---|
 | `add_ability.py` | 能力の追加。ID採番・書式検証・更新表示の同期・カードリスト追加まで自動 |
 | `check.sh` | エラーチェック。「✅ 全項目クリア」が出れば合格 |
-| `git_commit_push.sh` | **ユーザー承認後の** commit + push |
+| `git_commit_push.sh` | **チェック成功後に自動実行する** commit + push |
 | `validate.py` | `check.sh` が内部で呼ぶ検証本体 |
 | `lmfdb_common.py` | 共通ロジック。`KNOWN_TAGS` の追加はここ |
 
@@ -51,9 +51,7 @@ python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json
 # チェック（「✅ 全項目クリア」が出るまで直す）
 bash tools/lmfdb-ability-add/scripts/check.sh index.html
 
-# ★ここでユーザーに内容を提示して承認を取る★
-
-# 承認後のみ
+# チェック成功後は自動で commit + push
 bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: 〇〇の能力を追加"
 ```
 
@@ -77,14 +75,15 @@ JSON に書き起こしてから `add_ability.py` に渡す。
 
 `check.sh` は JSON として正しければ通ってしまい、誤字・数値の取り違え・
 全角半角のズレ・カードの版違い・タグの選択ミスは**検出できない**。
-そのため:
+そのため、通常は xhigh 相当の読み取りを前提に自動処理する。ただし、画像が
+不鮮明・情報が欠落・タグ/レアリティ/入手先の判断に迷う場合は、勝手に進めず
+ユーザーに質問する。明確に読み取れる場合は:
 
-1. まず読み取り結果を表で提示する
-   （能力名 / 効果 / カード名 / レアリティ / 入手先 / タグとその理由）
-2. 人間が画像と突き合わせて承認するまで、JSON を書き込まない
-3. 以降は通常手順（dry-run → 書き込み → check.sh → push前に再度承認）
+1. 読み取り結果を JSON 化する（表提示・確認は省略可）
+2. 通常手順（dry-run → 書き込み → check.sh）を実行する
+3. チェック成功後、内容を簡潔に報告して自動で commit + push する
 
-承認ポイントは2回（読み取り確認・push前）。
+この自動承認は、メロニキから明示的に許可された lMfDB の能力追加作業に限る。
 詳細と読み取り時の注意は `reference/rules.md` の「画像から追加する場合」を参照。
 
 ## 絶対に守ること
@@ -98,7 +97,8 @@ JSON に書き起こしてから `add_ability.py` に渡す。
 - タグは既存語彙（`lmfdb_common.py` の `KNOWN_TAGS`、現在55種）から選ぶ。
 - `source` は `イベント` / `閃き` / `EXトレ` / `伝授` のみ。
 - `rarity` は `SSR` / `MR` / `SR` / `その他` のみ。
-- **チェックが通る前・ユーザー承認が出る前に push しない。**
+- **`check.sh` が通る前に push しない。** チェック成功後は、明示的な追加承認なしで
+  `git_commit_push.sh` を実行する。
 - 壊したら `git checkout -- index.html` で戻してやり直す。
 
 ## コミット規約
