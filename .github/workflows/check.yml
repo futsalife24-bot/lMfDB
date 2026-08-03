@@ -4,7 +4,6 @@ name: check
 # 壊れたまま main に入らないよう push / PR ごとに check.sh を走らせる。
 on:
   push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 
