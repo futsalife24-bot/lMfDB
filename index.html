@@ -766,7 +766,7 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
   <nav class="quick-guides" aria-label="関連ガイド">
     <span class="quick-guide-link howto-placeholder" aria-disabled="true" title="チュートリアルは準備中です">❔ 使い方</span>
     <a class="quick-guide-link hiden-link" href="https://futsalife24-bot.github.io/lMfDB/lom-hiden-infographic.html" target="_blank" rel="noopener noreferrer">📖 ロード秘伝について</a>
-    <a class="quick-guide-link notebook-link" href="https://notebook.google.com/notebook/09042736-d7a3-41b8-b44a-d6ed9303c37c" target="_blank" rel="noopener noreferrer">✨ ロード秘伝チャットボット</a>
+    <a class="quick-guide-link notebook-link" id="notebook-link" href="https://notebook.google.com/notebook/09042736-d7a3-41b8-b44a-d6ed9303c37c" target="_blank" rel="noopener noreferrer">✨ ロード秘伝チャットボット</a>
   </nav>
 </header>
 
@@ -2604,6 +2604,12 @@ themeBtn.addEventListener('click',()=>{
   const isLight=document.body.classList.toggle('light-theme');
   themeBtn.textContent=isLight?'🌙':'☀';
   localStorage.setItem('mf_theme',isLight?'light':'dark');
+});
+
+// NotebookLMへ移動する前に、ログインの可能性を案内
+document.getElementById('notebook-link').addEventListener('click', e=>{
+  const message='【LMF能力DB開発者からのご案内】\n\nロード秘伝チャットボットは、Gemini の NotebookLMを利用しています。\nGoogleアカウントでのログインが必要な場合がありますが、無料で利用できるGoogle公式サービスへのリンクです。';
+  if(!window.confirm(message)) e.preventDefault();
 });
 
 // 所持サイクルボタン
