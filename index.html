@@ -86,6 +86,17 @@ header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:transl
 .ptab.on{color:var(--tx);border-bottom-color:var(--acc2)}
 .ptab.myset-tab.on{border-bottom-color:#f9a825}
 .ptab.myset-tab.on .badge{background:#f9a825;color:#111}
+.quick-guides{display:flex;gap:6px;overflow-x:auto;padding:6px 0;scrollbar-width:none}
+.quick-guides::-webkit-scrollbar{display:none}
+.quick-guide-link{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  min-height:29px;padding:5px 9px;border:1px solid var(--bd2);border-radius:8px;
+  background:var(--s2);color:var(--tm);font-family:inherit;font-size:10px;font-weight:700;
+  text-decoration:none;white-space:nowrap;transition:all .15s}
+.quick-guide-link:hover{border-color:var(--acc2);color:var(--tx);background:var(--s1)}
+.quick-guide-link.howto-placeholder{opacity:.72;cursor:default}
+.quick-guide-link.howto-placeholder:hover{border-color:var(--bd2);color:var(--tm);background:var(--s2)}
+.quick-guide-link.hiden-link{border-color:rgba(232,160,32,.48);color:#ffd06a}
+.quick-guide-link.notebook-link{border-color:rgba(56,182,255,.48);color:#7bd2ff}
 .badge{border-radius:9px;padding:1px 6px;font-size:10px;font-weight:700}
 .ptab.on .badge{background:var(--acc2);color:#fff}
 .ptab:not(.on) .badge{background:var(--s2);color:var(--tm)}
@@ -752,6 +763,11 @@ body.light-theme .card.tier-densho .card-head-name{color:#7c3aed}
     <button class="ptab on" data-page="db">🗂️ 能力一覧</button>
     <button class="ptab myset-tab" data-page="myset">⭐編成マイセット</button>
   </div>
+  <nav class="quick-guides" aria-label="関連ガイド">
+    <span class="quick-guide-link howto-placeholder" aria-disabled="true" title="チュートリアルは準備中です">❔ このデータベースの使い方を見る</span>
+    <a class="quick-guide-link hiden-link" href="https://futsalife24-bot.github.io/lMfDB/lom-hiden-infographic.html" target="_blank" rel="noopener noreferrer">📖 秘伝の仕組み・おすすめを見る</a>
+    <a class="quick-guide-link notebook-link" href="https://notebook.google.com/notebook/09042736-d7a3-41b8-b44a-d6ed9303c37c" target="_blank" rel="noopener noreferrer">✨ NotebookLMで能力を質問する</a>
+  </nav>
 </header>
 
 

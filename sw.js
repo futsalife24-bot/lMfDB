@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lmfdb-v1';
+const CACHE_NAME = 'lmfdb-v2';
 const FILES = ['./index.html'];
 
 // インストール時にキャッシュ
