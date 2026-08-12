@@ -791,9 +791,14 @@ header::after{display:none}
 .ux-settings-panel .data-fab{min-height:44px;width:100%;display:flex;align-items:center;gap:10px;
   border:0;border-radius:10px;padding:9px 12px;background:transparent;box-shadow:none;color:var(--tx);font-size:13px;text-align:left}
 .ux-settings-panel .data-fab:hover{background:var(--s2)}
-.ux-settings-panel #font-size-btn::before{content:'文字・表示サイズ';flex:1}
 .ux-settings-panel #theme-btn::before{content:'画面テーマ';flex:1}
 .ux-settings-panel #data-manage-btn::before{content:'データの保存・移行';flex:1}
+.display-size-setting{min-height:48px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:7px 8px 7px 12px}
+.display-size-label{font-size:13px;color:var(--tx)}
+.display-size-options{display:grid;grid-template-columns:repeat(3,34px);gap:2px;padding:3px;border-radius:10px;background:var(--s2)}
+.display-size-option{height:32px;border:0;border-radius:8px;background:transparent;color:var(--tm);font-family:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.display-size-option:hover{background:var(--s1);color:var(--tx)}
+.display-size-option.active{background:var(--s1);color:#f9a825;box-shadow:0 1px 5px rgba(0,0,0,.2)}
 
 /* mobile-first bottom navigation */
 .page-tabs{position:fixed;left:0;right:0;bottom:0;z-index:150;height:calc(var(--ux-nav-h) + env(safe-area-inset-bottom));
@@ -893,30 +898,59 @@ body.light-theme .owned-card-item:not(.owned) .owned-card-name{color:#8b3040}
 .ux-empty-cta{min-height:46px;margin-top:16px;padding:9px 18px;border:0;border-radius:12px;background:linear-gradient(135deg,#f9a825,#ff7043);color:#fff;font-weight:900;cursor:pointer}
 .myset-page-wrap{height:calc(100vh - 66px - env(safe-area-inset-bottom))}.myset-new-btn{min-width:44px;min-height:42px}
 
-/* 「小」は元版と従来の比較版の中間密度。「大」は従来のゆったり表示を維持 */
-body:not(.font-large){--ux-max:1100px}
-body:not(.font-large) .grid{padding:8px;gap:7px}
-body:not(.font-large) .card{contain-intrinsic-size:56px;border-radius:11px}
-body:not(.font-large) .card-head{min-height:49px;padding:8px 10px}
-body:not(.font-large) .ux-expand-btn{width:30px;height:30px;font-size:21px}
-body:not(.font-large) .card-check{width:24px;height:24px}
-body:not(.font-large) .fv{min-width:29px;min-height:29px;font-size:16px}
-body:not(.font-large) .card-body{padding:0 10px 10px}
-body:not(.font-large) .cd{line-height:1.7}
-body:not(.font-large) .owned-page{padding:14px 10px}
-body:not(.font-large) #owned-card-list{gap:6px}
-body:not(.font-large) .owned-card-item{min-height:56px;padding:8px 10px}
-body:not(.font-large) .myset-pane{padding:10px}
-body:not(.font-large) .deck-section{margin-bottom:10px}
-body:not(.font-large) .deck-slots{gap:4px}
-body:not(.font-large) .deck-slot{min-height:48px;padding:5px 7px}
-body:not(.font-large) .ux-guide{padding:14px 10px 24px}
-body:not(.font-large) .ux-guide-steps{gap:7px;margin:13px 0 18px}
-body:not(.font-large) .ux-guide-step{grid-template-columns:34px 1fr;gap:8px;padding:10px;border-radius:12px}
-body:not(.font-large) .ux-guide-step::before{width:30px;height:30px;border-radius:9px}
-body:not(.font-large) .ux-guide-links{gap:8px}
-body:not(.font-large) .ux-guide-link{grid-template-columns:40px 1fr auto;gap:8px;min-height:62px;padding:10px 12px;border-radius:12px}
-body:not(.font-large) .ux-guide-link-icon{width:38px;height:38px;border-radius:10px;font-size:19px}
+/* 表示サイズ：小＝元版寄り、中＝バランス、大＝ゆったり */
+body.display-medium{--ux-max:1100px}
+body.display-medium .grid{padding:8px;gap:7px}
+body.display-medium .card{contain-intrinsic-size:56px;border-radius:11px}
+body.display-medium .card-head{min-height:49px;padding:8px 10px}
+body.display-medium .ux-expand-btn{width:30px;height:30px;font-size:21px}
+body.display-medium .card-check{width:24px;height:24px}
+body.display-medium .fv{min-width:29px;min-height:29px;font-size:16px}
+body.display-medium .card-body{padding:0 10px 10px}
+body.display-medium .cd{line-height:1.7}
+body.display-medium .owned-page{padding:14px 10px}
+body.display-medium #owned-card-list{gap:6px}
+body.display-medium .owned-card-item{min-height:56px;padding:8px 10px}
+body.display-medium .myset-pane{padding:10px}
+body.display-medium .deck-section{margin-bottom:10px}
+body.display-medium .deck-slots{gap:4px}
+body.display-medium .deck-slot{min-height:48px;padding:5px 7px}
+body.display-medium .ux-guide{padding:14px 10px 24px}
+body.display-medium .ux-guide-steps{gap:7px;margin:13px 0 18px}
+body.display-medium .ux-guide-step{grid-template-columns:34px 1fr;gap:8px;padding:10px;border-radius:12px}
+body.display-medium .ux-guide-step::before{width:30px;height:30px;border-radius:9px}
+body.display-medium .ux-guide-links{gap:8px}
+body.display-medium .ux-guide-link{grid-template-columns:40px 1fr auto;gap:8px;min-height:62px;padding:10px 12px;border-radius:12px}
+body.display-medium .ux-guide-link-icon{width:38px;height:38px;border-radius:10px;font-size:19px}
+
+body.display-small{--ux-max:1000px;font-size:13px}
+body.display-small .grid{padding:8px;gap:6px}
+body.display-small .card{contain-intrinsic-size:50px;border-radius:10px}
+body.display-small .card-head{min-height:44px;padding:7px 9px}
+body.display-small .card-head-name{font-size:13px;line-height:1.35}
+body.display-small .card-head-card{font-size:10px;max-width:96px}
+body.display-small .ux-expand-btn{width:28px;height:28px;font-size:20px}
+body.display-small .card-check{width:22px;height:22px;font-size:12px}
+body.display-small .fv{min-width:27px;min-height:27px;font-size:15px}
+body.display-small .card-body{padding:0 9px 9px}
+body.display-small .cd{font-size:12px;line-height:1.65}
+body.display-small .chip{font-size:10px;padding:2px 6px}
+body.display-small .owned-page{padding:12px 9px}
+body.display-small #owned-card-list{gap:5px}
+body.display-small .owned-card-item{min-height:48px;padding:7px 9px}
+body.display-small .owned-card-name{font-size:12px}
+body.display-small .owned-card-mark{font-size:16px}
+body.display-small .myset-pane{padding:8px}
+body.display-small .deck-section{margin-bottom:8px}
+body.display-small .deck-slots{gap:3px}
+body.display-small .deck-slot{min-height:44px;padding:4px 6px}
+body.display-small .ux-guide{padding:12px 9px 22px}
+body.display-small .ux-guide-steps{gap:6px;margin:12px 0 16px}
+body.display-small .ux-guide-step{grid-template-columns:32px 1fr;gap:7px;padding:9px;border-radius:11px}
+body.display-small .ux-guide-step::before{width:28px;height:28px;border-radius:8px}
+body.display-small .ux-guide-links{gap:6px}
+body.display-small .ux-guide-link{grid-template-columns:36px 1fr auto;gap:7px;min-height:56px;padding:8px 10px;border-radius:11px}
+body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;font-size:18px}
 
 @media (min-width:760px){
   body{padding-bottom:0;padding-left:92px}
@@ -933,7 +967,7 @@ body:not(.font-large) .ux-guide-link-icon{width:38px;height:38px;border-radius:1
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
-<body>
+<body class="display-medium">
 
 <header>
   <div class="ux-appbar">
@@ -945,7 +979,14 @@ body:not(.font-large) .ux-guide-link-icon{width:38px;height:38px;border-radius:1
     <button class="ux-settings-btn" id="ux-settings-btn" type="button" aria-label="表示・データ設定" aria-expanded="false" aria-controls="ux-settings-panel">⚙️</button>
     <div class="ux-settings-panel" id="ux-settings-panel">
       <div class="ux-settings-title">表示・データ設定</div>
-      <button class="data-fab" id="font-size-btn" title="文字と表示サイズを切り替え">小</button>
+      <div class="display-size-setting">
+        <span class="display-size-label">文字・表示サイズ</span>
+        <div class="display-size-options" role="group" aria-label="文字・表示サイズ">
+          <button class="display-size-option" type="button" data-size="small" aria-pressed="false">小</button>
+          <button class="display-size-option" type="button" data-size="medium" aria-pressed="true">中</button>
+          <button class="display-size-option" type="button" data-size="large" aria-pressed="false">大</button>
+        </div>
+      </div>
       <button class="data-fab" id="theme-btn" title="テーマ切り替え">☀</button>
       <button class="data-fab" id="data-manage-btn">💾</button>
     </div>
@@ -2835,21 +2876,30 @@ expandToggle.addEventListener('change', ()=>{
   }
 })();
 
-// 文字サイズ切り替え
-const fontSizeBtn=document.getElementById('font-size-btn');
-const savedFont=localStorage.getItem('mfux_font')||'small';
-if(savedFont==='large'){
-  document.body.classList.add('font-large');
-  fontSizeBtn.textContent='大';
-  fontSizeBtn.style.color='#f9a825';
-}
-fontSizeBtn.addEventListener('click',()=>{
-  const isLarge=document.body.classList.toggle('font-large');
-  fontSizeBtn.textContent=isLarge?'大':'小';
-  fontSizeBtn.style.color=isLarge?'#f9a825':'';
-  localStorage.setItem('mfux_font',isLarge?'large':'small');
+// 文字・表示サイズ（旧2段階設定は見た目を維持して中へ移行）
+const displaySizeButtons=[...document.querySelectorAll('.display-size-option')];
+const savedDisplaySize=localStorage.getItem('mfux_display_size');
+const legacyFontSize=localStorage.getItem('mfux_font');
+const initialDisplaySize=['small','medium','large'].includes(savedDisplaySize)
+  ?savedDisplaySize
+  :(legacyFontSize==='large'?'large':'medium');
+function applyDisplaySize(size, persist=true){
+  document.body.classList.remove('display-small','display-medium','display-large','font-large');
+  document.body.classList.add(`display-${size}`);
+  if(size==='large') document.body.classList.add('font-large');
+  displaySizeButtons.forEach(btn=>{
+    const active=btn.dataset.size===size;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-pressed',String(active));
+  });
+  if(persist){
+    localStorage.setItem('mfux_display_size',size);
+    localStorage.setItem('mfux_font',size==='large'?'large':'small');
+  }
   updateCtrlHeight();
-});
+}
+applyDisplaySize(initialDisplaySize,false);
+displaySizeButtons.forEach(btn=>btn.addEventListener('click',()=>applyDisplaySize(btn.dataset.size)));
 
 // denshoポップアップ閉じる
 document.getElementById('densho-popup-close').addEventListener('click',()=>{
