@@ -452,6 +452,9 @@ input::placeholder{color:var(--ts)}
 .card-picker-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-shrink:0}
 .card-picker-title{font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:14px}
 .card-picker-close{background:none;border:none;color:var(--tm);font-size:20px;cursor:pointer}
+.card-picker-search{width:100%;padding:11px 13px;margin-bottom:8px;border:1px solid var(--bd2);
+  border-radius:10px;background:var(--s2);color:var(--tx);font-family:inherit;font-size:14px;outline:none}
+.card-picker-search:focus{border-color:#f9a825;box-shadow:0 0 0 3px rgba(249,168,37,.12)}
 .card-picker-list{overflow-y:auto;flex:1}
 .card-picker-item{display:flex;align-items:center;gap:8px;padding:9px 4px;
   border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s}
@@ -459,6 +462,11 @@ input::placeholder{color:var(--ts)}
 .card-picker-item.selected{color:#f9a825;font-weight:700}
 .card-picker-name{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:13px;flex:1}
 .card-picker-cnt{font-size:10px;color:var(--ts);flex-shrink:0}
+.card-picker-rarity,.card-picker-owned{font-size:10px;font-weight:800;flex-shrink:0;padding:2px 7px;border-radius:999px}
+.card-picker-rarity{color:#f9a825;background:rgba(249,168,37,.12);border:1px solid rgba(249,168,37,.28)}
+.card-picker-owned.is-owned{color:#43a047;background:rgba(67,160,71,.12)}
+.card-picker-owned.is-unowned{color:#ff7043;background:rgba(255,112,67,.12)}
+.card-picker-empty{padding:28px 12px;text-align:center;color:var(--ts);font-size:12px}
 .card-picker-clear{padding:10px 12px;font-size:13px;font-weight:700;color:#ff5277;
   cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;
   background:rgba(255,80,80,.08);border-radius:8px;margin:4px 4px 0}
@@ -1985,7 +1993,7 @@ function renderMyset(){
     slot.addEventListener('click',()=>{
       const slotKey=slot.dataset.slot;
       const isRental=slotKey==='rental';
-      openCardPicker(allCards.filter(c=>!EX_CARDS.has(c)), set, slotKey, isRental);
+      openCardPicker(ALL_CARDS.filter(c=>!BOSS_CARDS.has(c)), set, slotKey, isRental);
     });
   });
 
@@ -2204,27 +2212,24 @@ function openCardPicker(cards, set, slotKey, isRental){
   const isRentalSlot=slotKey==='rental';
   titleEl.textContent=isRentalSlot?'レンタル枠のカードを選択':`自前${+slotKey+1}枠のカードを選択`;
 
+  let searchEl=document.getElementById('card-picker-search');
+  if(!searchEl){
+    searchEl=document.createElement('input');
+    searchEl.id='card-picker-search';
+    searchEl.className='card-picker-search';
+    searchEl.type='search';
+    searchEl.placeholder='カード名で検索';
+    searchEl.setAttribute('aria-label','デッキに追加するカード名を検索');
+    listEl.before(searchEl);
+  }
+  searchEl.value='';
+
   const currentCard=isRentalSlot?set.deck.rental:set.deck.own[+slotKey];
   // 既に他の枠に入っているカード（同じ枠は除く）
   const usedCards=new Set([...set.deck.own, set.deck.rental].filter(Boolean));
   if(currentCard) usedCards.delete(currentCard);
 
-  listEl.innerHTML=
-    `<div class="card-picker-clear" id="picker-clear">✕ 枠をクリア</div>`+
-    cards.map(card=>{
-      const own=ownedCards.has(card);
-      const disabled=usedCards.has(card);
-      const sel=card===currentCard;
-      return `<div class="card-picker-item${sel?' selected':''}${disabled?' disabled':''}" data-card="${esc(card)}" style="${disabled?'opacity:.35;pointer-events:none':''}">
-        <span>${own?'✅':'📛'}</span>
-        <span class="card-picker-name">${esc(card)}</span>
-        ${own?'<span class="card-picker-cnt" style="color:#43a047">所持済</span>':''}
-        ${sel?'<span style="color:#f9a825;font-size:11px">選択中</span>':''}
-      </div>`;
-    }).join('');
-
-  overlay.classList.add('open');
-  listEl.querySelector('#picker-clear').addEventListener('click',()=>{
+  function clearSlot(){
     if(isRentalSlot){
       const prevCard=set.deck.rental;
       set.deck.rental=null;
@@ -2242,26 +2247,10 @@ function openCardPicker(cards, set, slotKey, isRental){
       set.deck.own[+slotKey]=null;
     }
     saveSets(); overlay.classList.remove('open'); renderMyset();
-  });
-  listEl.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const card=el.dataset.card;
-      if(!isRentalSlot && !ownedCards.has(card)){
-        showWarn(`「${card}」は未所持のカードです。自前枠に設定しますか？`, ()=>{
-          set.deck.own[+slotKey]=card;
-          // 未所持カードの能力をunowned→deck（編成）に移動
-          set.items.forEach(id=>{
-            const ab=abilities.find(x=>x.id===id);
-            if(ab&&ab.card===card){
-              if(!set.flashSettings) set.flashSettings={};
-              set.flashSettings[id]='deck';
-            }
-          });
-          saveSets(); overlay.classList.remove('open'); renderMyset();
-        });
-        return;
-      }
-      if(isRentalSlot){
+  }
+
+  function applyCard(card){
+    if(isRentalSlot){
         const prevCard=set.deck.rental;
         // 前のカードが未所持だったらunownedに戻す
         if(prevCard&&prevCard!==card&&!ownedCards.has(prevCard)){
@@ -2295,21 +2284,55 @@ function openCardPicker(cards, set, slotKey, isRental){
             });
           }
         }
-      } else {
-        set.deck.own[+slotKey]=card;
-        // 所持カード→編成: 該当カードの能力で flash 設定が残っていたら削除（編成側に出すため）
-        if(set.flashSettings){
-          Object.keys(set.flashSettings).forEach(sid=>{
-            const ab=abilities.find(x=>x.id===+sid);
-            if(ab&&ab.card===card&&set.flashSettings[sid]==='flash'){
-              delete set.flashSettings[sid];
-            }
-          });
-        }
-      }
-      saveSets(); overlay.classList.remove('open'); renderMyset();
+    } else {
+      set.deck.own[+slotKey]=card;
+      set.items.forEach(id=>{
+        const ab=abilities.find(x=>x.id===id);
+        if(!ab||ab.card!==card) return;
+        if(!set.flashSettings) set.flashSettings={};
+        if(!ownedCards.has(card)) set.flashSettings[id]='deck';
+        else if(set.flashSettings[id]==='flash') delete set.flashSettings[id];
+      });
+    }
+    saveSets(); overlay.classList.remove('open'); renderMyset();
+  }
+
+  function selectCard(card){
+    if(!ownedCards.has(card)){
+      const target=isRentalSlot?'レンタル枠':'自前枠';
+      showWarn(`「${card}」は未所持のカードです。${target}に設定しますか？`, ()=>applyCard(card));
+      return;
+    }
+    applyCard(card);
+  }
+
+  function renderPickerList(){
+    const term=searchEl.value.trim().toLocaleLowerCase('ja');
+    const filtered=[...new Set(cards)]
+      .filter(card=>!term||card.toLocaleLowerCase('ja').includes(term))
+      .sort((a,b)=>a.localeCompare(b,'ja'));
+    const results=filtered.length?filtered.map(card=>{
+      const own=ownedCards.has(card);
+      const disabled=usedCards.has(card);
+      const sel=card===currentCard;
+      const rarity=abilities.find(a=>a.card===card&&['MR','SSR','SR'].includes(a.rarity))?.rarity||'その他';
+      return `<div class="card-picker-item${sel?' selected':''}${disabled?' disabled':''}" data-card="${esc(card)}" style="${disabled?'opacity:.35;pointer-events:none':''}">
+        <span class="card-picker-name">${esc(card)}</span>
+        <span class="card-picker-rarity">${esc(rarity)}</span>
+        <span class="card-picker-owned ${own?'is-owned':'is-unowned'}">${own?'所持':'未所持'}</span>
+      </div>`;
+    }).join(''):'<div class="card-picker-empty">該当するカードがありません</div>';
+    listEl.innerHTML=`<div class="card-picker-clear" id="picker-clear">✕ 枠をクリア</div>${results}`;
+    listEl.querySelector('#picker-clear').addEventListener('click',clearSlot);
+    listEl.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>{
+      el.addEventListener('click',()=>selectCard(el.dataset.card));
     });
-  });
+  }
+
+  searchEl.oninput=renderPickerList;
+  renderPickerList();
+  overlay.classList.add('open');
+  setTimeout(()=>searchEl.focus(),0);
 }
 
 // ===== DATA EXPORT / IMPORT =====
