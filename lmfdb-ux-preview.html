@@ -965,6 +965,56 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
 }
 @media (min-width:1200px){#owned-card-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+/* ===== MYSET PLAN V2 ===== */
+.myset-v2-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 0 10px;padding:4px;background:var(--s2);border:1px solid var(--bd);border-radius:11px;position:sticky;top:0;z-index:12}
+.myset-v2-tab{border:0;border-radius:8px;padding:8px 5px;background:transparent;color:var(--tm);font-family:inherit;font-size:11px;font-weight:800;cursor:pointer}
+.myset-v2-tab.active{background:var(--s1);color:#f9a825;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.myset-status-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.myset-status{font-size:10px;font-weight:900;border-radius:999px;padding:3px 8px;border:1px solid var(--bd2);color:var(--tm)}
+.myset-status.editing{color:#ffb74d;border-color:rgba(255,183,77,.45);background:rgba(255,183,77,.09)}
+.myset-status.ready{color:#66bb6a;border-color:rgba(102,187,106,.45);background:rgba(102,187,106,.1)}
+.myset-status.complete{color:#fff;border-color:#43a047;background:#43a047}
+.myset-v2-help{font-size:11px;line-height:1.55;color:var(--ts);padding:8px 10px;border:1px solid var(--bd);background:var(--s2);border-radius:9px;margin-bottom:10px}
+.candidate-tools{display:flex;gap:6px;margin-bottom:8px;position:sticky;top:47px;z-index:10;background:var(--bg);padding:3px 0}
+.candidate-search,.candidate-source-filter{border:1px solid var(--bd2);border-radius:9px;background:var(--s2);color:var(--tx);font:inherit;font-size:12px;padding:8px 10px;outline:none;min-width:0}
+.candidate-search{flex:1}.candidate-source-filter{width:108px}
+.candidate-list,.adopted-list{display:flex;flex-direction:column;gap:7px}
+.plan-ability-card{border:1px solid var(--bd);border-radius:11px;background:var(--s1);padding:9px 10px;position:relative;transition:border-color .15s,opacity .15s}
+.plan-ability-card:hover{border-color:var(--bd2)}
+.plan-ability-head{display:flex;align-items:center;gap:6px;min-width:0}
+.plan-ability-title{font-family:'Zen Maru Gothic',sans-serif;font-size:12px;font-weight:900;flex:1;min-width:0}
+.plan-card-meta{font-size:10px;color:var(--ts);margin-top:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.plan-desc{font-size:11px;line-height:1.65;color:var(--tm);margin-top:7px;padding-top:7px;border-top:1px solid var(--bd)}
+.plan-badge{font-size:9px;font-weight:900;padding:2px 6px;border-radius:999px;border:1px solid var(--bd2);white-space:nowrap}
+.plan-badge.event{color:#63b3ed}.plan-badge.flash{color:#ffd54f}.plan-badge.ex{color:#ce93d8}.plan-badge.unowned{color:#ff7043}.plan-badge.owned{color:#66bb6a}
+.plan-entry-actions{display:flex;align-items:center;gap:5px;margin-top:8px}
+.plan-btn{border:1px solid var(--bd2);border-radius:8px;background:var(--s2);color:var(--tm);padding:6px 9px;font-family:inherit;font-size:10px;font-weight:800;cursor:pointer}
+.plan-btn.primary{border-color:rgba(249,168,37,.5);background:rgba(249,168,37,.12);color:#f9a825}.plan-btn.danger{color:#ff7043}.plan-btn:disabled{opacity:.4;cursor:not-allowed}
+.tier-switch{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.tier-switch button{font:inherit;font-size:9px;font-weight:900;padding:3px 7px;border-radius:999px;border:1px solid var(--bd2);background:var(--s2);color:var(--tm);cursor:pointer}.tier-switch button.active{color:#f9a825;border-color:#f9a825;background:rgba(249,168,37,.1)}
+.candidate-adopt-drop{border:1.5px dashed rgba(249,168,37,.45);border-radius:11px;padding:10px;text-align:center;color:#f9a825;font-size:11px;font-weight:800;margin:9px 0;background:rgba(249,168,37,.05)}
+.candidate-adopt-drop.drag-over{background:rgba(249,168,37,.18);border-style:solid}
+.plan-drag-handle{border:0;background:transparent;color:var(--ts);font-size:15px;padding:5px;cursor:grab;touch-action:none}.plan-drag-handle:active{cursor:grabbing}.plan-ability-card.dragging{opacity:.45;border-color:#f9a825}
+.plan-layout{display:grid;grid-template-columns:minmax(270px,.9fr) minmax(320px,1.1fr);gap:10px;align-items:start}
+.plan-panel{border:1px solid var(--bd);border-radius:12px;padding:10px;background:rgba(255,255,255,.015)}
+.plan-panel-title{font-size:12px;font-weight:900;color:var(--tm);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.route-controls{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:8px}.route-select,.primary-select{font:inherit;font-size:10px;color:var(--tx);background:var(--s2);border:1px solid var(--bd2);border-radius:7px;padding:5px 7px}
+.route-valid{font-size:9px;font-weight:900}.route-valid.ok{color:#66bb6a}.route-valid.ng{color:#ff7043}
+.plan-notice{font-size:10px;line-height:1.5;border-radius:8px;padding:7px 9px;margin-top:7px;background:rgba(255,183,77,.09);border:1px solid rgba(255,183,77,.3);color:#ffcc80}
+.complete-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.complete-btn{flex:1;min-width:150px;border:0;border-radius:10px;padding:10px 12px;font:inherit;font-size:12px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#f9a825,#ff7043);color:#fff}.complete-btn.secondary{background:var(--s2);color:var(--tx);border:1px solid var(--bd2)}
+.locked-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:10px;background:rgba(67,160,71,.12);border:1px solid rgba(67,160,71,.4);font-size:11px;color:#81c784;margin-bottom:9px}
+.preview-sheet{background:#f7f3e9;color:#28231d;border-radius:14px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.preview-title{font-family:'Zen Maru Gothic',sans-serif;font-size:21px;font-weight:900;color:#4e342e}.preview-meta{font-size:10px;color:#796d62;margin-top:3px}.preview-memo{font-size:11px;line-height:1.6;margin:10px 0;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid #e2d8c9}
+.preview-section{margin-top:13px}.preview-section h3{font-size:12px;margin:0 0 7px;color:#6d4c41;border-bottom:2px solid #e0b35b;padding-bottom:4px}.preview-deck{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.preview-slot{background:#fff;border:1px solid #dfd4c5;border-radius:8px;padding:7px;min-height:54px}.preview-slot small{display:block;font-size:8px;color:#978a7e}.preview-slot strong{display:block;font-size:10px;margin-top:3px}.preview-slot span{display:block;font-size:8px;color:#7b6e64;margin-top:3px}.preview-slot .preview-slot-abilities{color:#8a5b24;border-top:1px dashed #e6d8c6;padding-top:3px;margin-top:4px}.preview-ability{background:#fff;border:1px solid #dfd4c5;border-radius:8px;padding:7px 9px;margin-bottom:5px}.preview-ability strong{font-size:10px}.preview-ability span{font-size:8px;color:#7b6e64;display:block;margin-top:2px}.preview-warning{font-size:10px;color:#c2410c;background:#fff1e8;border:1px solid #f2b48b;padding:7px 9px;border-radius:8px;margin-top:8px}
+.migration-overlay,.plan-modal-overlay,.tutorial-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.72);align-items:flex-end;justify-content:center;padding:0}.migration-overlay.open,.plan-modal-overlay.open,.tutorial-overlay.open{display:flex}
+.migration-box,.plan-modal,.tutorial-box{width:100%;max-width:620px;max-height:86vh;overflow:auto;background:var(--s1);border:1px solid var(--bd2);border-radius:18px 18px 0 0;padding:18px 16px 28px}
+.migration-box h2,.plan-modal h2,.tutorial-box h2{font-size:16px;margin:0 0 7px;color:#f9a825}.migration-box p,.tutorial-box p{font-size:11px;line-height:1.65;color:var(--tm)}
+.migration-option{display:block;width:100%;text-align:left;border:1px solid var(--bd);border-radius:10px;padding:10px;margin:7px 0;background:var(--s2);color:var(--tx);font:inherit;cursor:pointer}.migration-option.selected{border-color:#f9a825;background:rgba(249,168,37,.1)}.migration-preview{font-size:10px;line-height:1.7;color:var(--tm);padding:9px;background:var(--bg);border-radius:8px;margin:9px 0}
+.ability-pick-list{display:flex;flex-direction:column;gap:5px}.ability-pick-row{display:flex;gap:8px;align-items:flex-start;padding:8px;border:1px solid var(--bd);border-radius:9px;background:var(--s2)}.ability-pick-row input{margin-top:3px}.ability-pick-row strong{font-size:11px}.ability-pick-row span{font-size:9px;color:var(--ts);display:block;margin-top:2px}
+.tutorial-focus{position:relative!important;z-index:651!important;outline:3px solid #f9a825!important;outline-offset:3px;box-shadow:0 0 0 9999px rgba(0,0,0,.58)!important}.tutorial-box{z-index:652;max-width:520px}.tutorial-progress{font-size:9px;color:var(--ts);margin-bottom:5px}.tutorial-actions{display:flex;gap:7px;margin-top:12px}.tutorial-actions button{flex:1}
+.guide-tutorial-btn{width:100%;border:1px solid rgba(249,168,37,.5);background:rgba(249,168,37,.1);color:#f9a825;border-radius:11px;padding:11px;font:inherit;font-size:12px;font-weight:900;cursor:pointer;margin-top:10px}
+.toast{position:fixed;left:50%;bottom:74px;transform:translate(-50%,20px);z-index:900;background:#262238;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:9px 14px;font-size:11px;opacity:0;pointer-events:none;transition:.2s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){.plan-layout{grid-template-columns:1fr}.preview-deck{grid-template-columns:repeat(2,1fr)}.plan-panel{padding:8px}.myset-pane{padding:9px}.candidate-tools{top:45px}.route-controls{align-items:stretch}.route-select,.primary-select{flex:1;min-width:120px}}
+@media print{body>*{display:none!important}#myset-print-root{display:block!important}}
 </style>
 </head>
 <body class="display-medium">
@@ -1064,6 +1114,7 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
         <span class="ux-guide-link-icon">✨</span><span><strong>ロード秘伝チャットボット</strong><small>質問しながら無料で調べる</small></span>
       </a>
     </section>
+    <button class="guide-tutorial-btn" id="start-myset-tutorial" type="button">画面を見ながら使い方を試す</button>
     <p class="ux-guide-notice">LMF能力DB開発者からのご案内：チャットボットはGoogle公式のNotebookLMを利用します。無料ですが、Googleアカウントでのログインが必要になる場合があります。</p>
   </main>
 </div>
@@ -1314,8 +1365,12 @@ const abilities = ABILITIES.map(a => {
 });
 document.getElementById('db-update-info').textContent='更新: 2026/08/04 ／ '+abilities.length+'件';
 
-let ownedCards = new Set(JSON.parse(localStorage.getItem('mfux_owned')||'[]'));
-function saveOwned(){ localStorage.setItem('mfux_owned', JSON.stringify([...ownedCards])) }
+const MYSET_V2_KEY='mfux_sets_v2';
+const MYSET_OWNED_V2_KEY='mfux_owned_v2';
+const MYSET_ACTIVE_V2_KEY='mfux_active_set_v2';
+const hadMysetV2Data=localStorage.getItem(MYSET_V2_KEY)!==null;
+let ownedCards = new Set(JSON.parse(localStorage.getItem(MYSET_OWNED_V2_KEY)||'[]'));
+function saveOwned(){ localStorage.setItem(MYSET_OWNED_V2_KEY, JSON.stringify([...ownedCards])) }
 
 function saveOverrides(){ localStorage.setItem('mfux_overrides', JSON.stringify(overrides)) }
 
@@ -1481,12 +1536,22 @@ const MR_CARDS=['エスエル',
   'テオス',
   'セラフィナ'];
 const SR_CARDS=['スティーブ','トロイダル'];
-// マイセット state
-let mySets = JSON.parse(localStorage.getItem('mfux_sets')||'[]');
-let activeSetId = mySets.length ? mySets[0].id : null;
-function saveSets(){ localStorage.setItem('mfux_sets', JSON.stringify(mySets)); }
+// マイセット V2 state（旧比較版・元版とは別保存）
+let mySets = JSON.parse(localStorage.getItem(MYSET_V2_KEY)||'[]');
+let activeSetId = localStorage.getItem(MYSET_ACTIVE_V2_KEY) || (mySets.length ? mySets[0].id : null);
+function saveSets(){
+  localStorage.setItem(MYSET_V2_KEY, JSON.stringify(mySets));
+  if(activeSetId) localStorage.setItem(MYSET_ACTIVE_V2_KEY,activeSetId);
+  else localStorage.removeItem(MYSET_ACTIVE_V2_KEY);
+}
 function getActiveSet(){ return mySets.find(s=>s.id===activeSetId)||null; }
-function getActiveItems(){ const s=getActiveSet(); return s ? new Set(s.items) : new Set(); }
+function getActiveItems(){
+  const s=getActiveSet();
+  if(!s) return new Set();
+  const ids=[...(s.candidates||[]),...(s.adopted||[])].map(e=>typeof e==='number'?e:e.id);
+  ids.slice().forEach(id=>getImplicitLowerId(id).forEach(x=>ids.push(x)));
+  return new Set(ids);
+}
 let expandAll = localStorage.getItem('mfux_expand')==='1';
 
 // ===== PAGE SWITCH =====
@@ -2401,10 +2466,332 @@ function openCardPicker(cards, set, slotKey, isRental){
   setTimeout(()=>searchEl.focus(),0);
 }
 
+// ===== MYSET PLAN V2 =====
+let candidateQuery='';
+let candidateSourceFilter='all';
+
+function createPlanSet(name){
+  return {id:'s'+Date.now()+Math.random().toString(36).slice(2,6),name,memo:'',deck:{own:[null,null,null,null,null],rental:null},candidates:[],adopted:[],view:'candidates',status:'editing',completedAt:null,monsType:''};
+}
+function ensurePlanSet(set){
+  if(!set.deck) set.deck={own:[null,null,null,null,null],rental:null};
+  if(!Array.isArray(set.deck.own)) set.deck.own=[];
+  set.deck.own=[...set.deck.own.slice(0,5),...Array(5).fill(null)].slice(0,5);
+  if(!Array.isArray(set.candidates)) set.candidates=[];
+  if(!Array.isArray(set.adopted)) set.adopted=[];
+  set.candidates=set.candidates.map(e=>typeof e==='number'?{id:e}:e).filter(e=>abilities.some(a=>a.id===e.id));
+  set.adopted=set.adopted.map(e=>typeof e==='number'?{id:e,route:'none',primary:null}:e).filter(e=>abilities.some(a=>a.id===e.id));
+  if(!['candidates','plan','preview'].includes(set.view)) set.view='candidates';
+  if(!['editing','complete'].includes(set.status)) set.status='editing';
+  return set;
+}
+function tierInfo(name){
+  const m=String(name).match(/\s*(IV|III|II|I|Ⅳ|Ⅲ|Ⅱ|Ⅰ)$/);
+  if(!m) return {base:String(name),rank:'',band:'single',order:0};
+  const rank=m[1];
+  const normalized={Ⅰ:'I',Ⅱ:'II',Ⅲ:'III',Ⅳ:'IV'}[rank]||rank;
+  return {base:String(name).slice(0,m.index).trim(),rank:normalized,band:['III','IV'].includes(normalized)?'high':'low',order:{I:1,II:2,III:3,IV:4}[normalized]||0};
+}
+function seriesKey(a){ const t=tierInfo(a.name); return `${t.base}::${t.band}`; }
+function getImplicitLowerId(id){
+  const a=abilities.find(x=>x.id===+id); if(!a) return [];
+  const t=tierInfo(a.name); const lower=t.rank==='II'?'I':t.rank==='IV'?'III':null;
+  if(!lower) return [];
+  const found=abilities.find(x=>x.card===a.card&&x.source===a.source&&seriesKey(x)===seriesKey(a)&&tierInfo(x.name).rank===lower);
+  return found?[found.id]:[];
+}
+function entryIndexBySeries(list,id){
+  const a=abilities.find(x=>x.id===+id); if(!a) return -1;
+  return list.findIndex(e=>{const x=abilities.find(y=>y.id===+e.id);return x&&seriesKey(x)===seriesKey(a);});
+}
+function getPlanEntry(set,id){
+  const key=seriesKey(abilities.find(a=>a.id===+id)||{name:'__'});
+  for(const bucket of ['candidates','adopted']){
+    const index=set[bucket].findIndex(e=>{const a=abilities.find(x=>x.id===+e.id);return a&&seriesKey(a)===key;});
+    if(index>=0) return {bucket,index,entry:set[bucket][index]};
+  }
+  return null;
+}
+function addCandidate(set,id){
+  ensurePlanSet(set);
+  const a=abilities.find(x=>x.id===+id); if(!a||a.source==='伝授') return;
+  const existing=getPlanEntry(set,id);
+  if(existing){ existing.entry.id=+id; return; }
+  set.candidates.push({id:+id});
+  markEditing(set);
+}
+function removeCandidate(set,id){
+  const idx=entryIndexBySeries(set.candidates,id);
+  if(idx>=0){set.candidates.splice(idx,1);markEditing(set);}
+}
+function defaultRoute(set,a){
+  if(a.source==='EXトレ') return 'load';
+  const cards=[...set.deck.own,set.deck.rental].filter(Boolean);
+  if(cards.includes(a.card)) return 'deck';
+  if(ownedCards.has(a.card)) return 'load';
+  return 'none';
+}
+function adoptAbility(set,id,forcedRoute){
+  ensurePlanSet(set);
+  const a=abilities.find(x=>x.id===+id); if(!a||a.source==='伝授') return;
+  const ci=entryIndexBySeries(set.candidates,id);
+  if(ci>=0) set.candidates.splice(ci,1);
+  const ai=entryIndexBySeries(set.adopted,id);
+  const route=forcedRoute||defaultRoute(set,a);
+  const entry={id:+id,route,primary:route==='both'?(a.source==='EXトレ'?'load':'deck'):null};
+  if(ai>=0) set.adopted[ai]={...set.adopted[ai],...entry}; else set.adopted.push(entry);
+  markEditing(set);
+}
+function returnToCandidates(set,id){
+  const idx=entryIndexBySeries(set.adopted,id); if(idx<0) return;
+  const entry=set.adopted.splice(idx,1)[0];
+  if(entryIndexBySeries(set.candidates,entry.id)<0) set.candidates.push({id:entry.id});
+  markEditing(set);
+}
+function markEditing(set){ if(set.status==='complete'){set.status='editing';set.completedAt=null;} }
+function exTrainingRoute(a){
+  if(!a||a.source!=='EXトレ') return '';
+  const m=String(a.card).match(/\(([^)]+)\)\s*$/); return m?m[1]:a.card;
+}
+function routeOptions(a){
+  return a.source==='EXトレ'
+    ?[{v:'load',l:'ロード'},{v:'training',l:`育成ルート`},{v:'both',l:'両対応（育成／ロード）'}]
+    :[{v:'deck',l:'デッキ'},{v:'load',l:'ロード'},{v:'both',l:'両対応（デッキ／ロード）'}];
+}
+function routeLabel(entry,a){
+  if(entry.route==='deck') return 'デッキ';
+  if(entry.route==='load') return 'ロード';
+  if(entry.route==='training') return `育成ルート：${exTrainingRoute(a)}`;
+  if(entry.route==='both') return a.source==='EXトレ'?'両対応（育成／ロード）':'両対応（デッキ／ロード）';
+  return '取得経路なし';
+}
+function deckLocation(set,card){
+  const ownIndex=set.deck.own.indexOf(card);
+  if(ownIndex>=0) return {type:'own',index:ownIndex,valid:ownedCards.has(card)};
+  if(set.deck.rental===card) return {type:'rental',index:0,valid:true};
+  return null;
+}
+function routeValidity(set,entry){
+  const a=abilities.find(x=>x.id===+entry.id); if(!a) return {ok:false,msg:'能力データなし'};
+  const deckOk=()=>['イベント','閃き'].includes(a.source)&&!!deckLocation(set,a.card)?.valid;
+  const loadOk=()=>a.source==='EXトレ'||(['イベント','閃き'].includes(a.source)&&ownedCards.has(a.card));
+  const trainingOk=()=>a.source==='EXトレ'&&!!exTrainingRoute(a);
+  if(entry.route==='deck') return deckOk()?{ok:true,msg:'デッキ成立'}:{ok:false,msg:'取得元カードの編成・所持を確認'};
+  if(entry.route==='load') return loadOk()?{ok:true,msg:'ロード成立'}:{ok:false,msg:'未所持カードはロード化できません'};
+  if(entry.route==='training') return trainingOk()?{ok:true,msg:`${exTrainingRoute(a)}で取得`}:{ok:false,msg:'育成ルート未登録'};
+  if(entry.route==='both'){
+    const ok=a.source==='EXトレ'?(loadOk()&&trainingOk()):(deckOk()&&loadOk());
+    return ok?{ok:true,msg:'両経路成立'}:{ok:false,msg:'両方の取得経路を成立させてください'};
+  }
+  return {ok:false,msg:'取得経路を選んでください'};
+}
+function completionState(set){
+  ensurePlanSet(set);
+  const issues=[];
+  set.deck.own.forEach((card,i)=>{if(card&&!ownedCards.has(card)) issues.push(`自前${i+1}「${card}」が未所持`);});
+  set.adopted.forEach(entry=>{const v=routeValidity(set,entry);const a=abilities.find(x=>x.id===entry.id);if(!v.ok) issues.push(`${a?a.name:'能力'}：${v.msg}`);});
+  const kind=set.adopted.length?'plan':'deck';
+  return {kind,ready:issues.length===0,issues};
+}
+function reconcileCompletion(set){
+  if(set.status==='complete'&&!completionState(set).ready){set.status='editing';set.completedAt=null;return true;}
+  return false;
+}
+function reconcileAllSets(){let changed=false;mySets.forEach(s=>{ensurePlanSet(s);if(reconcileCompletion(s))changed=true;});if(changed)saveSets();}
+function planCounts(set){return {candidate:set.candidates.length,adopted:set.adopted.length};}
+function showToast(msg){
+  let el=document.getElementById('app-toast');if(!el){el=document.createElement('div');el.id='app-toast';el.className='toast';document.body.appendChild(el);}
+  el.textContent=msg;el.classList.add('show');clearTimeout(el._timer);el._timer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+function abilitySourceBadge(a){
+  const map={イベント:['event','イベ'],閃き:['flash','閃き'],EXトレ:['ex','EX']};const m=map[a.source]||['',''];
+  return `<span class="plan-badge ${m[0]}">${m[1]}</span>`;
+}
+function abilitySeriesVariants(a){
+  return abilities.filter(x=>x.card===a.card&&x.source===a.source&&seriesKey(x)===seriesKey(a)).sort((x,y)=>tierInfo(x.name).order-tierInfo(y.name).order);
+}
+function sameTargetSources(a){return abilities.filter(x=>x.name===a.name&&x.source!=='伝授').sort((x,y)=>{
+  const score=x=>deckLocation(getActiveSet()||createPlanSet(''),x.card)?0:ownedCards.has(x.card)?1:2;return score(x)-score(y)||x.card.localeCompare(y.card,'ja');
+});}
+function entryCardHtml(set,entry,mode){
+  const a=abilities.find(x=>x.id===entry.id);if(!a)return '';
+  const own=ownedCards.has(a.card),loc=deckLocation(set,a.card),valid=mode==='adopted'?routeValidity(set,entry):null;
+  const variants=abilitySeriesVariants(a);
+  const sources=sameTargetSources(a);
+  const routeSelect=mode==='adopted'?`<div class="route-controls">
+    <select class="route-select" data-route-id="${a.id}">${routeOptions(a).concat([{v:'none',l:'取得経路なし'}]).map(o=>`<option value="${o.v}"${entry.route===o.v?' selected':''}>${esc(o.l)}</option>`).join('')}</select>
+    ${entry.route==='both'?`<select class="primary-select" data-primary-id="${a.id}">${(a.source==='EXトレ'?[['load','主：ロード'],['training','主：育成ルート']]:[['deck','主：デッキ'],['load','主：ロード']]).map(([v,l])=>`<option value="${v}"${entry.primary===v?' selected':''}>${l}</option>`).join('')}</select>`:''}
+    <span class="route-valid ${valid.ok?'ok':'ng'}">${valid.ok?'✓':'⚠'} ${esc(valid.msg)}</span>
+  </div>`:'';
+  const tierButtons=variants.length>1?`<div class="tier-switch">${variants.map(v=>`<button class="tier-choice${v.id===a.id?' active':''}" data-from="${a.id}" data-to="${v.id}" type="button">${esc(tierInfo(v.name).rank||v.name)}</button>`).join('')}</div>`:'';
+  const sourceDetails=sources.length>1?`<details class="plan-source-details"><summary style="font-size:9px;color:var(--ts);cursor:pointer;margin-top:6px">取得元候補 ${sources.length}件</summary><div class="tier-switch">${sources.map(s=>`<button class="source-choice${s.id===a.id?' active':''}" data-from="${a.id}" data-to="${s.id}" type="button">${deckLocation(set,s.card)?'🃏':ownedCards.has(s.card)?'✅':'📛'} ${esc(s.card)}</button>`).join('')}</div></details>`:'';
+  const suggestion=mode==='candidate'&&loc?`<div class="plan-notice">このカードは編成済みです。デッキ取得で採用できます。</div>`:'';
+  return `<div class="plan-ability-card" data-entry-id="${a.id}" draggable="${mode==='candidate'}">
+    <div class="plan-ability-head">${mode==='adopted'?'<button class="plan-drag-handle" type="button" aria-label="長押しして並べ替え">⠿</button>':''}${abilitySourceBadge(a)}<div class="plan-ability-title">${esc(a.name)}</div></div>
+    <div class="plan-card-meta"><span>${own?'✅':'📛'} ${esc(a.card)}</span>${loc?`<span class="plan-badge owned">${loc.type==='rental'?'レンタル':`自前${loc.index+1}`}</span>`:''}${a.source==='EXトレ'?`<span>${esc(exTrainingRoute(a))}</span>`:''}</div>
+    ${tierButtons}${sourceDetails}<div class="plan-desc">${descHtml(a.desc)}</div>${suggestion}${routeSelect}
+    <div class="plan-entry-actions">${mode==='candidate'?`<button class="plan-btn primary adopt-btn" data-id="${a.id}" type="button">採用</button><button class="plan-drag-handle candidate-drag" type="button" aria-label="長押しして採用">⠿</button><button class="plan-btn danger candidate-remove" data-id="${a.id}" type="button">候補から削除</button>`:`<button class="plan-btn return-btn" data-id="${a.id}" type="button">候補へ戻す</button>`}</div>
+  </div>`;
+}
+
+function openSetPicker(){
+  const picker=document.getElementById('set-picker');if(!picker)return;
+  if(mySets.length===0){openSetModal();return;}
+  picker.innerHTML='<div class="set-picker-head">⭐ セット選択</div>'+mySets.map(s=>{ensurePlanSet(s);const c=planCounts(s);return `<div class="set-picker-item${s.id===activeSetId?' active':''}" data-sid="${s.id}"><div class="set-picker-dot"></div><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</span><span style="font-size:9px;color:var(--ts)">${c.adopted}/${c.candidate}</span></div>`;}).join('')+'<div class="set-picker-new" id="picker-new">＋ 新規セット作成</div>';
+  picker.classList.add('open');
+  picker.querySelectorAll('[data-sid]').forEach(el=>el.addEventListener('click',()=>{activeSetId=el.dataset.sid;saveSets();picker.classList.remove('open');updateSbarMyset();render();if(activePage==='myset')renderMyset();}));
+  picker.querySelector('#picker-new').addEventListener('click',()=>{picker.classList.remove('open');openSetModal();});
+}
+function openSetModal(){document.getElementById('set-name-input').value='';document.getElementById('set-modal-overlay').classList.add('open');setTimeout(()=>document.getElementById('set-name-input').focus(),150);}
+
+function statusHtml(set){
+  const c=completionState(set);if(set.status==='complete')return `<span class="myset-status complete">🔒 ${c.kind==='plan'?'育成プラン完成':'デッキ完成'}</span>`;
+  return c.ready?`<span class="myset-status ready">✓ ${c.kind==='plan'?'完成できます':'デッキ保存できます'}</span>`:`<span class="myset-status editing">編集中</span>`;
+}
+function deckSlotHtmlV2(set,card,idx,isRental){
+  const label=isRental?'レンタル':`自前${idx+1}`;const locked=set.status==='complete';
+  if(!card)return `<div class="deck-slot${isRental?' rental':''}" data-slot="${isRental?'rental':idx}"><div class="deck-slot-label">${label}</div><div class="deck-slot-card" style="color:var(--ts)">自由枠</div>${locked?'':'<div class="deck-slot-empty">＋</div>'}</div>`;
+  const count=[...set.candidates,...set.adopted].filter(e=>abilities.find(a=>a.id===e.id)?.card===card).length;
+  return `<div class="deck-slot filled${isRental?' rental':''}" data-slot="${isRental?'rental':idx}">${locked?'':`<button class="deck-slot-clear-btn" data-clear="${isRental?'rental':idx}" title="クリア">✕</button>`}<div class="deck-slot-label">${label}</div><div class="deck-slot-card">${esc(card)}</div><div class="deck-slot-owned">${ownedCards.has(card)?'✅所持':'📛未所持'}</div><div class="deck-slot-cnt">選択能力${count}件</div></div>`;
+}
+function renderBossReference(set){
+  const types=['創造','幻霊','怪物','魔族','無機','獣族'];
+  const matched=set.monsType?abilities.filter(a=>a.source==='伝授'&&a.desc.startsWith(`[${set.monsType}]`)):[];
+  return `<div class="plan-panel" style="margin-top:10px"><div class="plan-panel-title">👑 ボスモン能力（伝授）</div><div class="myset-v2-help">参考一覧です。現在の育成プラン・完成判定には含めません。</div><select class="candidate-source-filter" id="mons-type-select-v2"><option value="">育成モン類</option>${types.map(t=>`<option value="${t}"${set.monsType===t?' selected':''}>${t}</option>`).join('')}</select>${matched.length?`<div class="candidate-list" style="margin-top:8px">${matched.map(a=>`<button class="plan-btn boss-ref" data-id="${a.id}" type="button">${esc(a.name)} <small>${esc(a.card)}</small></button>`).join('')}</div>`:''}</div>`;
+}
+function renderCandidatesView(set){
+  let entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
+  return `<div class="myset-v2-help">DBや編成カードから気になる能力を集める場所です。比較してから「採用」を押しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"><select class="candidate-source-filter" id="candidate-source-filter"><option value="all">全種類</option>${['イベント','閃き','EXトレ'].map(s=>`<option value="${s}"${candidateSourceFilter===s?' selected':''}>${s==='EXトレ'?'EX':s}</option>`).join('')}</select></div><div class="candidate-adopt-drop" id="candidate-adopt-drop">ここへドラッグして採用</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):'<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>候補はまだありません</h2><p>能力DBのチェック、またはデッキカードの<br>「能力を選ぶ」から追加できます。</p></div>'}</div>${renderBossReference(set)}`;
+}
+function renderPlanView(set){
+  const state=completionState(set);const own=set.deck.own.map((c,i)=>deckSlotHtmlV2(set,c,i,false)).join('');const rental=deckSlotHtmlV2(set,set.deck.rental,0,true);
+  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成時点を保存中</span><button class="plan-btn duplicate-set" type="button">複製して編集</button></div>':''}<div class="myset-v2-help">デッキと取得目標能力を同時に確認できます。空き枠は自動で自由枠として扱います。</div><div class="plan-layout"><section class="plan-panel"><div class="plan-panel-title">🃏 デッキ編成</div><div class="deck-slots">${own}</div><div class="deck-slots" style="grid-template-columns:1fr 1fr 1fr">${rental}<div></div><div></div></div>${set.status==='complete'?'':'<div class="myset-v2-help" style="margin-top:7px">カードを選ぶと、取得できる能力を続けて選べます。</div>'}</section><section class="plan-panel"><div class="plan-panel-title">🎯 採用能力 <span class="myset-count-badge">${set.adopted.length}</span></div><div class="adopted-list" id="adopted-list">${set.adopted.length?set.adopted.map(e=>entryCardHtml(set,e,'adopted')).join(''):'<div class="myset-v2-help">候補画面から取得目標を採用してください。</div>'}</div>${state.issues.length?`<div class="plan-notice">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</section></div>${set.status==='complete'?'':`<div class="complete-actions"><button class="complete-btn" id="complete-plan-btn" type="button">${state.kind==='plan'?'育成プランを完成にする':'デッキを完成として保存'}</button></div>`}`;
+}
+function previewGroups(set){
+  const groups={deck:[],load:[],training:[]};
+  set.adopted.forEach(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return;const primary=e.route==='both'?(e.primary||(a.source==='EXトレ'?'load':'deck')):e.route;const secondary=e.route==='both'?(a.source==='EXトレ'?(primary==='load'?'training':'load'):(primary==='deck'?'load':'deck')):null;(groups[primary]||groups.load).push({entry:e,a,secondary});});return groups;
+}
+function renderPreviewView(set){
+  const state=completionState(set),groups=previewGroups(set),slots=[...set.deck.own.map((c,i)=>({c,l:`自前${i+1}`})),{c:set.deck.rental,l:'レンタル'}];
+  const groupHtml=(key,title)=>groups[key].length?`<section class="preview-section"><h3>${title}</h3>${groups[key].map(x=>`<div class="preview-ability"><strong>${esc(x.a.name)}</strong><span>${esc(x.a.card)}${x.secondary?` ／ 代替：${x.secondary==='deck'?'デッキ':x.secondary==='load'?'ロード':`育成ルート ${exTrainingRoute(x.a)}`}`:''}</span></div>`).join('')}</section>`:'';
+  const slotAbilityNames=card=>set.adopted.map(e=>abilities.find(a=>a.id===e.id)).filter(a=>a?.card===card).map(a=>a.name);
+  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成版</span><button class="plan-btn duplicate-set" type="button">複製して編集</button></div>':''}<div class="preview-sheet" id="plan-preview-sheet"><div class="preview-title">${esc(set.name)}</div><div class="preview-meta">${set.completedAt?`完成：${esc(set.completedAt)}`:'プレビュー'} ／ 採用能力 ${set.adopted.length}系列</div>${set.memo?`<div class="preview-memo">${esc(set.memo)}</div>`:''}<section class="preview-section"><h3>デッキ編成</h3><div class="preview-deck">${slots.map(s=>{const names=s.c?slotAbilityNames(s.c):[];return `<div class="preview-slot"><small>${s.l}</small><strong>${s.c?esc(s.c):'自由枠'}</strong>${s.c?`<span>${ownedCards.has(s.c)?'所持済み':'未所持'} ／ ${abilities.find(a=>a.card===s.c)?.rarity||'その他'}</span>`:''}${names.length?`<span class="preview-slot-abilities">${names.map(esc).join('・')}</span>`:''}</div>`;}).join('')}</div></section>${groupHtml('deck','デッキから取得')}${groupHtml('load','ロードから取得')}${groupHtml('training','育成ルートから取得')}${set.status!=='complete'&&state.issues.length?`<div class="preview-warning">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</div><div class="complete-actions"><button class="complete-btn secondary" id="save-plan-png" type="button">PNGで保存</button>${set.status==='complete'?'':`<button class="complete-btn" id="preview-complete-btn" type="button">完成にする</button>`}</div>`;
+}
+
+function renderMyset(){
+  reconcileAllSets();
+  const tabbar=document.getElementById('myset-set-tabs');
+  tabbar.innerHTML=mySets.map(s=>{ensurePlanSet(s);return `<button class="myset-set-tab${s.id===activeSetId?' active':''}" data-sid="${s.id}">${s.status==='complete'?'🔒 ':''}${esc(s.name||'（名前なし）')}</button>`;}).join('');
+  tabbar.querySelectorAll('[data-sid]').forEach(btn=>btn.addEventListener('click',()=>{activeSetId=btn.dataset.sid;saveSets();renderMyset();render();}));
+  const pane=document.getElementById('myset-pane'),set=getActiveSet();
+  if(!set){pane.innerHTML='<div class="ux-empty-state"><div class="ux-empty-icon">⭐</div><h2>マイセットを作ろう</h2><p>能力候補から完成プランまで整理できます。</p><button class="ux-empty-cta" type="button" onclick="openSetModal()">最初のセットを作る</button></div>';return;}
+  ensurePlanSet(set);const locked=set.status==='complete';
+  pane.innerHTML=`<div class="myset-header"><input class="myset-title-input" id="myset-title-input" value="${esc(set.name)}" placeholder="セット名"${locked?' disabled':''}><button class="plan-btn duplicate-set" type="button">複製</button><button class="myset-del-btn" id="myset-del-btn">🗑️</button></div><textarea class="myset-memo" id="myset-memo" placeholder="メモ（任意）..."${locked?' disabled':''}>${esc(set.memo||'')}</textarea><div class="myset-status-row">${statusHtml(set)}<span style="font-size:10px;color:var(--ts)">候補 ${set.candidates.length} ／ 採用 ${set.adopted.length}</span></div><nav class="myset-v2-nav">${[['candidates','候補'],['plan','育成プラン'],['preview','完成プレビュー']].map(([v,l])=>`<button class="myset-v2-tab${set.view===v?' active':''}" data-view="${v}" type="button">${l}</button>`).join('')}</nav><div id="myset-v2-content">${set.view==='candidates'?renderCandidatesView(set):set.view==='plan'?renderPlanView(set):renderPreviewView(set)}</div>`;
+  bindMysetV2Events(set,pane);
+}
+
+function replaceEntryId(set,from,to){
+  const found=getPlanEntry(set,from);if(!found)return;found.entry.id=+to;markEditing(set);saveSets();renderMyset();render();
+}
+function duplicateSet(set){
+  const copy=JSON.parse(JSON.stringify(set));copy.id='s'+Date.now()+Math.random().toString(36).slice(2,5);copy.name=`${set.name}（コピー）`;copy.status='editing';copy.completedAt=null;copy.view='plan';mySets.push(copy);activeSetId=copy.id;saveSets();renderMyset();render();showToast('完成版を複製しました');return copy;
+}
+function clearDeckSlot(set,key){
+  const old=key==='rental'?set.deck.rental:set.deck.own[+key];if(!old)return;
+  if(key==='rental')set.deck.rental=null;else set.deck.own[+key]=null;
+  const affected=set.adopted.filter(e=>{const a=abilities.find(x=>x.id===e.id);return a&&a.card===old&&(e.route==='deck'||e.route==='both');}).map(e=>e.id);
+  affected.forEach(id=>returnToCandidates(set,id));markEditing(set);saveSets();renderMyset();render();
+  if(affected.length)showToast(ownedCards.has(old)?'能力を候補へ戻しました。ロードなら再採用できます':'能力を候補へ戻しました');
+}
+function bindMysetV2Events(set,pane){
+  pane.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>{set.view=btn.dataset.view;saveSets();renderMyset();}));
+  const title=pane.querySelector('#myset-title-input');title&&!title.disabled&&title.addEventListener('input',e=>{set.name=e.target.value;saveSets();});
+  const memo=pane.querySelector('#myset-memo');memo&&!memo.disabled&&memo.addEventListener('input',e=>{set.memo=e.target.value;saveSets();});
+  pane.querySelectorAll('.duplicate-set').forEach(btn=>btn.addEventListener('click',()=>duplicateSet(set)));
+  pane.querySelector('#myset-del-btn')?.addEventListener('click',()=>{const ov=document.getElementById('del-confirm-overlay');document.getElementById('del-confirm-name').textContent=`「${set.name}」`;ov.classList.add('open');document.getElementById('del-confirm-ok').onclick=()=>{ov.classList.remove('open');mySets=mySets.filter(s=>s.id!==set.id);activeSetId=mySets[0]?.id||null;saveSets();renderMyset();render();};document.getElementById('del-confirm-cancel').onclick=()=>ov.classList.remove('open');});
+  pane.querySelector('#candidate-search')?.addEventListener('input',e=>{candidateQuery=e.target.value;const caret=e.target.selectionStart;renderMyset();const next=document.getElementById('candidate-search');next?.focus();next?.setSelectionRange(caret,caret);});
+  pane.querySelector('#candidate-source-filter')?.addEventListener('change',e=>{candidateSourceFilter=e.target.value;renderMyset();});
+  pane.querySelectorAll('.adopt-btn').forEach(btn=>btn.addEventListener('click',()=>{adoptAbility(set,+btn.dataset.id);saveSets();renderMyset();render();}));
+  pane.querySelectorAll('.candidate-remove').forEach(btn=>btn.addEventListener('click',()=>{removeCandidate(set,+btn.dataset.id);saveSets();renderMyset();render();}));
+  pane.querySelectorAll('.return-btn').forEach(btn=>btn.addEventListener('click',()=>{returnToCandidates(set,+btn.dataset.id);saveSets();renderMyset();render();}));
+  pane.querySelectorAll('.tier-choice,.source-choice').forEach(btn=>btn.addEventListener('click',()=>replaceEntryId(set,+btn.dataset.from,+btn.dataset.to)));
+  pane.querySelectorAll('.route-select').forEach(sel=>sel.addEventListener('change',()=>{const found=getPlanEntry(set,+sel.dataset.routeId);if(!found)return;found.entry.route=sel.value;found.entry.primary=sel.value==='both'?(abilities.find(a=>a.id===found.entry.id)?.source==='EXトレ'?'load':'deck'):null;markEditing(set);saveSets();renderMyset();}));
+  pane.querySelectorAll('.primary-select').forEach(sel=>sel.addEventListener('change',()=>{const found=getPlanEntry(set,+sel.dataset.primaryId);if(!found)return;found.entry.primary=sel.value;markEditing(set);saveSets();renderMyset();}));
+  pane.querySelectorAll('.deck-slot-clear-btn').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();clearDeckSlot(set,btn.dataset.clear);}));
+  if(set.status!=='complete')pane.querySelectorAll('.deck-slot').forEach(slot=>slot.addEventListener('click',()=>openCardPicker(ALL_CARDS.filter(c=>!BOSS_CARDS.has(c)),set,slot.dataset.slot,slot.dataset.slot==='rental')));
+  pane.querySelector('#mons-type-select-v2')?.addEventListener('change',e=>{set.monsType=e.target.value;saveSets();renderMyset();});
+  pane.querySelectorAll('.boss-ref').forEach(btn=>btn.addEventListener('click',()=>{const a=abilities.find(x=>x.id===+btn.dataset.id);document.getElementById('densho-popup-name').textContent=a.name;document.getElementById('densho-popup-desc').innerHTML=descHtml(a.desc);document.getElementById('densho-popup-overlay').classList.add('open');}));
+  const complete=()=>{const state=completionState(set);if(!state.ready){showToast('未成立の取得経路を確認してください');set.view='plan';saveSets();renderMyset();return;}set.status='complete';set.completedAt=new Date().toLocaleDateString('ja-JP');set.view='preview';saveSets();renderMyset();render();showToast(state.kind==='plan'?'育成プランを完成にしました':'デッキを完成として保存しました');};
+  pane.querySelector('#complete-plan-btn')?.addEventListener('click',complete);pane.querySelector('#preview-complete-btn')?.addEventListener('click',complete);
+  pane.querySelector('#save-plan-png')?.addEventListener('click',()=>savePlanPng(set));
+  attachPlanDragHandlers(set,pane);
+}
+
+function attachPlanDragHandlers(set,pane){
+  const drop=pane.querySelector('#candidate-adopt-drop');
+  if(drop){
+    pane.querySelectorAll('#candidate-list .plan-ability-card').forEach(row=>{row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));});
+    drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag-over');});drop.addEventListener('dragleave',()=>drop.classList.remove('drag-over'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag-over');const id=+e.dataTransfer.getData('text/plain');if(id){adoptAbility(set,id);saveSets();renderMyset();render();}});
+    pane.querySelectorAll('.candidate-drag').forEach(handle=>attachLongPress(handle,()=>{const id=+handle.closest('[data-entry-id]').dataset.entryId;adoptAbility(set,id);saveSets();renderMyset();render();showToast('採用へ移動しました');}));
+  }
+  const list=pane.querySelector('#adopted-list');if(!list)return;
+  pane.querySelectorAll('#adopted-list .plan-ability-card').forEach(row=>{const handle=row.querySelector('.plan-drag-handle');if(!handle)return;row.draggable=true;row.addEventListener('dragstart',e=>{if(!e.target.closest('.plan-drag-handle')){e.preventDefault();return;}e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));attachTouchReorder(handle,row,list,set);});
+  list.addEventListener('dragover',e=>{e.preventDefault();const dragging=list.querySelector('.dragging');const target=e.target.closest('.plan-ability-card');if(dragging&&target&&target!==dragging){const rect=target.getBoundingClientRect();list.insertBefore(dragging,e.clientY<rect.top+rect.height/2?target:target.nextSibling);}});
+  list.addEventListener('drop',e=>{e.preventDefault();syncAdoptedOrder(set,list);});
+}
+function attachLongPress(el,fn){let timer,moved=false;el.addEventListener('pointerdown',e=>{moved=false;timer=setTimeout(()=>{if(!moved){navigator.vibrate?.(35);fn();}},480);});el.addEventListener('pointermove',()=>{moved=true;clearTimeout(timer);});['pointerup','pointercancel'].forEach(t=>el.addEventListener(t,()=>clearTimeout(timer)));}
+function attachTouchReorder(handle,row,list,set){let timer,active=false;handle.addEventListener('pointerdown',e=>{timer=setTimeout(()=>{active=true;row.classList.add('dragging');navigator.vibrate?.(35);handle.setPointerCapture?.(e.pointerId);},450);});handle.addEventListener('pointermove',e=>{if(!active)return;e.preventDefault();const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.plan-ability-card');if(target&&target.parentElement===list&&target!==row){const r=target.getBoundingClientRect();list.insertBefore(row,e.clientY<r.top+r.height/2?target:target.nextSibling);}});const end=()=>{clearTimeout(timer);if(active){active=false;row.classList.remove('dragging');syncAdoptedOrder(set,list);}};handle.addEventListener('pointerup',end);handle.addEventListener('pointercancel',end);}
+function syncAdoptedOrder(set,list){const order=[...list.querySelectorAll('[data-entry-id]')].map(x=>+x.dataset.entryId);set.adopted.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));markEditing(set);saveSets();}
+
+function ensurePlanModal(){
+  let overlay=document.getElementById('plan-modal-overlay');if(overlay)return overlay;
+  overlay=document.createElement('div');overlay.id='plan-modal-overlay';overlay.className='plan-modal-overlay';overlay.innerHTML='<div class="plan-modal"><div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><h2 id="plan-modal-title"></h2><button class="plan-btn" id="plan-modal-close" type="button">✕</button></div><div id="plan-modal-body"></div><div class="complete-actions" id="plan-modal-actions"></div></div>';document.body.appendChild(overlay);overlay.querySelector('#plan-modal-close').addEventListener('click',()=>overlay.classList.remove('open'));overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open');});return overlay;
+}
+function openCardPicker(cards,set,slotKey){
+  ensurePlanSet(set);const overlay=document.getElementById('card-picker-overlay'),title=document.getElementById('card-picker-title'),list=document.getElementById('card-picker-list');const rental=slotKey==='rental';title.textContent=rental?'レンタル枠のカードを選択':`自前${+slotKey+1}枠のカードを選択`;
+  let search=document.getElementById('card-picker-search');if(!search){search=document.createElement('input');search.id='card-picker-search';search.className='card-picker-search';search.type='search';search.placeholder='カード名で検索';list.before(search);}search.value='';
+  const current=rental?set.deck.rental:set.deck.own[+slotKey];const used=new Set([...set.deck.own,set.deck.rental].filter(Boolean));if(current)used.delete(current);
+  const removeOld=old=>{if(!old)return;const affected=set.adopted.filter(e=>{const a=abilities.find(x=>x.id===e.id);return a&&a.card===old&&(e.route==='deck'||e.route==='both');}).map(e=>e.id);affected.forEach(id=>returnToCandidates(set,id));if(affected.length)setTimeout(()=>showToast(ownedCards.has(old)?'外したカードの能力を候補へ戻しました。ロード取得も検討できます':'外したカードの能力を候補へ戻しました'),0);};
+  const apply=card=>{if(current&&current!==card)removeOld(current);if(rental)set.deck.rental=card;else set.deck.own[+slotKey]=card;markEditing(set);saveSets();overlay.classList.remove('open');renderMyset();render();openDeckAbilityPicker(set,card);};
+  const choose=card=>{if(!ownedCards.has(card)){showWarn(`「${card}」は未所持です。${rental?'レンタル':'自前'}枠へ仮編成しますか？`,()=>apply(card));}else apply(card);};
+  const clear=()=>{clearDeckSlot(set,slotKey);overlay.classList.remove('open');};
+  const draw=()=>{const term=search.value.trim().toLowerCase();const filtered=[...new Set(cards)].filter(c=>(!term||c.toLowerCase().includes(term))).sort((a,b)=>a.localeCompare(b,'ja'));list.innerHTML=`${current?'<div class="card-picker-clear" id="picker-clear">✕ 枠を自由枠に戻す</div>':''}`+(filtered.length?filtered.map(card=>{const own=ownedCards.has(card),disabled=used.has(card),rarity=abilities.find(a=>a.card===card&&['MR','SSR','SR'].includes(a.rarity))?.rarity||'その他';return `<div class="card-picker-item${card===current?' selected':''}${disabled?' disabled':''}" data-card="${esc(card)}" style="${disabled?'opacity:.35;pointer-events:none':''}"><span class="card-picker-name">${esc(card)}</span><span class="card-picker-rarity">${rarity}</span><span class="card-picker-owned ${own?'is-owned':'is-unowned'}">${own?'所持':'未所持'}</span></div>`;}).join(''):'<div class="card-picker-empty">該当するカードがありません</div>');list.querySelector('#picker-clear')?.addEventListener('click',clear);list.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>el.addEventListener('click',()=>choose(el.dataset.card)));};
+  search.oninput=draw;draw();overlay.classList.add('open');setTimeout(()=>search.focus(),0);
+}
+function openDeckAbilityPicker(set,card){
+  const overlay=ensurePlanModal(),title=overlay.querySelector('#plan-modal-title'),body=overlay.querySelector('#plan-modal-body'),actions=overlay.querySelector('#plan-modal-actions');const list=abilities.filter(a=>a.card===card&&['イベント','閃き'].includes(a.source));title.textContent=`${card}から取る能力`;
+  const active=new Set([...set.candidates,...set.adopted].map(e=>e.id));
+  body.innerHTML=`<div class="myset-v2-help">全能力から候補へ入れるものだけ選んでください。今は決めずに閉じても、編成枠から再度開けます。</div><div class="ability-pick-list">${list.map(a=>{const adopted=entryIndexBySeries(set.adopted,a.id)>=0;const selected=entryIndexBySeries(set.candidates,a.id)>=0||adopted;return `<label class="ability-pick-row"><input type="checkbox" data-id="${a.id}"${selected?' checked':''}${adopted?' disabled':''}><span><strong>${esc(a.name)} ${abilitySourceBadge(a)}</strong><span>${descHtml(a.desc)}</span></span></label>`;}).join('')}</div>`;
+  actions.innerHTML='<button class="complete-btn secondary" id="ability-pick-later" type="button">あとで選ぶ</button><button class="complete-btn" id="ability-pick-save" type="button">候補へ反映</button>';
+  overlay.querySelector('#ability-pick-later').onclick=()=>overlay.classList.remove('open');overlay.querySelector('#ability-pick-save').onclick=()=>{
+    const bySeries=new Map();body.querySelectorAll('input[data-id]').forEach(input=>{const a=abilities.find(x=>x.id===+input.dataset.id);if(!a)return;const key=seriesKey(a);if(!bySeries.has(key))bySeries.set(key,[]);bySeries.get(key).push({input,a});});
+    bySeries.forEach(rows=>{if(rows.some(x=>x.input.disabled))return;const checked=rows.filter(x=>x.input.checked).sort((x,y)=>tierInfo(y.a.name).order-tierInfo(x.a.name).order);if(checked.length)addCandidate(set,checked[0].a.id);else removeCandidate(set,rows[0].a.id);});
+    saveSets();overlay.classList.remove('open');renderMyset();render();showToast('カードの能力候補を更新しました');};overlay.classList.add('open');
+}
+
+function wrapCanvasText(ctx,text,maxWidth){
+  const lines=[];for(const paragraph of String(text||'').split(/\n/)){let line='';for(const ch of paragraph){const test=line+ch;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=ch;}else line=test;}lines.push(line||' ');}return lines;
+}
+function savePlanPng(set){
+  ensurePlanSet(set);const groups=previewGroups(set),state=completionState(set),width=1200,pad=72;const slots=[...set.deck.own.map((c,i)=>({c,l:`自前${i+1}`})),{c:set.deck.rental,l:'レンタル'}];const abilityRows=Object.values(groups).reduce((n,x)=>n+x.length,0);const memoLines=Math.max(0,Math.ceil((set.memo||'').length/42));const warningLines=set.status==='complete'?0:Math.max(1,state.issues.length);const height=Math.max(900,550+abilityRows*92+memoLines*32+warningLines*32);const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d');ctx.fillStyle='#f7f3e9';ctx.fillRect(0,0,width,height);ctx.fillStyle='#4e342e';ctx.font='900 44px "Zen Maru Gothic", sans-serif';ctx.fillText(set.name||'マイセット',pad,82);ctx.fillStyle='#7b6e64';ctx.font='22px sans-serif';ctx.fillText(`${set.completedAt?'完成：'+set.completedAt:'プレビュー'}　採用能力 ${set.adopted.length}系列`,pad,120);let y=152;
+  if(set.memo){ctx.fillStyle='#ffffff';ctx.beginPath();ctx.roundRect(pad,y,width-pad*2,55+memoLines*28,14);ctx.fill();ctx.fillStyle='#51483f';ctx.font='22px sans-serif';wrapCanvasText(ctx,set.memo,width-pad*2-36).forEach((line,i)=>ctx.fillText(line,pad+18,y+35+i*28));y+=75+memoLines*28;}
+  const heading=t=>{ctx.fillStyle='#6d4c41';ctx.font='900 27px sans-serif';ctx.fillText(t,pad,y);ctx.fillStyle='#e0b35b';ctx.fillRect(pad,y+12,width-pad*2,4);y+=38;};heading('デッキ編成');const gap=14,sw=(width-pad*2-gap*2)/3,sh=102;slots.forEach((s,i)=>{const x=pad+(i%3)*(sw+gap),yy=y+Math.floor(i/3)*(sh+gap);ctx.fillStyle='#fff';ctx.beginPath();ctx.roundRect(x,yy,sw,sh,12);ctx.fill();ctx.fillStyle='#9b8d81';ctx.font='18px sans-serif';ctx.fillText(s.l,x+15,yy+25);ctx.fillStyle='#332c27';ctx.font='900 21px sans-serif';wrapCanvasText(ctx,s.c||'自由枠',sw-30).slice(0,2).forEach((line,n)=>ctx.fillText(line,x+15,yy+54+n*23));});y+=2*(sh+gap)+24;
+  const drawGroup=(key,title)=>{if(!groups[key].length)return;heading(title);groups[key].forEach(({entry,a,secondary})=>{ctx.fillStyle='#fff';ctx.beginPath();ctx.roundRect(pad,y,width-pad*2,70,11);ctx.fill();ctx.fillStyle='#332c27';ctx.font='900 23px sans-serif';ctx.fillText(a.name,pad+18,y+29);ctx.fillStyle='#7b6e64';ctx.font='17px sans-serif';const sub=`${a.card}${secondary?'　代替：'+(secondary==='deck'?'デッキ':secondary==='load'?'ロード':'育成ルート '+exTrainingRoute(a)):''}`;ctx.fillText(sub,pad+18,y+55);y+=82;});y+=8;};drawGroup('deck','デッキから取得');drawGroup('load','ロードから取得');drawGroup('training','育成ルートから取得');
+  if(set.status!=='complete'){const warnings=state.issues.length?state.issues:['未完成のプレビューです'];ctx.fillStyle='#fff1e8';ctx.beginPath();ctx.roundRect(pad,y,width-pad*2,30+warnings.length*28,12);ctx.fill();ctx.fillStyle='#c2410c';ctx.font='19px sans-serif';warnings.forEach((warning,i)=>ctx.fillText(`⚠ ${warning}`,pad+18,y+31+i*28));}
+  ctx.fillStyle='#a39182';ctx.font='16px sans-serif';ctx.fillText('LMF能力DB',pad,height-36);const a=document.createElement('a');a.download=`${(set.name||'マイセット').replace(/[\\/:*?"<>|]/g,'_')}.png`;a.href=canvas.toDataURL('image/png');a.click();showToast('PNGを保存しました');
+}
+
 // ===== DATA EXPORT / IMPORT =====
+function convertLegacySets(oldSets){
+  return (oldSets||[]).map(old=>{
+    if(Array.isArray(old.candidates)&&Array.isArray(old.adopted)){const copy=JSON.parse(JSON.stringify(old));return ensurePlanSet(copy);}
+    const set=createPlanSet(old.name||'マイセット');set.id=old.id||set.id;set.memo=old.memo||'';set.monsType=old.monsType||'';set.deck=old.deck?JSON.parse(JSON.stringify(old.deck)):set.deck;ensurePlanSet(set);const deckCards=[...set.deck.own,set.deck.rental].filter(Boolean);
+    (old.items||[]).forEach(id=>{const a=abilities.find(x=>x.id===+id);if(!a||a.source==='伝授')return;if(deckCards.includes(a.card)){const both=old.flashDups?.[id]||old.flashSettings?.[id]==='both';const idx=entryIndexBySeries(set.adopted,id);const entry={id:+id,route:both?'both':'deck',primary:both?'deck':null};if(idx>=0){if(tierInfo(a.name).order>=tierInfo(abilities.find(x=>x.id===set.adopted[idx].id)?.name||'').order)set.adopted[idx]=entry;}else set.adopted.push(entry);}else addCandidate(set,+id);});set.status='editing';set.completedAt=null;set.view='candidates';return set;
+  });
+}
 function exportData(){
   const data = {
-    v: 1,
+    v: 2,
     owned: [...ownedCards],
     sets: mySets
   };
@@ -2414,9 +2801,9 @@ function exportData(){
 function importData(str){
   try {
     const data = JSON.parse(decodeURIComponent(escape(atob(str.trim()))));
-    if(!data || data.v !== 1) throw new Error('invalid');
+    if(!data || ![1,2].includes(data.v)) throw new Error('invalid');
     ownedCards = new Set(data.owned || []);
-    mySets = data.sets || [];
+    mySets = data.v===1 ? convertLegacySets(data.sets||[]) : (data.sets||[]).map(ensurePlanSet);
     activeSetId = mySets.length ? mySets[0].id : null;
     saveOwned(); saveSets();
     render(); renderOwned(); updateSbarMyset();
@@ -2425,6 +2812,18 @@ function importData(str){
   } catch(e) {
     return false;
   }
+}
+
+function maybeOfferMigration(){
+  if(hadMysetV2Data)return;
+  const sources=[
+    {id:'preview',label:'現在の比較版から引き継ぐ',setKey:'mfux_sets',ownedKey:'mfux_owned'},
+    {id:'original',label:'元版から引き継ぐ',setKey:'mf_sets',ownedKey:'mf_owned'}
+  ].map(s=>({...s,sets:JSON.parse(localStorage.getItem(s.setKey)||'[]'),owned:JSON.parse(localStorage.getItem(s.ownedKey)||'[]')})).filter(s=>s.sets.length||s.owned.length);
+  if(!sources.length){localStorage.setItem(MYSET_V2_KEY,'[]');localStorage.setItem(MYSET_OWNED_V2_KEY,'[]');return;}
+  let overlay=document.getElementById('migration-overlay');if(!overlay){overlay=document.createElement('div');overlay.id='migration-overlay';overlay.className='migration-overlay';document.body.appendChild(overlay);}
+  let selected=sources[0].id;
+  const draw=()=>{const src=sources.find(s=>s.id===selected);const abilityCount=src.sets.reduce((n,s)=>n+(s.items?.length||s.candidates?.length||0)+(s.adopted?.length||0),0);overlay.innerHTML=`<div class="migration-box"><h2>マイセットを安全に引き継ぐ</h2><p>旧データは書き換えず、新版へコピーします。元版と比較版はこれまでどおり残ります。</p>${sources.map(s=>`<button class="migration-option${s.id===selected?' selected':''}" data-source="${s.id}" type="button"><strong>${s.label}</strong><br><small>${s.sets.length}セット ／ 所持${s.owned.length}カード</small></button>`).join('')}<button class="migration-option${selected==='new'?' selected':''}" data-source="new" type="button"><strong>何も引き継がず新しく始める</strong></button><div class="migration-preview">${selected==='new'?'空の新版データを作成します。':`${src.label}<br>セット ${src.sets.length}件 ／ 能力登録 ${abilityCount}件 ／ 所持カード ${src.owned.length}件<br>デッキ内能力は採用済み、それ以外は候補へ変換します。`}</div><div class="complete-actions"><button class="complete-btn secondary" id="migration-cancel" type="button">あとで</button><button class="complete-btn" id="migration-apply" type="button">この内容で引き継ぐ</button></div></div>`;overlay.querySelectorAll('[data-source]').forEach(btn=>btn.addEventListener('click',()=>{selected=btn.dataset.source;draw();}));overlay.querySelector('#migration-cancel').onclick=()=>overlay.classList.remove('open');overlay.querySelector('#migration-apply').onclick=()=>{if(selected==='new'){mySets=[];ownedCards=new Set();}else{const chosen=sources.find(s=>s.id===selected);mySets=convertLegacySets(chosen.sets);ownedCards=new Set(chosen.owned);}activeSetId=mySets[0]?.id||null;saveOwned();saveSets();overlay.classList.remove('open');render();renderOwned();updateSbarMyset();if(activePage==='myset')renderMyset();showToast(`${mySets.length}セットを引き継ぎました`);};};draw();overlay.classList.add('open');
 }
 
 // ===== OWNED CARDS RENDER =====
@@ -2441,11 +2840,11 @@ function renderOwned(){
   // レアリティ別にカード分類
   const rarityMap={'MR':[],'SSR':[],'SR':[]};
   ALL_CARDS.forEach(card=>{
-    const r=abilities.find(a=>a.card===card)?.rarity;
+    const r=abilities.find(a=>a.card===card&&['MR','SSR','SR'].includes(a.rarity))?.rarity;
     if(r==='その他') return;
     if(r==='MR') rarityMap.MR.push(card);
     else if(r==='SSR') rarityMap.SSR.push(card);
-    else rarityMap.SR.push(card);
+    else if(r==='SR') rarityMap.SR.push(card);
   });
 
   // タブカウント更新
@@ -2489,7 +2888,7 @@ function renderOwned(){
     el.addEventListener('click',()=>{
       const card=el.dataset.card;
       ownedCards.has(card)?ownedCards.delete(card):ownedCards.add(card);
-      saveOwned(); renderOwned(); render();
+      reconcileAllSets(); saveOwned(); renderOwned(); render();
       if(activePage==='myset') renderMyset();
     });
   });
@@ -2639,44 +3038,35 @@ document.getElementById('page-db').addEventListener('click', e=>{
   if(!chk) return;
   e.stopPropagation(); e.preventDefault();
   const id=+chk.dataset.chk;
-  const s=getActiveSet();
+  let s=getActiveSet();
   if(!s){ openSetModal(); return; }
-  const idx=s.items.indexOf(id);
-  if(idx>=0){
-    s.items.splice(idx,1);
-    if(s.flashSettings) delete s.flashSettings[id];
-    saveSets();
-    chk.classList.remove('in'); chk.textContent='';
-    updateSbarMyset();
+  ensurePlanSet(s);
+  if(s.status==='complete'){
+    showWarn('完成セットはロックされています。複製して、この能力を候補へ追加しますか？',()=>{s=duplicateSet(s);addCandidate(s,id);saveSets();render();});
+    return;
+  }
+  const existing=getPlanEntry(s,id);
+  if(existing){
+    if(existing.bucket==='adopted') showWarn('この能力は採用済みです。候補へ戻しますか？',()=>{returnToCandidates(s,id);saveSets();render();if(activePage==='myset')renderMyset();});
+    else {removeCandidate(s,id);saveSets();render();if(activePage==='myset')renderMyset();}
     return;
   }
   const a=abilities.find(x=>x.id===id);
   if(!a) return;
-  // 伝授は即追加（place:null）
-  if(BOSS_CARDS.has(a.card)){
-    addToSet(id, chk, s, null);
-    return;
-  }
+  if(a.source==='伝授') return;
   // 同名能力が複数カードにある場合 → カード選択肢を表示
   const sameNameAbilities=abilities.filter(x=>x.name===a.name && !BOSS_CARDS.has(x.card));
   if(sameNameAbilities.length>1){
     openCardSelectModal(sameNameAbilities, chk, s);
     return;
   }
-  // 単一カード：未所持 → 未所持一覧、所持/EX → ロード枠
-  if(!ownedCards.has(a.card) && !EX_CARDS.has(a.card)){
-    addToSet(id, chk, s, 'unowned');
-  } else {
-    addToSet(id, chk, s, 'flash');
-  }
+  addToSet(id, chk, s);
 }, true);
 
-function addToSet(id, chk, s, place){
-  s.items.push(id);
-  if(place){ if(!s.flashSettings) s.flashSettings={}; s.flashSettings[id]=place; }
-  saveSets();
-  chk.classList.add('in'); chk.textContent='✓';
-  updateSbarMyset();
+function addToSet(id, chk, s){
+  addCandidate(s,id);saveSets();
+  if(chk){chk.classList.add('in');chk.textContent='✓';chk.setAttribute('aria-checked','true');}
+  updateSbarMyset();if(activePage==='myset')renderMyset();
 }
 
 function openCardSelectModal(candidates, chk, s){
@@ -2685,16 +3075,16 @@ function openCardSelectModal(candidates, chk, s){
   const list=document.getElementById('card-sel-list');
   title.textContent=`「${candidates[0].name}」— カードを選択`;
   list.innerHTML='';
-  candidates.forEach(a=>{
-    const own=ownedCards.has(a.card)||EX_CARDS.has(a.card);
+  candidates.sort((a,b)=>{const score=x=>deckLocation(s,x.card)?0:ownedCards.has(x.card)?1:2;return score(a)-score(b)||a.card.localeCompare(b.card,'ja');}).forEach(a=>{
+    const own=ownedCards.has(a.card)||a.source==='EXトレ';
     const item=document.createElement('div');
     item.className='card-sel-item';
-    const place=own?'flash':'unowned';
-    item.innerHTML=`<div class="card-sel-card-name" style="cursor:pointer" data-id="${a.id}" data-place="${place}">${own?'✅':'📛'} ${esc(a.card)}</div>`;
+    const loc=deckLocation(s,a.card);
+    item.innerHTML=`<div class="card-sel-card-name" style="cursor:pointer" data-id="${a.id}">${loc?'🃏':own?'✅':'📛'} ${esc(a.card)}</div>`;
     item.querySelector('.card-sel-card-name').addEventListener('click',ev=>{
       ev.stopPropagation();
       const el=ev.currentTarget;
-      addToSet(+el.dataset.id, chk, s, el.dataset.place);
+      addToSet(+el.dataset.id, chk, s);
       overlay.classList.remove('open');
     });
     list.appendChild(item);
@@ -2753,7 +3143,7 @@ document.getElementById('set-modal-overlay').addEventListener('click',e=>{
 document.getElementById('set-modal-save').addEventListener('click',()=>{
   const name=document.getElementById('set-name-input').value.trim();
   if(!name){alert('セット名を入力してください');return;}
-  const ns={id:'s'+Date.now(),name,memo:'',items:[]};
+  const ns=createPlanSet(name);
   mySets.push(ns); activeSetId=ns.id; saveSets();
   document.getElementById('set-modal-overlay').classList.remove('open');
   updateSbarMyset(); render();
@@ -2937,6 +3327,24 @@ document.getElementById('notebook-link').addEventListener('click', e=>{
   const message='【LMF能力DB開発者からのご案内】\n\nロード秘伝チャットボットは、Gemini の NotebookLMを利用しています。\nGoogleアカウントでのログインが必要な場合がありますが、無料で利用できるGoogle公式サービスへのリンクです。';
   if(!window.confirm(message)) e.preventDefault();
 });
+
+// データを作らない実画面チュートリアル
+function startMysetTutorial(){
+  const steps=[
+    {page:'db',selector:'#q',title:'① 能力を探す',text:'能力名・カード名・効果を入力して、理想に近い能力を探します。'},
+    {page:'db',selector:'.card-check',title:'② 候補へ追加',text:'能力のチェックを押すと、選択中のマイセットの「候補」に入ります。ここでは実際には押しません。'},
+    {page:'owned',selector:'#owned-card-list',title:'③ 所持カードを登録',text:'カード名を押して所持状態を登録します。ロード化できるかの判定にも使います。'},
+    {page:'myset',selector:'.myset-v2-nav',title:'④ 候補から育成プランへ',text:'候補で比較し、採用した能力を育成プランでデッキ・ロード・育成ルートへ割り当てます。'},
+    {page:'myset',selector:'.deck-section,.plan-layout,.myset-v2-nav',title:'⑤ デッキを組む',text:'自前5枠＋レンタル1枠。空きは自由枠です。未所持の自前カードは仮編成になります。'},
+    {page:'myset',selector:'.myset-v2-nav',title:'⑥ 完成して保存',text:'全取得経路が成立したら完成にし、完成プレビューをPNGで保存できます。'}
+  ];
+  let index=0,overlay=document.getElementById('tutorial-overlay');if(!overlay){overlay=document.createElement('div');overlay.id='tutorial-overlay';overlay.className='tutorial-overlay';document.body.appendChild(overlay);}
+  const clear=()=>document.querySelectorAll('.tutorial-focus').forEach(el=>el.classList.remove('tutorial-focus'));
+  const close=()=>{clear();overlay.classList.remove('open');};
+  const show=()=>{clear();const step=steps[index];document.querySelector(`.ptab[data-page="${step.page}"]`)?.click();setTimeout(()=>{let target=null;for(const selector of step.selector.split(',')){target=document.querySelector(selector.trim());if(target)break;}target?.classList.add('tutorial-focus');target?.scrollIntoView({block:'center',behavior:'smooth'});overlay.innerHTML=`<div class="tutorial-box"><div class="tutorial-progress">${index+1} / ${steps.length}</div><h2>${step.title}</h2><p>${step.text}</p><div class="tutorial-actions"><button class="plan-btn" id="tutorial-skip" type="button">終了</button><button class="complete-btn" id="tutorial-next" type="button">${index===steps.length-1?'完了':'次へ'}</button></div></div>`;overlay.querySelector('#tutorial-skip').onclick=close;overlay.querySelector('#tutorial-next').onclick=()=>{if(index===steps.length-1){localStorage.setItem('mfux_tutorial_done','1');close();showToast('いつでも「使い方」から再開できます');}else{index++;show();}};overlay.classList.add('open');},80);};show();
+}
+document.getElementById('start-myset-tutorial')?.addEventListener('click',startMysetTutorial);
+setTimeout(maybeOfferMigration,0);
 
 // 所持サイクルボタン
 const cycleStates=[
