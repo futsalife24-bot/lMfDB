@@ -975,9 +975,11 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
 .myset-status.ready{color:#66bb6a;border-color:rgba(102,187,106,.45);background:rgba(102,187,106,.1)}
 .myset-status.complete{color:#fff;border-color:#43a047;background:#43a047}
 .myset-v2-help{font-size:11px;line-height:1.55;color:var(--ts);padding:8px 10px;border:1px solid var(--bd);background:var(--s2);border-radius:9px;margin-bottom:10px}
-.candidate-tools{display:flex;gap:6px;margin-bottom:8px;position:sticky;top:47px;z-index:10;background:var(--bg);padding:3px 0}
+.candidate-tools{display:flex;gap:6px;margin-bottom:7px;position:sticky;top:47px;z-index:10;background:var(--bg);padding:3px 0}
 .candidate-search,.candidate-source-filter{border:1px solid var(--bd2);border-radius:9px;background:var(--s2);color:var(--tx);font:inherit;font-size:12px;padding:8px 10px;outline:none;min-width:0}
 .candidate-search{flex:1}.candidate-source-filter{width:108px}
+.candidate-source-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;padding:4px;border:1px solid var(--bd);border-radius:10px;background:var(--s2)}
+.candidate-source-tab{border:0;border-radius:7px;padding:7px 4px;background:transparent;color:var(--tm);font:inherit;font-size:10px;font-weight:900;cursor:pointer}.candidate-source-tab.active{background:var(--s1);color:#f9a825;box-shadow:0 2px 7px rgba(0,0,0,.16)}.candidate-source-tab span{font-size:9px;color:var(--ts);margin-left:2px}
 .candidate-list,.adopted-list{display:flex;flex-direction:column;gap:7px}
 .plan-ability-card{border:1px solid var(--bd);border-radius:11px;background:var(--s1);padding:9px 10px;position:relative;transition:border-color .15s,opacity .15s}
 .plan-ability-card:hover{border-color:var(--bd2)}
@@ -985,6 +987,7 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
 .plan-ability-title{font-family:'Zen Maru Gothic',sans-serif;font-size:12px;font-weight:900;flex:1;min-width:0}
 .plan-card-meta{font-size:10px;color:var(--ts);margin-top:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .plan-desc{font-size:11px;line-height:1.65;color:var(--tm);margin-top:7px;padding-top:7px;border-top:1px solid var(--bd)}
+.candidate-desc{margin-top:7px;border-top:1px solid var(--bd);padding-top:6px}.candidate-desc summary{cursor:pointer;color:var(--ts);font-size:10px;font-weight:800;list-style-position:inside}.candidate-desc[open] summary{color:#f9a825}.candidate-desc .plan-desc{border-top:0;margin-top:3px;padding-top:4px}
 .plan-badge{font-size:9px;font-weight:900;padding:2px 6px;border-radius:999px;border:1px solid var(--bd2);white-space:nowrap}
 .plan-badge.event{color:#63b3ed}.plan-badge.flash{color:#ffd54f}.plan-badge.ex{color:#ce93d8}.plan-badge.unowned{color:#ff7043}.plan-badge.owned{color:#66bb6a}
 .plan-entry-actions{display:flex;align-items:center;gap:5px;margin-top:8px}
@@ -993,6 +996,8 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
 .tier-switch{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.tier-switch button{font:inherit;font-size:9px;font-weight:900;padding:3px 7px;border-radius:999px;border:1px solid var(--bd2);background:var(--s2);color:var(--tm);cursor:pointer}.tier-switch button.active{color:#f9a825;border-color:#f9a825;background:rgba(249,168,37,.1)}
 .candidate-adopt-drop{border:1.5px dashed rgba(249,168,37,.45);border-radius:11px;padding:10px;text-align:center;color:#f9a825;font-size:11px;font-weight:800;margin:9px 0;background:rgba(249,168,37,.05)}
 .candidate-adopt-drop.drag-over{background:rgba(249,168,37,.18);border-style:solid}
+.candidate-adopt-drop.touch-target{position:fixed;z-index:880;left:12px;right:12px;top:max(68px,env(safe-area-inset-top));margin:0;padding:15px;background:#262238;border-color:#f9a825;box-shadow:0 9px 28px rgba(0,0,0,.45)}
+.candidate-drag-ghost{position:fixed;z-index:890;max-width:min(270px,70vw);pointer-events:none;padding:9px 12px;border-radius:10px;background:var(--s1);border:2px solid #f9a825;color:var(--tx);font-size:11px;font-weight:900;box-shadow:0 10px 28px rgba(0,0,0,.48);transform:translate(12px,12px)}
 .plan-drag-handle{border:0;background:transparent;color:var(--ts);font-size:15px;padding:5px;cursor:grab;touch-action:none}.plan-drag-handle:active{cursor:grabbing}.plan-ability-card.dragging{opacity:.45;border-color:#f9a825}
 .plan-layout{display:grid;grid-template-columns:minmax(270px,.9fr) minmax(320px,1.1fr);gap:10px;align-items:start}
 .plan-panel{border:1px solid var(--bd);border-radius:12px;padding:10px;background:rgba(255,255,255,.015)}
@@ -1002,6 +1007,7 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
 .plan-notice{font-size:10px;line-height:1.5;border-radius:8px;padding:7px 9px;margin-top:7px;background:rgba(255,183,77,.09);border:1px solid rgba(255,183,77,.3);color:#ffcc80}
 .complete-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.complete-btn{flex:1;min-width:150px;border:0;border-radius:10px;padding:10px 12px;font:inherit;font-size:12px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#f9a825,#ff7043);color:#fff}.complete-btn.secondary{background:var(--s2);color:var(--tx);border:1px solid var(--bd2)}
 .locked-banner{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:10px;background:rgba(67,160,71,.12);border:1px solid rgba(67,160,71,.4);font-size:11px;color:#81c784;margin-bottom:9px}
+.locked-banner-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
 .preview-sheet{background:#f7f3e9;color:#28231d;border-radius:14px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,.25)}
 .preview-title{font-family:'Zen Maru Gothic',sans-serif;font-size:21px;font-weight:900;color:#4e342e}.preview-meta{font-size:10px;color:#796d62;margin-top:3px}.preview-memo{font-size:11px;line-height:1.6;margin:10px 0;padding:8px 10px;background:#fff;border-radius:8px;border:1px solid #e2d8c9}
 .preview-section{margin-top:13px}.preview-section h3{font-size:12px;margin:0 0 7px;color:#6d4c41;border-bottom:2px solid #e0b35b;padding-bottom:4px}.preview-deck{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.preview-slot{background:#fff;border:1px solid #dfd4c5;border-radius:8px;padding:7px;min-height:54px}.preview-slot small{display:block;font-size:8px;color:#978a7e}.preview-slot strong{display:block;font-size:10px;margin-top:3px}.preview-slot span{display:block;font-size:8px;color:#7b6e64;margin-top:3px}.preview-slot .preview-slot-abilities{color:#8a5b24;border-top:1px dashed #e6d8c6;padding-top:3px;margin-top:4px}.preview-ability{background:#fff;border:1px solid #dfd4c5;border-radius:8px;padding:7px 9px;margin-bottom:5px}.preview-ability strong{font-size:10px}.preview-ability span{font-size:8px;color:#7b6e64;display:block;margin-top:2px}.preview-warning{font-size:10px;color:#c2410c;background:#fff1e8;border:1px solid #f2b48b;padding:7px 9px;border-radius:8px;margin-top:8px}
@@ -1098,13 +1104,13 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
     <section class="ux-guide-hero">
       <div class="ux-guide-kicker">FIRST GUIDE</div>
       <h1>使い方</h1>
-      <p class="ux-guide-lead">能力探しから所持管理、編成メモまで。まずはこの4ステップだけ覚えたらOKやで。</p>
+      <p class="ux-guide-lead">理想の能力から探す方法と、使いたいカードから組む方法。どちらから始めても育成プランにまとめられます。</p>
     </section>
-    <section class="ux-guide-steps" aria-label="基本の使い方">
-      <div class="ux-guide-step"><div><strong>名前や効果を検索</strong><span>能力名・カード名・説明文をまとめて探せます。</span></div></div>
-      <div class="ux-guide-step"><div><strong>条件で絞り込む</strong><span>オーラ、モン類、発動タイミング、効果を組み合わせられます。</span></div></div>
-      <div class="ux-guide-step"><div><strong>カードを開いて確認</strong><span>能力をタップすると、タグと詳しい説明が開きます。</span></div></div>
-      <div class="ux-guide-step"><div><strong>所持・編成を記録</strong><span>所持カードを登録し、マイセットに能力をまとめられます。</span></div></div>
+    <section class="ux-guide-steps" aria-label="2つの使い方">
+      <div class="ux-guide-step"><div><strong>能力から作る</strong><span>能力DBで理想の能力を探して候補へ追加。採用する能力を決めてから、取得できるカードをデッキに組み込みます。</span></div></div>
+      <div class="ux-guide-step"><div><strong>カードから作る</strong><span>マイセットの「育成プラン」でカード名を検索して編成。イベント・閃き能力が候補へ自動追加されるので、そこから採用します。</span></div></div>
+      <div class="ux-guide-step"><div><strong>候補を種類別に確認</strong><span>候補はイベント・閃き・EXのタブで整理。説明は必要な能力だけ開いて確認できます。</span></div></div>
+      <div class="ux-guide-step"><div><strong>完成プレビューを保存</strong><span>取得経路を確認して完成にするとロックされ、PNGで保存できます。ロックはあとから解除できます。</span></div></div>
     </section>
     <section class="ux-guide-links" aria-label="ロード秘伝ガイド">
       <a class="ux-guide-link" href="https://futsalife24-bot.github.io/lMfDB/lom-hiden-infographic.html" target="_blank" rel="noopener noreferrer">
@@ -1127,8 +1133,8 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
       <div class="search-row" style="flex:1">
         <span class="si" aria-hidden="true">🔍</span>
         <input type="text" id="q" aria-label="能力名・カード名・効果を検索" placeholder="" style="padding-right:72px;line-height:1.4">
-        <div class="search-hint" id="search-hint"><div>能力名・カード名・効果で検索</div><div>複数語をすべて含む</div></div>
-        <button class="search-mode-btn" id="search-mode-btn" type="button" aria-label="複数キーワードの検索条件">すべて</button>
+        <div class="search-hint" id="search-hint"><div>能力名・カード名・効果で検索</div><div>AND：複数語をすべて含む</div></div>
+        <button class="search-mode-btn" id="search-mode-btn" type="button" aria-label="複数キーワードの検索条件">AND</button>
       </div>
     </div>
     <div class="ux-filter-line">
@@ -2468,7 +2474,7 @@ function openCardPicker(cards, set, slotKey, isRental){
 
 // ===== MYSET PLAN V2 =====
 let candidateQuery='';
-let candidateSourceFilter='all';
+let candidateSourceFilter='イベント';
 
 function createPlanSet(name){
   return {id:'s'+Date.now()+Math.random().toString(36).slice(2,6),name,memo:'',deck:{own:[null,null,null,null,null],rental:null},candidates:[],adopted:[],view:'candidates',status:'editing',completedAt:null,monsType:''};
@@ -2519,6 +2525,16 @@ function addCandidate(set,id){
   if(existing){ existing.entry.id=+id; return; }
   set.candidates.push({id:+id});
   markEditing(set);
+}
+function addCardAbilitiesToCandidates(set,card){
+  const before=set.candidates.length;
+  const bySeries=new Map();
+  abilities.filter(a=>a.card===card&&['イベント','閃き'].includes(a.source)).forEach(a=>{
+    const key=`${a.source}::${seriesKey(a)}`,current=bySeries.get(key);
+    if(!current||tierInfo(a.name).order>=tierInfo(current.name).order)bySeries.set(key,a);
+  });
+  bySeries.forEach(a=>addCandidate(set,a.id));
+  return {added:Math.max(0,set.candidates.length-before),total:bySeries.size};
 }
 function removeCandidate(set,id){
   const idx=entryIndexBySeries(set.candidates,id);
@@ -2626,11 +2642,12 @@ function entryCardHtml(set,entry,mode){
   const tierButtons=variants.length>1?`<div class="tier-switch">${variants.map(v=>`<button class="tier-choice${v.id===a.id?' active':''}" data-from="${a.id}" data-to="${v.id}" type="button">${esc(tierInfo(v.name).rank||v.name)}</button>`).join('')}</div>`:'';
   const sourceDetails=sources.length>1?`<details class="plan-source-details"><summary style="font-size:9px;color:var(--ts);cursor:pointer;margin-top:6px">取得元候補 ${sources.length}件</summary><div class="tier-switch">${sources.map(s=>`<button class="source-choice${s.id===a.id?' active':''}" data-from="${a.id}" data-to="${s.id}" type="button">${deckLocation(set,s.card)?'🃏':ownedCards.has(s.card)?'✅':'📛'} ${esc(s.card)}</button>`).join('')}</div></details>`:'';
   const suggestion=mode==='candidate'&&loc?`<div class="plan-notice">このカードは編成済みです。デッキ取得で採用できます。</div>`:'';
+  const description=mode==='candidate'?`<details class="candidate-desc"><summary>能力説明を見る</summary><div class="plan-desc">${descHtml(a.desc)}</div></details>`:`<div class="plan-desc">${descHtml(a.desc)}</div>`;
   return `<div class="plan-ability-card" data-entry-id="${a.id}" draggable="${mode==='candidate'}">
     <div class="plan-ability-head">${mode==='adopted'?'<button class="plan-drag-handle" type="button" aria-label="長押しして並べ替え">⠿</button>':''}${abilitySourceBadge(a)}<div class="plan-ability-title">${esc(a.name)}</div></div>
     <div class="plan-card-meta"><span>${own?'✅':'📛'} ${esc(a.card)}</span>${loc?`<span class="plan-badge owned">${loc.type==='rental'?'レンタル':`自前${loc.index+1}`}</span>`:''}${a.source==='EXトレ'?`<span>${esc(exTrainingRoute(a))}</span>`:''}</div>
-    ${tierButtons}${sourceDetails}<div class="plan-desc">${descHtml(a.desc)}</div>${suggestion}${routeSelect}
-    <div class="plan-entry-actions">${mode==='candidate'?`<button class="plan-btn primary adopt-btn" data-id="${a.id}" type="button">採用</button><button class="plan-drag-handle candidate-drag" type="button" aria-label="長押しして採用">⠿</button><button class="plan-btn danger candidate-remove" data-id="${a.id}" type="button">候補から削除</button>`:`<button class="plan-btn return-btn" data-id="${a.id}" type="button">候補へ戻す</button>`}</div>
+    ${tierButtons}${sourceDetails}${description}${suggestion}${routeSelect}
+    <div class="plan-entry-actions">${mode==='candidate'?`<button class="plan-btn primary adopt-btn" data-id="${a.id}" type="button">採用</button><button class="plan-drag-handle candidate-drag" type="button" aria-label="長押しして採用欄へドラッグ">⠿</button><button class="plan-btn danger candidate-remove" data-id="${a.id}" type="button">候補から削除</button>`:`<button class="plan-btn return-btn" data-id="${a.id}" type="button">候補へ戻す</button>`}</div>
   </div>`;
 }
 
@@ -2660,12 +2677,14 @@ function renderBossReference(set){
   return `<div class="plan-panel" style="margin-top:10px"><div class="plan-panel-title">👑 ボスモン能力（伝授）</div><div class="myset-v2-help">参考一覧です。現在の育成プラン・完成判定には含めません。</div><select class="candidate-source-filter" id="mons-type-select-v2"><option value="">育成モン類</option>${types.map(t=>`<option value="${t}"${set.monsType===t?' selected':''}>${t}</option>`).join('')}</select>${matched.length?`<div class="candidate-list" style="margin-top:8px">${matched.map(a=>`<button class="plan-btn boss-ref" data-id="${a.id}" type="button">${esc(a.name)} <small>${esc(a.card)}</small></button>`).join('')}</div>`:''}</div>`;
 }
 function renderCandidatesView(set){
+  const sourceTabs=['イベント','閃き','EXトレ'];if(!sourceTabs.includes(candidateSourceFilter))candidateSourceFilter='イベント';
+  const sourceCounts=Object.fromEntries(sourceTabs.map(source=>[source,set.candidates.filter(e=>abilities.find(a=>a.id===e.id)?.source===source).length]));
   let entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
-  return `<div class="myset-v2-help">DBや編成カードから気になる能力を集める場所です。比較してから「採用」を押しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"><select class="candidate-source-filter" id="candidate-source-filter"><option value="all">全種類</option>${['イベント','閃き','EXトレ'].map(s=>`<option value="${s}"${candidateSourceFilter===s?' selected':''}>${s==='EXトレ'?'EX':s}</option>`).join('')}</select></div><div class="candidate-adopt-drop" id="candidate-adopt-drop">ここへドラッグして採用</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):'<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>候補はまだありません</h2><p>能力DBのチェック、またはデッキカードの<br>「能力を選ぶ」から追加できます。</p></div>'}</div>${renderBossReference(set)}`;
+  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要なものだけ開き、採用を決めましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-adopt-drop" id="candidate-adopt-drop">⠿を長押しして、ここへ移動すると採用</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>${renderBossReference(set)}`;
 }
 function renderPlanView(set){
   const state=completionState(set);const own=set.deck.own.map((c,i)=>deckSlotHtmlV2(set,c,i,false)).join('');const rental=deckSlotHtmlV2(set,set.deck.rental,0,true);
-  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成時点を保存中</span><button class="plan-btn duplicate-set" type="button">複製して編集</button></div>':''}<div class="myset-v2-help">デッキと取得目標能力を同時に確認できます。空き枠は自動で自由枠として扱います。</div><div class="plan-layout"><section class="plan-panel"><div class="plan-panel-title">🃏 デッキ編成</div><div class="deck-slots">${own}</div><div class="deck-slots" style="grid-template-columns:1fr 1fr 1fr">${rental}<div></div><div></div></div>${set.status==='complete'?'':'<div class="myset-v2-help" style="margin-top:7px">カードを選ぶと、取得できる能力を続けて選べます。</div>'}</section><section class="plan-panel"><div class="plan-panel-title">🎯 採用能力 <span class="myset-count-badge">${set.adopted.length}</span></div><div class="adopted-list" id="adopted-list">${set.adopted.length?set.adopted.map(e=>entryCardHtml(set,e,'adopted')).join(''):'<div class="myset-v2-help">候補画面から取得目標を採用してください。</div>'}</div>${state.issues.length?`<div class="plan-notice">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</section></div>${set.status==='complete'?'':`<div class="complete-actions"><button class="complete-btn" id="complete-plan-btn" type="button">${state.kind==='plan'?'育成プランを完成にする':'デッキを完成として保存'}</button></div>`}`;
+  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成時点を保存中</span><div class="locked-banner-actions"><button class="plan-btn unlock-set" type="button">ロック解除</button><button class="plan-btn duplicate-set" type="button">複製して編集</button></div></div>':''}<div class="myset-v2-help">デッキと取得目標能力を同時に確認できます。空き枠は自動で自由枠として扱います。</div><div class="plan-layout"><section class="plan-panel"><div class="plan-panel-title">🃏 デッキ編成</div><div class="deck-slots">${own}</div><div class="deck-slots" style="grid-template-columns:1fr 1fr 1fr">${rental}<div></div><div></div></div>${set.status==='complete'?'':'<div class="myset-v2-help" style="margin-top:7px">カードを選ぶと、イベント・閃きの全能力が候補へ自動追加されます。</div>'}</section><section class="plan-panel"><div class="plan-panel-title">🎯 採用能力 <span class="myset-count-badge">${set.adopted.length}</span></div><div class="adopted-list" id="adopted-list">${set.adopted.length?set.adopted.map(e=>entryCardHtml(set,e,'adopted')).join(''):'<div class="myset-v2-help">候補画面から取得目標を採用してください。</div>'}</div>${state.issues.length?`<div class="plan-notice">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</section></div>${set.status==='complete'?'':`<div class="complete-actions"><button class="complete-btn" id="complete-plan-btn" type="button">${state.kind==='plan'?'育成プランを完成にする':'デッキを完成として保存'}</button></div>`}`;
 }
 function previewGroups(set){
   const groups={deck:[],load:[],training:[]};
@@ -2675,7 +2694,7 @@ function renderPreviewView(set){
   const state=completionState(set),groups=previewGroups(set),slots=[...set.deck.own.map((c,i)=>({c,l:`自前${i+1}`})),{c:set.deck.rental,l:'レンタル'}];
   const groupHtml=(key,title)=>groups[key].length?`<section class="preview-section"><h3>${title}</h3>${groups[key].map(x=>`<div class="preview-ability"><strong>${esc(x.a.name)}</strong><span>${esc(x.a.card)}${x.secondary?` ／ 代替：${x.secondary==='deck'?'デッキ':x.secondary==='load'?'ロード':`育成ルート ${exTrainingRoute(x.a)}`}`:''}</span></div>`).join('')}</section>`:'';
   const slotAbilityNames=card=>set.adopted.map(e=>abilities.find(a=>a.id===e.id)).filter(a=>a?.card===card).map(a=>a.name);
-  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成版</span><button class="plan-btn duplicate-set" type="button">複製して編集</button></div>':''}<div class="preview-sheet" id="plan-preview-sheet"><div class="preview-title">${esc(set.name)}</div><div class="preview-meta">${set.completedAt?`完成：${esc(set.completedAt)}`:'プレビュー'} ／ 採用能力 ${set.adopted.length}系列</div>${set.memo?`<div class="preview-memo">${esc(set.memo)}</div>`:''}<section class="preview-section"><h3>デッキ編成</h3><div class="preview-deck">${slots.map(s=>{const names=s.c?slotAbilityNames(s.c):[];return `<div class="preview-slot"><small>${s.l}</small><strong>${s.c?esc(s.c):'自由枠'}</strong>${s.c?`<span>${ownedCards.has(s.c)?'所持済み':'未所持'} ／ ${abilities.find(a=>a.card===s.c)?.rarity||'その他'}</span>`:''}${names.length?`<span class="preview-slot-abilities">${names.map(esc).join('・')}</span>`:''}</div>`;}).join('')}</div></section>${groupHtml('deck','デッキから取得')}${groupHtml('load','ロードから取得')}${groupHtml('training','育成ルートから取得')}${set.status!=='complete'&&state.issues.length?`<div class="preview-warning">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</div><div class="complete-actions"><button class="complete-btn secondary" id="save-plan-png" type="button">PNGで保存</button>${set.status==='complete'?'':`<button class="complete-btn" id="preview-complete-btn" type="button">完成にする</button>`}</div>`;
+  return `${set.status==='complete'?'<div class="locked-banner"><span>🔒 完成版</span><div class="locked-banner-actions"><button class="plan-btn unlock-set" type="button">ロック解除</button><button class="plan-btn duplicate-set" type="button">複製して編集</button></div></div>':''}<div class="preview-sheet" id="plan-preview-sheet"><div class="preview-title">${esc(set.name)}</div><div class="preview-meta">${set.completedAt?`完成：${esc(set.completedAt)}`:'プレビュー'} ／ 採用能力 ${set.adopted.length}系列</div>${set.memo?`<div class="preview-memo">${esc(set.memo)}</div>`:''}<section class="preview-section"><h3>デッキ編成</h3><div class="preview-deck">${slots.map(s=>{const names=s.c?slotAbilityNames(s.c):[];return `<div class="preview-slot"><small>${s.l}</small><strong>${s.c?esc(s.c):'自由枠'}</strong>${s.c?`<span>${ownedCards.has(s.c)?'所持済み':'未所持'} ／ ${abilities.find(a=>a.card===s.c)?.rarity||'その他'}</span>`:''}${names.length?`<span class="preview-slot-abilities">${names.map(esc).join('・')}</span>`:''}</div>`;}).join('')}</div></section>${groupHtml('deck','デッキから取得')}${groupHtml('load','ロードから取得')}${groupHtml('training','育成ルートから取得')}${set.status!=='complete'&&state.issues.length?`<div class="preview-warning">${state.issues.map(x=>`⚠ ${esc(x)}`).join('<br>')}</div>`:''}</div><div class="complete-actions"><button class="complete-btn secondary" id="save-plan-png" type="button">PNGで保存</button>${set.status==='complete'?'':`<button class="complete-btn" id="preview-complete-btn" type="button">完成にする</button>`}</div>`;
 }
 
 function renderMyset(){
@@ -2696,6 +2715,9 @@ function replaceEntryId(set,from,to){
 function duplicateSet(set){
   const copy=JSON.parse(JSON.stringify(set));copy.id='s'+Date.now()+Math.random().toString(36).slice(2,5);copy.name=`${set.name}（コピー）`;copy.status='editing';copy.completedAt=null;copy.view='plan';mySets.push(copy);activeSetId=copy.id;saveSets();renderMyset();render();showToast('完成版を複製しました');return copy;
 }
+function unlockSet(set){
+  set.status='editing';set.completedAt=null;markEditing(set);saveSets();renderMyset();render();showToast('ロックを解除して編集できるようにしました');
+}
 function clearDeckSlot(set,key){
   const old=key==='rental'?set.deck.rental:set.deck.own[+key];if(!old)return;
   if(key==='rental')set.deck.rental=null;else set.deck.own[+key]=null;
@@ -2708,9 +2730,10 @@ function bindMysetV2Events(set,pane){
   const title=pane.querySelector('#myset-title-input');title&&!title.disabled&&title.addEventListener('input',e=>{set.name=e.target.value;saveSets();});
   const memo=pane.querySelector('#myset-memo');memo&&!memo.disabled&&memo.addEventListener('input',e=>{set.memo=e.target.value;saveSets();});
   pane.querySelectorAll('.duplicate-set').forEach(btn=>btn.addEventListener('click',()=>duplicateSet(set)));
+  pane.querySelectorAll('.unlock-set').forEach(btn=>btn.addEventListener('click',()=>showWarn('完成状態のロックを解除して、同じ育成プランを編集しますか？',()=>unlockSet(set))));
   pane.querySelector('#myset-del-btn')?.addEventListener('click',()=>{const ov=document.getElementById('del-confirm-overlay');document.getElementById('del-confirm-name').textContent=`「${set.name}」`;ov.classList.add('open');document.getElementById('del-confirm-ok').onclick=()=>{ov.classList.remove('open');mySets=mySets.filter(s=>s.id!==set.id);activeSetId=mySets[0]?.id||null;saveSets();renderMyset();render();};document.getElementById('del-confirm-cancel').onclick=()=>ov.classList.remove('open');});
   pane.querySelector('#candidate-search')?.addEventListener('input',e=>{candidateQuery=e.target.value;const caret=e.target.selectionStart;renderMyset();const next=document.getElementById('candidate-search');next?.focus();next?.setSelectionRange(caret,caret);});
-  pane.querySelector('#candidate-source-filter')?.addEventListener('change',e=>{candidateSourceFilter=e.target.value;renderMyset();});
+  pane.querySelectorAll('[data-candidate-source]').forEach(btn=>btn.addEventListener('click',()=>{candidateSourceFilter=btn.dataset.candidateSource;renderMyset();}));
   pane.querySelectorAll('.adopt-btn').forEach(btn=>btn.addEventListener('click',()=>{adoptAbility(set,+btn.dataset.id);saveSets();renderMyset();render();}));
   pane.querySelectorAll('.candidate-remove').forEach(btn=>btn.addEventListener('click',()=>{removeCandidate(set,+btn.dataset.id);saveSets();renderMyset();render();}));
   pane.querySelectorAll('.return-btn').forEach(btn=>btn.addEventListener('click',()=>{returnToCandidates(set,+btn.dataset.id);saveSets();renderMyset();render();}));
@@ -2732,14 +2755,34 @@ function attachPlanDragHandlers(set,pane){
   if(drop){
     pane.querySelectorAll('#candidate-list .plan-ability-card').forEach(row=>{row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));});
     drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag-over');});drop.addEventListener('dragleave',()=>drop.classList.remove('drag-over'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag-over');const id=+e.dataTransfer.getData('text/plain');if(id){adoptAbility(set,id);saveSets();renderMyset();render();}});
-    pane.querySelectorAll('.candidate-drag').forEach(handle=>attachLongPress(handle,()=>{const id=+handle.closest('[data-entry-id]').dataset.entryId;adoptAbility(set,id);saveSets();renderMyset();render();showToast('採用へ移動しました');}));
+    pane.querySelectorAll('.candidate-drag').forEach(handle=>attachCandidateTouchDrag(handle,drop,set));
   }
   const list=pane.querySelector('#adopted-list');if(!list)return;
   pane.querySelectorAll('#adopted-list .plan-ability-card').forEach(row=>{const handle=row.querySelector('.plan-drag-handle');if(!handle)return;row.draggable=true;row.addEventListener('dragstart',e=>{if(!e.target.closest('.plan-drag-handle')){e.preventDefault();return;}e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));attachTouchReorder(handle,row,list,set);});
   list.addEventListener('dragover',e=>{e.preventDefault();const dragging=list.querySelector('.dragging');const target=e.target.closest('.plan-ability-card');if(dragging&&target&&target!==dragging){const rect=target.getBoundingClientRect();list.insertBefore(dragging,e.clientY<rect.top+rect.height/2?target:target.nextSibling);}});
   list.addEventListener('drop',e=>{e.preventDefault();syncAdoptedOrder(set,list);});
 }
-function attachLongPress(el,fn){let timer,moved=false;el.addEventListener('pointerdown',e=>{moved=false;timer=setTimeout(()=>{if(!moved){navigator.vibrate?.(35);fn();}},480);});el.addEventListener('pointermove',()=>{moved=true;clearTimeout(timer);});['pointerup','pointercancel'].forEach(t=>el.addEventListener(t,()=>clearTimeout(timer)));}
+function attachCandidateTouchDrag(handle,drop,set){
+  let timer=null,active=false,startX=0,startY=0,ghost=null,lastX=0,lastY=0,pointerId=null;
+  const isOverDrop=(x,y)=>{const r=drop.getBoundingClientRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;};
+  const moveGhost=(x,y)=>{if(!ghost)return;ghost.style.left=`${Math.min(x,innerWidth-90)}px`;ghost.style.top=`${Math.min(y,innerHeight-55)}px`;drop.classList.toggle('drag-over',isOverDrop(x,y));};
+  const cleanup=()=>{clearTimeout(timer);timer=null;active=false;drop.classList.remove('drag-over','touch-target');handle.closest('.plan-ability-card')?.classList.remove('dragging');ghost?.remove();ghost=null;if(pointerId!==null&&handle.hasPointerCapture?.(pointerId))handle.releasePointerCapture?.(pointerId);pointerId=null;};
+  handle.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='mouse')return;
+    pointerId=e.pointerId;startX=lastX=e.clientX;startY=lastY=e.clientY;handle.setPointerCapture?.(e.pointerId);
+    timer=setTimeout(()=>{active=true;const row=handle.closest('.plan-ability-card');row?.classList.add('dragging');drop.classList.add('touch-target');ghost=document.createElement('div');ghost.className='candidate-drag-ghost';ghost.textContent=row?.querySelector('.plan-ability-title')?.textContent||'能力を採用';document.body.appendChild(ghost);moveGhost(lastX,lastY);navigator.vibrate?.(35);},420);
+  });
+  handle.addEventListener('pointermove',e=>{
+    if(pointerId!==e.pointerId)return;lastX=e.clientX;lastY=e.clientY;
+    if(!active){if(Math.hypot(lastX-startX,lastY-startY)>14){clearTimeout(timer);timer=null;}return;}
+    e.preventDefault();moveGhost(lastX,lastY);
+  });
+  handle.addEventListener('pointerup',e=>{
+    if(pointerId!==e.pointerId)return;const shouldAdopt=active&&isOverDrop(e.clientX,e.clientY);const id=+handle.closest('[data-entry-id]')?.dataset.entryId;cleanup();
+    if(shouldAdopt&&id){adoptAbility(set,id);saveSets();renderMyset();render();showToast('採用へ移動しました');}
+  });
+  handle.addEventListener('pointercancel',cleanup);
+}
 function attachTouchReorder(handle,row,list,set){let timer,active=false;handle.addEventListener('pointerdown',e=>{timer=setTimeout(()=>{active=true;row.classList.add('dragging');navigator.vibrate?.(35);handle.setPointerCapture?.(e.pointerId);},450);});handle.addEventListener('pointermove',e=>{if(!active)return;e.preventDefault();const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.plan-ability-card');if(target&&target.parentElement===list&&target!==row){const r=target.getBoundingClientRect();list.insertBefore(row,e.clientY<r.top+r.height/2?target:target.nextSibling);}});const end=()=>{clearTimeout(timer);if(active){active=false;row.classList.remove('dragging');syncAdoptedOrder(set,list);}};handle.addEventListener('pointerup',end);handle.addEventListener('pointercancel',end);}
 function syncAdoptedOrder(set,list){const order=[...list.querySelectorAll('[data-entry-id]')].map(x=>+x.dataset.entryId);set.adopted.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));markEditing(set);saveSets();}
 
@@ -2752,7 +2795,7 @@ function openCardPicker(cards,set,slotKey){
   let search=document.getElementById('card-picker-search');if(!search){search=document.createElement('input');search.id='card-picker-search';search.className='card-picker-search';search.type='search';search.placeholder='カード名で検索';list.before(search);}search.value='';
   const current=rental?set.deck.rental:set.deck.own[+slotKey];const used=new Set([...set.deck.own,set.deck.rental].filter(Boolean));if(current)used.delete(current);
   const removeOld=old=>{if(!old)return;const affected=set.adopted.filter(e=>{const a=abilities.find(x=>x.id===e.id);return a&&a.card===old&&(e.route==='deck'||e.route==='both');}).map(e=>e.id);affected.forEach(id=>returnToCandidates(set,id));if(affected.length)setTimeout(()=>showToast(ownedCards.has(old)?'外したカードの能力を候補へ戻しました。ロード取得も検討できます':'外したカードの能力を候補へ戻しました'),0);};
-  const apply=card=>{if(current&&current!==card)removeOld(current);if(rental)set.deck.rental=card;else set.deck.own[+slotKey]=card;markEditing(set);saveSets();overlay.classList.remove('open');renderMyset();render();openDeckAbilityPicker(set,card);};
+  const apply=card=>{if(current&&current!==card)removeOld(current);if(rental)set.deck.rental=card;else set.deck.own[+slotKey]=card;const result=addCardAbilitiesToCandidates(set,card);markEditing(set);saveSets();overlay.classList.remove('open');renderMyset();render();showToast(result.added?`${card}の能力を候補へ${result.added}件追加しました`:`${card}の能力は候補へ追加済みです`);};
   const choose=card=>{if(!ownedCards.has(card)){showWarn(`「${card}」は未所持です。${rental?'レンタル':'自前'}枠へ仮編成しますか？`,()=>apply(card));}else apply(card);};
   const clear=()=>{clearDeckSlot(set,slotKey);overlay.classList.remove('open');};
   const draw=()=>{const term=search.value.trim().toLowerCase();const filtered=[...new Set(cards)].filter(c=>(!term||c.toLowerCase().includes(term))).sort((a,b)=>a.localeCompare(b,'ja'));list.innerHTML=`${current?'<div class="card-picker-clear" id="picker-clear">✕ 枠を自由枠に戻す</div>':''}`+(filtered.length?filtered.map(card=>{const own=ownedCards.has(card),disabled=used.has(card),rarity=abilities.find(a=>a.card===card&&['MR','SSR','SR'].includes(a.rarity))?.rarity||'その他';return `<div class="card-picker-item${card===current?' selected':''}${disabled?' disabled':''}" data-card="${esc(card)}" style="${disabled?'opacity:.35;pointer-events:none':''}"><span class="card-picker-name">${esc(card)}</span><span class="card-picker-rarity">${rarity}</span><span class="card-picker-owned ${own?'is-owned':'is-unowned'}">${own?'所持':'未所持'}</span></div>`;}).join(''):'<div class="card-picker-empty">該当するカードがありません</div>');list.querySelector('#picker-clear')?.addEventListener('click',clear);list.querySelectorAll('.card-picker-item:not(.disabled)').forEach(el=>el.addEventListener('click',()=>choose(el.dataset.card)));};
@@ -2957,17 +3000,17 @@ document.getElementById('search-mode-btn').addEventListener('click',()=>{
   const btn = document.getElementById('search-mode-btn');
   const input = document.getElementById('q');
   if(searchMode==='or'){
-    btn.textContent='どれか';
+    btn.textContent='OR';
     btn.classList.add('or-mode');
     input.placeholder='';
     const hint=document.getElementById('search-hint');
-    if(hint) hint.lastElementChild.textContent='複数語のどれかを含む';
+    if(hint) hint.lastElementChild.textContent='OR：複数語のどれかを含む';
   } else {
-    btn.textContent='すべて';
+    btn.textContent='AND';
     btn.classList.remove('or-mode');
     input.placeholder='';
     const hint=document.getElementById('search-hint');
-    if(hint) hint.lastElementChild.textContent='複数語をすべて含む';
+    if(hint) hint.lastElementChild.textContent='AND：複数語をすべて含む';
   }
   if(q) render();
 });
@@ -3331,16 +3374,18 @@ document.getElementById('notebook-link').addEventListener('click', e=>{
 // データを作らない実画面チュートリアル
 function startMysetTutorial(){
   const steps=[
-    {page:'db',selector:'#q',title:'① 能力を探す',text:'能力名・カード名・効果を入力して、理想に近い能力を探します。'},
-    {page:'db',selector:'.card-check',title:'② 候補へ追加',text:'能力のチェックを押すと、選択中のマイセットの「候補」に入ります。ここでは実際には押しません。'},
-    {page:'owned',selector:'#owned-card-list .owned-card-item',title:'③ 所持カードを登録',text:'カード名を押して所持状態を登録します。ロード化できるかの判定にも使います。'},
-    {page:'myset',selector:'.myset-v2-nav,#myset-new-btn',title:'④ 候補から育成プランへ',text:'候補で比較し、採用した能力を育成プランでデッキ・ロード・育成ルートへ割り当てます。セットがなければ「＋」から作成できます。'},
-    {page:'myset',selector:'.deck-slots,#myset-new-btn',title:'⑤ デッキを組む',text:'自前5枠＋レンタル1枠。空きは自由枠です。未所持の自前カードは仮編成になります。'},
-    {page:'myset',selector:'#save-plan-png,.myset-v2-nav,#myset-new-btn',title:'⑥ 完成して保存',text:'全取得経路が成立したら完成にし、完成プレビューをPNGで保存できます。'}
+    {page:'db',selector:'#q',title:'① ルートA：能力から探す',text:'能力名・カード名・効果をAND／OR検索して、理想に近い能力を探します。'},
+    {page:'db',selector:'.card-check',title:'② 能力を候補へ追加',text:'能力のチェックを押すと、選択中のマイセットの「候補」に入ります。ここでは実際には押しません。'},
+    {page:'myset',view:'plan',selector:'.deck-slots,#myset-new-btn',title:'③ ルートB：カードから組む',text:'育成プランの枠を押し、カード名検索から編成します。セットがなければ「＋」から作成できます。'},
+    {page:'myset',view:'candidates',selector:'.candidate-source-tabs,.myset-v2-nav,#myset-new-btn',title:'④ カード能力を自動追加',text:'編成したカードのイベント・閃き能力は、候補へ自動追加されます。候補は種類別タブで確認できます。'},
+    {page:'myset',view:'candidates',selector:'#candidate-adopt-drop,.myset-v2-nav,#myset-new-btn',title:'⑤ 候補から採用',text:'どちらのルートでも、候補の説明を必要な時だけ開いて確認します。「採用」を押すか、⠿を長押しして採用欄へ移動します。'},
+    {page:'owned',selector:'#owned-card-list .owned-card-item',title:'⑥ 所持カードを登録',text:'カード名を押して所持状態を登録します。未所持カードの仮編成警告や、取得経路の判定に使います。'},
+    {page:'myset',view:'plan',selector:'.deck-slots,#myset-new-btn',title:'⑦ 取得経路を確認',text:'自前5枠＋レンタル1枠でデッキを組み、採用能力をデッキ・ロード・育成ルートへ割り当てます。空きは自由枠です。'},
+    {page:'myset',view:'preview',selector:'#save-plan-png,.myset-v2-nav,#myset-new-btn',title:'⑧ 完成して保存',text:'全取得経路が成立したら完成にし、PNGで保存できます。完成後もロックを解除して編集できます。'}
   ];
   let index=0,overlay=document.getElementById('tutorial-overlay');if(!overlay){overlay=document.createElement('div');overlay.id='tutorial-overlay';overlay.className='tutorial-overlay';document.body.appendChild(overlay);}
   const close=()=>overlay.classList.remove('open');
-  const show=()=>{const step=steps[index];overlay.classList.remove('open');document.querySelector(`.ptab[data-page="${step.page}"]`)?.click();setTimeout(()=>{let target=null;for(const selector of step.selector.split(',')){target=document.querySelector(selector.trim());if(target)break;}target?.scrollIntoView({block:'center',behavior:'auto'});overlay.innerHTML=`<div class="tutorial-spotlight" aria-hidden="true"></div><div class="tutorial-box" role="dialog" aria-modal="true" aria-labelledby="tutorial-title"><div class="tutorial-progress">${index+1} / ${steps.length}</div><h2 id="tutorial-title">${step.title}</h2><p>${step.text}</p><div class="tutorial-actions"><button class="plan-btn" id="tutorial-skip" type="button">終了</button><button class="complete-btn" id="tutorial-next" type="button">${index===steps.length-1?'完了':'次へ'}</button></div></div>`;overlay.classList.add('open');const spotlight=overlay.querySelector('.tutorial-spotlight');requestAnimationFrame(()=>{if(!target){spotlight.style.display='none';return;}const r=target.getBoundingClientRect(),gap=7,left=Math.max(gap,r.left-gap),top=Math.max(gap,r.top-gap),right=Math.min(innerWidth-gap,r.right+gap),bottom=Math.min(innerHeight-gap,r.bottom+gap);spotlight.style.cssText=`display:block;left:${left}px;top:${top}px;width:${Math.max(22,right-left)}px;height:${Math.max(22,bottom-top)}px`;});overlay.querySelector('#tutorial-skip').onclick=close;overlay.querySelector('#tutorial-next').onclick=()=>{if(index===steps.length-1){localStorage.setItem('mfux_tutorial_done','1');close();showToast('いつでも「使い方」から再開できます');}else{index++;show();}};},100);};show();
+  const show=()=>{const step=steps[index];overlay.classList.remove('open');document.querySelector(`.ptab[data-page="${step.page}"]`)?.click();setTimeout(()=>{if(step.view)document.querySelector(`.myset-v2-tab[data-view="${step.view}"]`)?.click();let target=null;for(const selector of step.selector.split(',')){target=document.querySelector(selector.trim());if(target)break;}target?.scrollIntoView({block:'center',behavior:'auto'});overlay.innerHTML=`<div class="tutorial-spotlight" aria-hidden="true"></div><div class="tutorial-box" role="dialog" aria-modal="true" aria-labelledby="tutorial-title"><div class="tutorial-progress">${index+1} / ${steps.length}</div><h2 id="tutorial-title">${step.title}</h2><p>${step.text}</p><div class="tutorial-actions"><button class="plan-btn" id="tutorial-skip" type="button">終了</button><button class="complete-btn" id="tutorial-next" type="button">${index===steps.length-1?'完了':'次へ'}</button></div></div>`;overlay.classList.add('open');const spotlight=overlay.querySelector('.tutorial-spotlight');requestAnimationFrame(()=>{if(!target){spotlight.style.display='none';return;}const r=target.getBoundingClientRect(),gap=7,left=Math.max(gap,r.left-gap),top=Math.max(gap,r.top-gap),right=Math.min(innerWidth-gap,r.right+gap),bottom=Math.min(innerHeight-gap,r.bottom+gap);spotlight.style.cssText=`display:block;left:${left}px;top:${top}px;width:${Math.max(22,right-left)}px;height:${Math.max(22,bottom-top)}px`;});overlay.querySelector('#tutorial-skip').onclick=close;overlay.querySelector('#tutorial-next').onclick=()=>{if(index===steps.length-1){localStorage.setItem('mfux_tutorial_done','1');close();showToast('いつでも「使い方」から再開できます');}else{index++;show();}};},100);};show();
 }
 document.getElementById('start-myset-tutorial')?.addEventListener('click',startMysetTutorial);
 setTimeout(maybeOfferMigration,0);
