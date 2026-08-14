@@ -96,7 +96,6 @@ header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:transl
 .quick-guide-link.howto-placeholder{opacity:.72;cursor:default}
 .quick-guide-link.howto-placeholder:hover{border-color:var(--bd2);color:var(--tm);background:var(--s2)}
 .quick-guide-link.hiden-link{border-color:rgba(232,160,32,.48);color:#ffd06a}
-.quick-guide-link.notebook-link{border-color:rgba(56,182,255,.48);color:#7bd2ff}
 .badge{border-radius:9px;padding:1px 6px;font-size:10px;font-weight:700}
 .ptab.on .badge{background:var(--acc2);color:#fff}
 .ptab:not(.on) .badge{background:var(--s2);color:var(--tm)}
@@ -894,6 +893,7 @@ body.light-theme .owned-card-item:not(.owned) .owned-card-name{color:#8b3040}
 .ux-guide-link-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--s2);font-size:21px}
 .ux-guide-link strong{display:block;font-size:14px}.ux-guide-link small{display:block;margin-top:2px;color:var(--tm);font-size:11px;line-height:1.45}.ux-guide-link::after{content:'›';font-size:24px;color:var(--tm)}
 .ux-guide-notice{margin-top:10px;padding:12px;border-radius:12px;background:rgba(56,182,255,.08);border:1px solid rgba(56,182,255,.25);color:var(--tm);font-size:11px;line-height:1.65}
+.ux-notebook-guide{margin:10px 0 14px;padding:14px;border:1px solid rgba(56,182,255,.34);border-radius:15px;background:linear-gradient(135deg,rgba(56,182,255,.11),rgba(125,97,255,.08))}.ux-notebook-head{display:flex;gap:10px;align-items:flex-start}.ux-notebook-icon{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:12px;background:rgba(56,182,255,.16);font-size:21px}.ux-notebook-head h2{font-size:14px;margin:0 0 3px}.ux-notebook-head p{font-size:11px;color:var(--tm);line-height:1.5;margin:0}.ux-notebook-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.ux-notebook-badge{padding:3px 7px;border:1px solid rgba(123,210,255,.35);border-radius:999px;background:rgba(0,0,0,.08);color:#7bd2ff;font-size:9px;font-weight:900}.ux-notebook-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:12px 0 9px}.ux-notebook-step{position:relative;min-height:78px;padding:8px 7px;border:1px solid var(--bd);border-radius:10px;background:var(--s1)}.ux-notebook-step:not(:last-child)::after{content:'›';position:absolute;right:-7px;top:50%;z-index:1;transform:translateY(-50%);display:grid;place-items:center;width:14px;height:14px;border-radius:50%;background:#5479d7;color:#fff;font-size:13px}.ux-notebook-num{display:block;color:#7bd2ff;font-size:10px;font-weight:900}.ux-notebook-step strong{display:block;margin-top:3px;font-size:11px;line-height:1.35}.ux-notebook-step small{display:block;margin-top:3px;color:var(--ts);font-size:9px;line-height:1.4}.ux-notebook-login-note{margin:0;padding:8px 9px;border-radius:9px;background:rgba(255,255,255,.04);color:var(--tm);font-size:10px;line-height:1.55}.ux-notebook-examples{margin:10px 0 9px;color:var(--tm);font-size:10px}.ux-notebook-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}.ux-notebook-chip{padding:4px 7px;border:1px solid var(--bd2);border-radius:999px;background:var(--s1);color:var(--tm);font-size:9px}.ux-notebook-open{display:flex;align-items:center;justify-content:center;min-height:45px;border-radius:11px;background:linear-gradient(135deg,#38b6ff,#7662df);color:#fff;text-decoration:none;font-size:12px;font-weight:900;box-shadow:0 5px 14px rgba(56,182,255,.19)}.ux-notebook-open small{margin-left:5px;color:rgba(255,255,255,.85);font-size:9px;font-weight:700}
 .ux-empty-state{text-align:center;padding:48px 20px;color:var(--tm)}.ux-empty-icon{font-size:40px}.ux-empty-state h2{font-size:17px;color:var(--tx);margin:8px 0 5px}.ux-empty-state p{font-size:12px;line-height:1.7}
 .ux-empty-cta{min-height:46px;margin-top:16px;padding:9px 18px;border:0;border-radius:12px;background:linear-gradient(135deg,#f9a825,#ff7043);color:#fff;font-weight:900;cursor:pointer}
 .myset-page-wrap{height:calc(100vh - 66px - env(safe-area-inset-bottom))}.myset-new-btn{min-width:44px;min-height:42px}
@@ -951,6 +951,7 @@ body.display-small .ux-guide-step::before{width:28px;height:28px;border-radius:8
 body.display-small .ux-guide-links{gap:6px}
 body.display-small .ux-guide-link{grid-template-columns:36px 1fr auto;gap:7px;min-height:56px;padding:8px 10px;border-radius:11px}
 body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;font-size:18px}
+body.display-small .ux-notebook-guide{padding:11px;border-radius:13px}body.display-small .ux-notebook-step{min-height:72px;padding:7px 6px}body.display-small .ux-notebook-step strong{font-size:10px}
 
 @media (min-width:760px){
   body{padding-bottom:0;padding-left:92px}
@@ -1116,12 +1117,24 @@ body.display-small .ux-guide-link-icon{width:34px;height:34px;border-radius:9px;
       <a class="ux-guide-link" href="https://futsalife24-bot.github.io/lMfDB/lom-hiden-infographic.html" target="_blank" rel="noopener noreferrer">
         <span class="ux-guide-link-icon">📖</span><span><strong>ロード秘伝について</strong><small>仕組みを図解で確認する</small></span>
       </a>
-      <a class="ux-guide-link" id="notebook-link" href="https://notebook.google.com/notebook/09042736-d7a3-41b8-b44a-d6ed9303c37c" target="_blank" rel="noopener noreferrer">
-        <span class="ux-guide-link-icon">✨</span><span><strong>ロード秘伝チャットボット</strong><small>質問しながら無料で調べる</small></span>
-      </a>
+    </section>
+    <section class="ux-notebook-guide" aria-label="ロード秘伝チャットボットの使い方">
+      <div class="ux-notebook-head">
+        <div class="ux-notebook-icon" aria-hidden="true">✨</div>
+        <div><h2>ロード秘伝チャットボットを使う</h2><p>分からないことを、会話形式でそのまま質問できます。</p></div>
+      </div>
+      <div class="ux-notebook-badges"><span class="ux-notebook-badge">無料で使える</span><span class="ux-notebook-badge">Google NotebookLM</span><span class="ux-notebook-badge">外部ページを開く ↗</span></div>
+      <div class="ux-notebook-flow" aria-label="チャットボットを使い始める流れ">
+        <div class="ux-notebook-step"><span class="ux-notebook-num">STEP 1</span><strong>下のボタンを押す</strong><small>NotebookLMを開きます</small></div>
+        <div class="ux-notebook-step"><span class="ux-notebook-num">STEP 2</span><strong>必要ならGoogleにログイン</strong><small>ログイン済みなら省略されます</small></div>
+        <div class="ux-notebook-step"><span class="ux-notebook-num">STEP 3</span><strong>気になることを質問</strong><small>すぐ会話を始められます</small></div>
+      </div>
+      <p class="ux-notebook-login-note">Googleアカウントのログイン画面が出るのは、NotebookLM側の通常の手順です。LMF能力DBがパスワードなどを受け取ることはありません。</p>
+      <div class="ux-notebook-examples">こんな質問から始められます。<div class="ux-notebook-chips"><span class="ux-notebook-chip">この能力はロード化できる？</span><span class="ux-notebook-chip">どの能力を優先したらいい？</span><span class="ux-notebook-chip">このカードはロード向き？</span></div></div>
+      <a class="ux-notebook-open" href="https://notebook.google.com/notebook/09042736-d7a3-41b8-b44a-d6ed9303c37c" target="_blank" rel="noopener noreferrer">無料でチャットボットを開く <small>NotebookLM ↗</small></a>
     </section>
     <button class="guide-tutorial-btn" id="start-myset-tutorial" type="button">画面を見ながら使い方を試す</button>
-    <p class="ux-guide-notice">LMF能力DB開発者からのご案内：チャットボットはGoogle公式のNotebookLMを利用します。無料ですが、Googleアカウントでのログインが必要になる場合があります。</p>
+    <p class="ux-guide-notice">LMF能力DB開発者からのご案内：チャットボットは外部サービスのGoogle NotebookLMを利用しています。Googleアカウントにログイン済みなら、そのまま質問画面が開きます。</p>
   </main>
 </div>
 
@@ -3363,12 +3376,6 @@ themeBtn.addEventListener('click',()=>{
   const isLight=document.body.classList.toggle('light-theme');
   themeBtn.textContent=isLight?'🌙':'☀';
   localStorage.setItem('mfux_theme',isLight?'light':'dark');
-});
-
-// NotebookLMへ移動する前に、ログインの可能性を案内
-document.getElementById('notebook-link').addEventListener('click', e=>{
-  const message='【LMF能力DB開発者からのご案内】\n\nロード秘伝チャットボットは、Gemini の NotebookLMを利用しています。\nGoogleアカウントでのログインが必要な場合がありますが、無料で利用できるGoogle公式サービスへのリンクです。';
-  if(!window.confirm(message)) e.preventDefault();
 });
 
 // データを作らない実画面チュートリアル
