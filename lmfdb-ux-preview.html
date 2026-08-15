@@ -982,9 +982,10 @@ body.display-small .ux-notebook-guide{padding:11px;border-radius:13px}body.displ
 @media (min-width:1200px){#owned-card-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 /* ===== MYSET PLAN V2 ===== */
-.myset-v2-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 0 10px;padding:4px;background:var(--s2);border:1px solid var(--bd);border-radius:11px;position:sticky;top:0;z-index:12}
+.myset-v2-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:0 0 10px;padding:4px;background:var(--s2);border:1px solid var(--bd);border-radius:11px;position:sticky;top:0;z-index:12}
 .myset-v2-tab{border:0;border-radius:8px;padding:8px 5px;background:transparent;color:var(--tm);font-family:inherit;font-size:11px;font-weight:800;cursor:pointer}
 .myset-v2-tab.active{background:var(--s1);color:#f9a825;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.myset-memo-add{display:block;width:100%;margin:0 0 9px;padding:7px 9px;border:1px dashed var(--bd2);border-radius:8px;background:transparent;color:var(--tm);font:inherit;font-size:10px;text-align:left;cursor:pointer}.myset-memo-add:hover{border-color:#f9a825;color:#f9a825}
 .myset-status-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px}
 .myset-status{font-size:10px;font-weight:900;border-radius:999px;padding:3px 8px;border:1px solid var(--bd2);color:var(--tm)}
 .myset-status.editing{color:#ffb74d;border-color:rgba(255,183,77,.45);background:rgba(255,183,77,.09)}
@@ -2527,6 +2528,7 @@ function openCardPicker(cards, set, slotKey, isRental){
 // ===== MYSET PLAN V2 =====
 let candidateQuery='';
 let candidateSourceFilter='イベント';
+let memoEditorSetId=null;
 
 function createPlanSet(name){
   return {id:'s'+Date.now()+Math.random().toString(36).slice(2,6),name,memo:'',deck:{own:[null,null,null,null,null],rental:null},candidates:[],adopted:[],view:'candidates',status:'editing',completedAt:null,monsType:''};
@@ -2539,7 +2541,7 @@ function ensurePlanSet(set){
   if(!Array.isArray(set.adopted)) set.adopted=[];
   set.candidates=set.candidates.map(e=>typeof e==='number'?{id:e}:e).filter(e=>abilities.some(a=>a.id===e.id));
   set.adopted=set.adopted.map(e=>typeof e==='number'?{id:e,route:'none',primary:null}:e).filter(e=>abilities.some(a=>a.id===e.id));
-  if(!['candidates','plan','preview'].includes(set.view)) set.view='candidates';
+  if(!['candidates','plan','preview','boss'].includes(set.view)) set.view='candidates';
   if(!['editing','complete'].includes(set.status)) set.status='editing';
   return set;
 }
@@ -2740,7 +2742,7 @@ function renderCandidatesView(set){
   const sourceTabs=['イベント','閃き','EXトレ'];if(!sourceTabs.includes(candidateSourceFilter))candidateSourceFilter='イベント';
   const sourceCounts=Object.fromEntries(sourceTabs.map(source=>[source,set.candidates.filter(e=>abilities.find(a=>a.id===e.id)?.source===source).length]));
   let entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
-  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要な能力だけ開き、「採用」で取得目標に追加しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>${renderBossReference(set)}`;
+  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要な能力だけ開き、「採用」で取得目標に追加しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>`;
 }
 function renderPlanView(set){
   const state=completionState(set);const own=set.deck.own.map((c,i)=>deckSlotHtmlV2(set,c,i,false)).join('');const rental=deckSlotHtmlV2(set,set.deck.rental,0,true);
@@ -2765,7 +2767,11 @@ function renderMyset(){
   const pane=document.getElementById('myset-pane'),set=getActiveSet();
   if(!set){pane.innerHTML='<div class="ux-empty-state"><div class="ux-empty-icon">⭐</div><h2>マイセットを作ろう</h2><p>能力候補から完成プランまで整理できます。</p><button class="ux-empty-cta" type="button" onclick="openSetModal()">最初のセットを作る</button></div>';return;}
   ensurePlanSet(set);const locked=set.status==='complete';
-  pane.innerHTML=`<div class="myset-header"><input class="myset-title-input" id="myset-title-input" value="${esc(set.name)}" placeholder="セット名"${locked?' disabled':''}><button class="plan-btn duplicate-set" type="button">複製</button><button class="myset-del-btn" id="myset-del-btn">🗑️</button></div><textarea class="myset-memo" id="myset-memo" placeholder="メモ（任意）..."${locked?' disabled':''}>${esc(set.memo||'')}</textarea><div class="myset-status-row">${statusHtml(set)}<span style="font-size:10px;color:var(--ts)">候補 ${set.candidates.length} ／ 採用 ${set.adopted.length}</span></div><nav class="myset-v2-nav">${[['candidates','候補'],['plan','育成プラン'],['preview','完成プレビュー']].map(([v,l])=>`<button class="myset-v2-tab${set.view===v?' active':''}" data-view="${v}" type="button">${l}</button>`).join('')}</nav><div id="myset-v2-content">${set.view==='candidates'?renderCandidatesView(set):set.view==='plan'?renderPlanView(set):renderPreviewView(set)}</div>`;
+  const showMemo=!!set.memo||memoEditorSetId===set.id;
+  const memoHtml=showMemo?`<textarea class="myset-memo" id="myset-memo" placeholder="メモ（任意）..."${locked?' disabled':''}>${esc(set.memo||'')}</textarea>`:(locked?'':'<button class="myset-memo-add" id="myset-memo-add" type="button">＋ メモを追加</button>');
+  const views=[['candidates','候補'],['plan','育成プラン'],['preview','完成'],['boss','ボスモン']];
+  const content=set.view==='candidates'?renderCandidatesView(set):set.view==='plan'?renderPlanView(set):set.view==='boss'?renderBossReference(set):renderPreviewView(set);
+  pane.innerHTML=`<div class="myset-header"><input class="myset-title-input" id="myset-title-input" value="${esc(set.name)}" placeholder="セット名"${locked?' disabled':''}><button class="plan-btn duplicate-set" type="button">複製</button><button class="myset-del-btn" id="myset-del-btn">🗑️</button></div>${memoHtml}<div class="myset-status-row">${statusHtml(set)}<span style="font-size:10px;color:var(--ts)">候補 ${set.candidates.length} ／ 採用 ${set.adopted.length}</span></div><nav class="myset-v2-nav">${views.map(([v,l])=>`<button class="myset-v2-tab${set.view===v?' active':''}" data-view="${v}" type="button">${l}</button>`).join('')}</nav><div id="myset-v2-content">${content}</div>`;
   bindMysetV2Events(set,pane);
 }
 
@@ -2788,7 +2794,8 @@ function clearDeckSlot(set,key){
 function bindMysetV2Events(set,pane){
   pane.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>{set.view=btn.dataset.view;saveSets();renderMyset();}));
   const title=pane.querySelector('#myset-title-input');title&&!title.disabled&&title.addEventListener('input',e=>{set.name=e.target.value;saveSets();});
-  const memo=pane.querySelector('#myset-memo');memo&&!memo.disabled&&memo.addEventListener('input',e=>{set.memo=e.target.value;saveSets();});
+  pane.querySelector('#myset-memo-add')?.addEventListener('click',()=>{memoEditorSetId=set.id;renderMyset();document.getElementById('myset-memo')?.focus();});
+  const memo=pane.querySelector('#myset-memo');memo&&!memo.disabled&&memo.addEventListener('input',e=>{set.memo=e.target.value;saveSets();});memo&&!memo.disabled&&memo.addEventListener('blur',()=>{if(!set.memo){memoEditorSetId=null;renderMyset();}});
   pane.querySelectorAll('.duplicate-set').forEach(btn=>btn.addEventListener('click',()=>duplicateSet(set)));
   pane.querySelectorAll('.unlock-set').forEach(btn=>btn.addEventListener('click',()=>showWarn('完成状態のロックを解除して、同じ育成プランを編集しますか？',()=>unlockSet(set))));
   pane.querySelector('#myset-del-btn')?.addEventListener('click',()=>{const ov=document.getElementById('del-confirm-overlay');document.getElementById('del-confirm-name').textContent=`「${set.name}」`;ov.classList.add('open');document.getElementById('del-confirm-ok').onclick=()=>{ov.classList.remove('open');mySets=mySets.filter(s=>s.id!==set.id);activeSetId=mySets[0]?.id||null;saveSets();renderMyset();render();};document.getElementById('del-confirm-cancel').onclick=()=>ov.classList.remove('open');});
