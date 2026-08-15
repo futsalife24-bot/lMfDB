@@ -1010,10 +1010,6 @@ body.display-small .ux-notebook-guide{padding:11px;border-radius:13px}body.displ
 .plan-btn{border:1px solid var(--bd2);border-radius:8px;background:var(--s2);color:var(--tm);padding:6px 9px;font-family:inherit;font-size:10px;font-weight:800;cursor:pointer}
 .plan-btn.primary{border-color:rgba(249,168,37,.5);background:rgba(249,168,37,.12);color:#f9a825}.plan-btn.danger{color:#ff7043}.plan-btn:disabled{opacity:.4;cursor:not-allowed}
 .tier-switch{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}.tier-switch button{font:inherit;font-size:9px;font-weight:900;padding:3px 7px;border-radius:999px;border:1px solid var(--bd2);background:var(--s2);color:var(--tm);cursor:pointer}.tier-switch button.active{color:#f9a825;border-color:#f9a825;background:rgba(249,168,37,.1)}
-.candidate-adopt-drop{border:1.5px dashed rgba(249,168,37,.45);border-radius:11px;padding:10px;text-align:center;color:#f9a825;font-size:11px;font-weight:800;margin:9px 0;background:rgba(249,168,37,.05)}
-.candidate-adopt-drop.drag-over{background:rgba(249,168,37,.18);border-style:solid}
-.candidate-adopt-drop.touch-target{position:fixed;z-index:880;left:12px;right:12px;top:max(68px,env(safe-area-inset-top));margin:0;padding:15px;background:#262238;border-color:#f9a825;box-shadow:0 9px 28px rgba(0,0,0,.45)}
-.candidate-drag-ghost{position:fixed;z-index:890;max-width:min(270px,70vw);pointer-events:none;padding:9px 12px;border-radius:10px;background:var(--s1);border:2px solid #f9a825;color:var(--tx);font-size:11px;font-weight:900;box-shadow:0 10px 28px rgba(0,0,0,.48);transform:translate(12px,12px)}
 .candidate-list{gap:4px}.plan-ability-card.candidate-compact{padding:6px 8px;border-radius:9px}.candidate-compact .plan-ability-head{gap:4px;min-height:20px}.candidate-compact .plan-ability-title{font-size:11px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.candidate-compact .plan-card-meta{min-width:0;margin-top:2px;gap:4px;line-height:1.3;flex-wrap:nowrap}.candidate-compact .candidate-card-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.candidate-compact .candidate-meta-route{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ts)}.candidate-compact .plan-badge{font-size:8px;padding:1px 4px}.candidate-compact .plan-btn{padding:4px 6px;font-size:9px;line-height:1.2}.candidate-compact .candidate-adopt-btn{margin-left:auto;flex:none}.candidate-compact .candidate-icon-btn{flex:none;width:20px;height:20px;padding:0;border:0;background:transparent;color:var(--ts);font:inherit;font-size:13px;font-weight:900;cursor:pointer}.candidate-compact .candidate-icon-btn.danger{color:#ff8a72}.candidate-compact .candidate-details{flex:none}.candidate-compact .candidate-details summary{list-style:none;cursor:pointer;color:var(--tm);font-size:9px;font-weight:800}.candidate-compact .candidate-details summary::-webkit-details-marker{display:none}.candidate-compact .candidate-details[open]{position:absolute;z-index:3;top:100%;left:5px;right:5px;padding:8px;border:1px solid var(--bd2);border-radius:9px;background:var(--s1);box-shadow:0 8px 20px rgba(0,0,0,.28)}.candidate-compact .candidate-details[open] summary{margin-bottom:5px;color:#f9a825}.candidate-compact .candidate-detail-panel .plan-desc{font-size:10px;margin-top:4px;padding-top:4px}.candidate-compact .candidate-detail-panel .plan-notice{font-size:9px;margin-top:5px}.candidate-compact .candidate-detail-panel .tier-switch{margin-top:4px}.candidate-compact .candidate-detail-panel .plan-source-details summary{font-size:9px!important}
 .plan-drag-handle{border:0;background:transparent;color:var(--ts);font-size:15px;padding:5px;cursor:grab;touch-action:none}.plan-drag-handle:active{cursor:grabbing}.plan-ability-card.dragging{opacity:.45;border-color:#f9a825}
 .plan-layout{display:grid;grid-template-columns:minmax(270px,.9fr) minmax(320px,1.1fr);gap:10px;align-items:start}
@@ -1040,7 +1036,7 @@ body.display-small{--ms-title:14px;--ms-main:10px;--ms-sub:8px;--ms-button:9px;-
 body.display-medium{--ms-title:16px;--ms-main:12px;--ms-sub:10px;--ms-button:10px;--ms-panel:12px;--ms-preview-title:21px}
 body.display-large{--ms-title:20px;--ms-main:15px;--ms-sub:12px;--ms-button:13px;--ms-panel:15px;--ms-preview-title:25px}
 #page-myset .myset-title-input{font-size:var(--ms-title)!important}
-#page-myset .myset-memo,#page-myset .myset-v2-help,#page-myset .candidate-search,#page-myset .candidate-source-filter,#page-myset .plan-desc,#page-myset .candidate-adopt-drop,#page-myset .locked-banner,#page-myset .plan-notice{font-size:var(--ms-main)!important}
+#page-myset .myset-memo,#page-myset .myset-v2-help,#page-myset .candidate-search,#page-myset .candidate-source-filter,#page-myset .plan-desc,#page-myset .locked-banner,#page-myset .plan-notice{font-size:var(--ms-main)!important}
 #page-myset .myset-status,#page-myset .candidate-source-tab,#page-myset .candidate-source-tab span,#page-myset .plan-card-meta,#page-myset .candidate-desc summary,#page-myset .plan-badge,#page-myset .tier-switch button,#page-myset .route-select,#page-myset .primary-select,#page-myset .route-valid,#page-myset .preview-meta,#page-myset .preview-slot small,#page-myset .preview-slot span,#page-myset .preview-ability span{font-size:var(--ms-sub)!important}
 #page-myset .myset-v2-tab,#page-myset .plan-btn,#page-myset .complete-btn,#page-myset .guide-tutorial-btn{font-size:var(--ms-button)!important}
 #page-myset .plan-ability-title,#page-myset .plan-panel-title,#page-myset .preview-section h3{font-size:var(--ms-panel)!important}
@@ -2704,14 +2700,14 @@ function entryCardHtml(set,entry,mode){
     const details=`${tierButtons}${sourceDetails}<div class="plan-desc">${descHtml(a.desc)}</div>${suggestion}`;
     return `<div class="plan-ability-card candidate-compact" data-entry-id="${a.id}" draggable="true">
       <div class="plan-ability-head">${abilitySourceBadge(a)}<div class="plan-ability-title">${esc(a.name)}</div><button class="plan-btn primary adopt-btn candidate-adopt-btn" data-id="${a.id}" type="button">採用</button></div>
-      <div class="plan-card-meta"><span class="candidate-card-label">${own?'✅':'📛'} ${esc(a.card)}</span>${loc?`<span class="plan-badge owned">${loc.type==='rental'?'レンタル':`自前${loc.index+1}`}</span>`:''}${candidateRoute}<details class="candidate-details"><summary>詳細</summary><div class="candidate-detail-panel">${details}</div></details><button class="plan-drag-handle candidate-drag candidate-icon-btn" type="button" aria-label="長押しして採用欄へドラッグ">⠿</button><button class="candidate-remove candidate-icon-btn danger" data-id="${a.id}" type="button" aria-label="候補から削除">×</button></div>
+      <div class="plan-card-meta"><span class="candidate-card-label">${own?'✅':'📛'} ${esc(a.card)}</span>${loc?`<span class="plan-badge owned">${loc.type==='rental'?'レンタル':`自前${loc.index+1}`}</span>`:''}${candidateRoute}<details class="candidate-details"><summary>詳細</summary><div class="candidate-detail-panel">${details}</div></details><button class="candidate-remove candidate-icon-btn danger" data-id="${a.id}" type="button" aria-label="候補から削除">×</button></div>
     </div>`;
   }
   return `<div class="plan-ability-card" data-entry-id="${a.id}" draggable="${mode==='candidate'}">
     <div class="plan-ability-head">${mode==='adopted'?'<button class="plan-drag-handle" type="button" aria-label="長押しして並べ替え">⠿</button>':''}${abilitySourceBadge(a)}<div class="plan-ability-title">${esc(a.name)}</div></div>
     <div class="plan-card-meta"><span>${own?'✅':'📛'} ${esc(a.card)}</span>${loc?`<span class="plan-badge owned">${loc.type==='rental'?'レンタル':`自前${loc.index+1}`}</span>`:''}${a.source==='EXトレ'?`<span>${esc(exTrainingRoute(a))}</span>`:''}</div>
     ${tierButtons}${sourceDetails}${description}${suggestion}${routeSelect}
-    <div class="plan-entry-actions">${mode==='candidate'?`<button class="plan-btn primary adopt-btn" data-id="${a.id}" type="button">採用</button><button class="plan-drag-handle candidate-drag" type="button" aria-label="長押しして採用欄へドラッグ">⠿</button><button class="plan-btn danger candidate-remove" data-id="${a.id}" type="button">候補から削除</button>`:`<button class="plan-btn return-btn" data-id="${a.id}" type="button">候補へ戻す</button>`}</div>
+    <div class="plan-entry-actions">${mode==='candidate'?`<button class="plan-btn primary adopt-btn" data-id="${a.id}" type="button">採用</button><button class="plan-btn danger candidate-remove" data-id="${a.id}" type="button">候補から削除</button>`:`<button class="plan-btn return-btn" data-id="${a.id}" type="button">候補へ戻す</button>`}</div>
   </div>`;
 }
 
@@ -2744,7 +2740,7 @@ function renderCandidatesView(set){
   const sourceTabs=['イベント','閃き','EXトレ'];if(!sourceTabs.includes(candidateSourceFilter))candidateSourceFilter='イベント';
   const sourceCounts=Object.fromEntries(sourceTabs.map(source=>[source,set.candidates.filter(e=>abilities.find(a=>a.id===e.id)?.source===source).length]));
   let entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
-  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要なものだけ開き、採用を決めましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-adopt-drop" id="candidate-adopt-drop">⠿を長押しして、ここへ移動すると採用</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>${renderBossReference(set)}`;
+  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要な能力だけ開き、「採用」で取得目標に追加しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>${renderBossReference(set)}`;
 }
 function renderPlanView(set){
   const state=completionState(set);const own=set.deck.own.map((c,i)=>deckSlotHtmlV2(set,c,i,false)).join('');const rental=deckSlotHtmlV2(set,set.deck.rental,0,true);
@@ -2815,37 +2811,10 @@ function bindMysetV2Events(set,pane){
 }
 
 function attachPlanDragHandlers(set,pane){
-  const drop=pane.querySelector('#candidate-adopt-drop');
-  if(drop){
-    pane.querySelectorAll('#candidate-list .plan-ability-card').forEach(row=>{row.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));});
-    drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag-over');});drop.addEventListener('dragleave',()=>drop.classList.remove('drag-over'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag-over');const id=+e.dataTransfer.getData('text/plain');if(id){adoptAbility(set,id);saveSets();renderMyset();render();}});
-    pane.querySelectorAll('.candidate-drag').forEach(handle=>attachCandidateTouchDrag(handle,drop,set));
-  }
   const list=pane.querySelector('#adopted-list');if(!list)return;
   pane.querySelectorAll('#adopted-list .plan-ability-card').forEach(row=>{const handle=row.querySelector('.plan-drag-handle');if(!handle)return;row.draggable=true;row.addEventListener('dragstart',e=>{if(!e.target.closest('.plan-drag-handle')){e.preventDefault();return;}e.dataTransfer.setData('text/plain',row.dataset.entryId);row.classList.add('dragging');});row.addEventListener('dragend',()=>row.classList.remove('dragging'));attachTouchReorder(handle,row,list,set);});
   list.addEventListener('dragover',e=>{e.preventDefault();const dragging=list.querySelector('.dragging');const target=e.target.closest('.plan-ability-card');if(dragging&&target&&target!==dragging){const rect=target.getBoundingClientRect();list.insertBefore(dragging,e.clientY<rect.top+rect.height/2?target:target.nextSibling);}});
   list.addEventListener('drop',e=>{e.preventDefault();syncAdoptedOrder(set,list);});
-}
-function attachCandidateTouchDrag(handle,drop,set){
-  let timer=null,active=false,startX=0,startY=0,ghost=null,lastX=0,lastY=0,pointerId=null;
-  const isOverDrop=(x,y)=>{const r=drop.getBoundingClientRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;};
-  const moveGhost=(x,y)=>{if(!ghost)return;ghost.style.left=`${Math.min(x,innerWidth-90)}px`;ghost.style.top=`${Math.min(y,innerHeight-55)}px`;drop.classList.toggle('drag-over',isOverDrop(x,y));};
-  const cleanup=()=>{clearTimeout(timer);timer=null;active=false;drop.classList.remove('drag-over','touch-target');handle.closest('.plan-ability-card')?.classList.remove('dragging');ghost?.remove();ghost=null;if(pointerId!==null&&handle.hasPointerCapture?.(pointerId))handle.releasePointerCapture?.(pointerId);pointerId=null;};
-  handle.addEventListener('pointerdown',e=>{
-    if(e.pointerType==='mouse')return;
-    pointerId=e.pointerId;startX=lastX=e.clientX;startY=lastY=e.clientY;handle.setPointerCapture?.(e.pointerId);
-    timer=setTimeout(()=>{active=true;const row=handle.closest('.plan-ability-card');row?.classList.add('dragging');drop.classList.add('touch-target');ghost=document.createElement('div');ghost.className='candidate-drag-ghost';ghost.textContent=row?.querySelector('.plan-ability-title')?.textContent||'能力を採用';document.body.appendChild(ghost);moveGhost(lastX,lastY);navigator.vibrate?.(35);},420);
-  });
-  handle.addEventListener('pointermove',e=>{
-    if(pointerId!==e.pointerId)return;lastX=e.clientX;lastY=e.clientY;
-    if(!active){if(Math.hypot(lastX-startX,lastY-startY)>14){clearTimeout(timer);timer=null;}return;}
-    e.preventDefault();moveGhost(lastX,lastY);
-  });
-  handle.addEventListener('pointerup',e=>{
-    if(pointerId!==e.pointerId)return;const shouldAdopt=active&&isOverDrop(e.clientX,e.clientY);const id=+handle.closest('[data-entry-id]')?.dataset.entryId;cleanup();
-    if(shouldAdopt&&id){adoptAbility(set,id);saveSets();renderMyset();render();showToast('採用へ移動しました');}
-  });
-  handle.addEventListener('pointercancel',cleanup);
 }
 function attachTouchReorder(handle,row,list,set){let timer,active=false;handle.addEventListener('pointerdown',e=>{timer=setTimeout(()=>{active=true;row.classList.add('dragging');navigator.vibrate?.(35);handle.setPointerCapture?.(e.pointerId);},450);});handle.addEventListener('pointermove',e=>{if(!active)return;e.preventDefault();const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('.plan-ability-card');if(target&&target.parentElement===list&&target!==row){const r=target.getBoundingClientRect();list.insertBefore(row,e.clientY<r.top+r.height/2?target:target.nextSibling);}});const end=()=>{clearTimeout(timer);if(active){active=false;row.classList.remove('dragging');syncAdoptedOrder(set,list);}};handle.addEventListener('pointerup',end);handle.addEventListener('pointercancel',end);}
 function syncAdoptedOrder(set,list){const order=[...list.querySelectorAll('[data-entry-id]')].map(x=>+x.dataset.entryId);set.adopted.sort((a,b)=>order.indexOf(a.id)-order.indexOf(b.id));markEditing(set);saveSets();}
@@ -3435,7 +3404,7 @@ function startMysetTutorial(){
     {page:'db',selector:'.card-check',title:'② 能力を候補へ追加',text:'能力のチェックを押すと、選択中のマイセットの「候補」に入ります。ここでは実際には押しません。'},
     {page:'myset',view:'plan',selector:'.deck-slots,#myset-new-btn',title:'入口B：カードから組む',text:'こちらから始めてもOKです。育成プランの枠を押し、カード名検索から編成します。セットがなければ「＋」から作成できます。'},
     {page:'myset',view:'candidates',selector:'.candidate-source-tabs,.myset-v2-nav,#myset-new-btn',title:'④ カード能力を自動追加',text:'編成したカードのイベント・閃き能力は、候補へ自動追加されます。候補は種類別タブで確認できます。'},
-    {page:'myset',view:'candidates',selector:'#candidate-adopt-drop,.myset-v2-nav,#myset-new-btn',title:'⑤ 候補から採用',text:'どちらのルートでも、候補の説明を必要な時だけ開いて確認します。「採用」を押すか、⠿を長押しして採用欄へ移動します。'},
+    {page:'myset',view:'candidates',selector:'.candidate-list,.myset-v2-nav,#myset-new-btn',title:'⑤ 候補から採用',text:'どちらのルートでも、候補の説明を必要な時だけ開いて確認します。「採用」を押して取得目標に追加します。'},
     {page:'owned',selector:'#owned-card-list .owned-card-item',title:'⑥ 所持カードを登録',text:'カード名を押して所持状態を登録します。未所持カードの仮編成警告や、取得経路の判定に使います。'},
     {page:'myset',view:'plan',selector:'.deck-slots,#myset-new-btn',title:'⑦ 取得経路を確認',text:'自前5枠＋レンタル1枠でデッキを組み、採用能力をデッキ・ロード・育成ルートへ割り当てます。空きは自由枠です。'},
     {page:'myset',view:'preview',selector:'#save-plan-png,.myset-v2-nav,#myset-new-btn',title:'⑧ 完成して保存',text:'全取得経路が成立したら完成にし、PNGで保存できます。完成後もロックを解除して編集できます。'}
