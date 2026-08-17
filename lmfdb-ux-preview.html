@@ -1066,7 +1066,7 @@ body.display-small #page-owned .owned-card-item{min-height:46px;padding:6px 7px}
     <a class="ux-back" href="https://line-monster-farm-tetteikouryaku.com/index.html" aria-label="LINEモンスターファーム徹底攻略に戻る" title="攻略サイトへ戻る">←</a>
     <div class="ux-brand">
       <div class="h-title" id="h-title">🐉 LMF能力DB <span class="ux-preview-badge">UX改善版</span></div>
-      <div id="db-update-info">更新: 2026/08/04 ／ 1165件</div>
+      <div id="db-update-info">更新: 2026/08/18 ／ 1191件</div>
     </div>
     <button class="ux-settings-btn" id="ux-settings-btn" type="button" aria-label="表示・データ設定" aria-expanded="false" aria-controls="ux-settings-panel">⚙️</button>
     <div class="ux-settings-panel" id="ux-settings-panel">
@@ -1425,7 +1425,7 @@ const abilities = ABILITIES.map(a => {
   const fix = DATA_FIXES[a.id] || {};
   return overrides[a.id] ? {...a, ...fix, ...overrides[a.id]} : {...a, ...fix};
 });
-document.getElementById('db-update-info').textContent='更新: 2026/08/04 ／ '+abilities.length+'件';
+document.getElementById('db-update-info').textContent='更新: 2026/08/18 ／ '+abilities.length+'件';
 
 const MYSET_V2_KEY='mfux_sets_v2';
 const MYSET_OWNED_V2_KEY='mfux_owned_v2';
