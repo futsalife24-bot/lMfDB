@@ -1048,6 +1048,8 @@ const DATA_FIXES = {
 };
 // ローカルストレージの上書きデータをマージ
 const overrides = JSON.parse(localStorage.getItem('mf_overrides')||'{}');
+ABILITIES.push({id:1191,name:'炎獄の造物主 II',desc:'[前半]＜黒＞技命中時、次の効果を付与＜１回＞＜２０秒＞<br>・攻撃ステータス＜＋１０％＞<br>・[自身黒]攻撃ステータス＜＋１５％＞<br>・[自身黒]命中率＜＋５％＞',card:'デミウルゴス',tags:['前半','オーラ黒','攻撃強化','命中強化'],source:'イベント',rarity:'MR'});
+
 const abilities = ABILITIES.map(a => {
   const fix = DATA_FIXES[a.id] || {};
   return overrides[a.id] ? {...a, ...fix, ...overrides[a.id]} : {...a, ...fix};
