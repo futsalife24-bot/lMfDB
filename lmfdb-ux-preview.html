@@ -2744,11 +2744,14 @@ function renderBossReference(set){
   const matched=set.monsType?abilities.filter(a=>a.source==='伝授'&&a.desc.startsWith(`[${set.monsType}]`)):[];
   return `<div class="plan-panel" style="margin-top:10px"><div class="plan-panel-title">👑 ボスモン能力（伝授）</div><div class="myset-v2-help">参考一覧です。現在の育成プラン・完成判定には含めません。</div><select class="candidate-source-filter" id="mons-type-select-v2"><option value="">育成モン類</option>${types.map(t=>`<option value="${t}"${set.monsType===t?' selected':''}>${t}</option>`).join('')}</select>${matched.length?`<div class="candidate-list" style="margin-top:8px">${matched.map(a=>`<button class="plan-btn boss-ref" data-id="${a.id}" type="button">${esc(a.name)} <small>${esc(a.card)}</small></button>`).join('')}</div>`:''}</div>`;
 }
+function candidateListHtml(set){
+  const entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
+  return entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`;
+}
 function renderCandidatesView(set){
   const sourceTabs=['イベント','閃き','EXトレ'];if(!sourceTabs.includes(candidateSourceFilter))candidateSourceFilter='イベント';
   const sourceCounts=Object.fromEntries(sourceTabs.map(source=>[source,set.candidates.filter(e=>abilities.find(a=>a.id===e.id)?.source===source).length]));
-  let entries=set.candidates.filter(e=>{const a=abilities.find(x=>x.id===e.id);if(!a)return false;const term=candidateQuery.toLowerCase();return (!term||(a.name+' '+a.card+' '+a.desc).toLowerCase().includes(term))&&(candidateSourceFilter==='all'||a.source===candidateSourceFilter);});
-  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要な能力だけ開き、「採用」で取得目標に追加しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-list" id="candidate-list">${entries.length?entries.map(e=>entryCardHtml(set,e,'candidate')).join(''):`<div class="ux-empty-state"><div class="ux-empty-icon">🔎</div><h2>${candidateSourceFilter==='EXトレ'?'EX':'この種類'}の候補はありません</h2><p>能力DBで能力を選ぶか、育成プランで<br>カードを編成すると候補に追加されます。</p></div>`}</div>`;
+  return `<div class="myset-v2-help">DBで選んだ能力と、編成カードのイベント・閃き能力が集まります。説明は必要な能力だけ開き、「採用」で取得目標に追加しましょう。</div><div class="candidate-tools"><input class="candidate-search" id="candidate-search" placeholder="候補を検索" value="${esc(candidateQuery)}"></div><div class="candidate-source-tabs" role="tablist" aria-label="候補の種類">${sourceTabs.map(source=>`<button class="candidate-source-tab${candidateSourceFilter===source?' active':''}" data-candidate-source="${source}" role="tab" aria-selected="${candidateSourceFilter===source}" type="button">${source==='EXトレ'?'EX':source}<span>${sourceCounts[source]}</span></button>`).join('')}</div><div class="candidate-list" id="candidate-list">${candidateListHtml(set)}</div>`;
 }
 function loadPackageEntries(set){
   return set.adopted.filter(e=>e.route==='load'||e.route==='both').map(e=>({entry:e,a:abilities.find(a=>a.id===e.id)})).filter(x=>x.a);
@@ -2804,6 +2807,16 @@ function clearDeckSlot(set,key){
   affected.forEach(id=>returnToCandidates(set,id));markEditing(set);saveSets();renderMyset();render();
   if(affected.length)showToast(ownedCards.has(old)?'能力を候補へ戻しました。ロードなら再採用できます':'能力を候補へ戻しました');
 }
+function bindCandidateListEvents(set,root){
+  root.querySelectorAll('.adopt-btn').forEach(btn=>btn.addEventListener('click',()=>{adoptAbility(set,+btn.dataset.id);saveSets();renderMyset();render();}));
+  root.querySelectorAll('.candidate-remove').forEach(btn=>btn.addEventListener('click',()=>{removeCandidate(set,+btn.dataset.id);saveSets();renderMyset();render();}));
+  root.querySelectorAll('.tier-choice,.source-choice').forEach(btn=>btn.addEventListener('click',()=>replaceEntryId(set,+btn.dataset.from,+btn.dataset.to)));
+}
+function refreshCandidateList(set){
+  const list=document.getElementById('candidate-list');if(!list)return;
+  list.innerHTML=candidateListHtml(set);
+  bindCandidateListEvents(set,list);
+}
 function bindMysetV2Events(set,pane){
   pane.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>{set.view=btn.dataset.view;saveSets();renderMyset();}));
   const title=pane.querySelector('#myset-title-input');title&&!title.disabled&&title.addEventListener('input',e=>{set.name=e.target.value;saveSets();});
@@ -2812,7 +2825,16 @@ function bindMysetV2Events(set,pane){
   pane.querySelectorAll('.duplicate-set').forEach(btn=>btn.addEventListener('click',()=>duplicateSet(set)));
   pane.querySelectorAll('.unlock-set').forEach(btn=>btn.addEventListener('click',()=>showWarn('完成状態のロックを解除して、同じ育成プランを編集しますか？',()=>unlockSet(set))));
   pane.querySelector('#myset-del-btn')?.addEventListener('click',()=>{const ov=document.getElementById('del-confirm-overlay');document.getElementById('del-confirm-name').textContent=`「${set.name}」`;ov.classList.add('open');document.getElementById('del-confirm-ok').onclick=()=>{ov.classList.remove('open');mySets=mySets.filter(s=>s.id!==set.id);activeSetId=mySets[0]?.id||null;saveSets();renderMyset();render();};document.getElementById('del-confirm-cancel').onclick=()=>ov.classList.remove('open');});
-  pane.querySelector('#candidate-search')?.addEventListener('input',e=>{candidateQuery=e.target.value;const caret=e.target.selectionStart;renderMyset();const next=document.getElementById('candidate-search');next?.focus();next?.setSelectionRange(caret,caret);});
+  const candidateSearch=pane.querySelector('#candidate-search');
+  if(candidateSearch){
+    // 入力欄ごと再描画すると IME 変換中の文字が二重になり、
+    // カーソルも先頭へ飛ぶので、更新は候補リストだけに限定する。
+    let composing=false;
+    const applyCandidateQuery=()=>{candidateQuery=candidateSearch.value;refreshCandidateList(set);};
+    candidateSearch.addEventListener('compositionstart',()=>{composing=true;});
+    candidateSearch.addEventListener('compositionend',()=>{composing=false;applyCandidateQuery();});
+    candidateSearch.addEventListener('input',e=>{if(composing||e.isComposing)return;applyCandidateQuery();});
+  }
   pane.querySelectorAll('[data-candidate-source]').forEach(btn=>btn.addEventListener('click',()=>{candidateSourceFilter=btn.dataset.candidateSource;renderMyset();}));
   pane.querySelectorAll('.adopt-btn').forEach(btn=>btn.addEventListener('click',()=>{adoptAbility(set,+btn.dataset.id);saveSets();renderMyset();render();}));
   pane.querySelectorAll('.candidate-remove').forEach(btn=>btn.addEventListener('click',()=>{removeCandidate(set,+btn.dataset.id);saveSets();renderMyset();render();}));
