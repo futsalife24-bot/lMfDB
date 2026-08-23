@@ -782,7 +782,7 @@ header::after{display:none}
   color:var(--tm);text-decoration:none;font-size:20px;border:1px solid var(--bd);background:var(--s1);flex:0 0 auto}
 .ux-brand{min-width:0;flex:1}
 .h-title{font-size:16px;line-height:1.35}
-#db-update-info{display:inline-flex;align-items:center;gap:4px;margin-top:3px;padding:2px 4px;border:0;border-radius:5px;background:transparent;color:var(--tm);font:inherit;font-size:11px!important;cursor:pointer;text-align:left}.db-update-chevron{font-size:10px;color:var(--ux-focus)}#db-update-info:hover{background:var(--s2);color:var(--tx)}
+#db-update-info{display:inline-flex;align-items:center;gap:5px;margin-top:3px;padding:2px 4px;border:0;border-radius:5px;background:transparent;color:var(--tm);font:inherit;font-size:11px!important;cursor:pointer;text-align:left}.db-update-history-link{display:inline-flex;align-items:center;gap:2px;padding:2px 5px;border:1px solid rgba(56,182,255,.36);border-radius:999px;background:rgba(56,182,255,.1);color:var(--ux-focus);font-size:9px;font-weight:800;white-space:nowrap}.db-update-chevron{font-size:11px;line-height:1}#db-update-info:hover{background:var(--s2);color:var(--tx)}#db-update-info:hover .db-update-history-link{border-color:var(--ux-focus);background:rgba(56,182,255,.18)}
 .ux-preview-badge{display:inline-flex;vertical-align:2px;margin-left:5px;padding:2px 6px;border-radius:999px;
   background:rgba(56,182,255,.12);border:1px solid rgba(56,182,255,.38);color:#70c8ff;
   font-size:9px;font-weight:900;-webkit-text-fill-color:initial;letter-spacing:.03em}
@@ -1075,7 +1075,7 @@ body.display-small #page-owned .owned-card-item{min-height:46px;padding:6px 7px}
     <a class="ux-back" href="https://line-monster-farm-tetteikouryaku.com/index.html" aria-label="LINEモンスターファーム徹底攻略に戻る" title="攻略サイトへ戻る">←</a>
     <div class="ux-brand">
       <div class="h-title" id="h-title">🐉 LMF能力DB <span class="ux-preview-badge">UX改善版</span></div>
-      <button id="db-update-info" type="button" aria-haspopup="dialog" aria-controls="update-history-overlay" title="更新履歴を見る">更新: 2026/08/24 ／ 読み込み中 <span class="db-update-chevron" aria-hidden="true">›</span></button>
+      <button id="db-update-info" type="button" aria-haspopup="dialog" aria-controls="update-history-overlay" title="更新履歴を見る">更新: 2026/08/24 ／ 読み込み中 <span class="db-update-history-link">更新履歴 <span class="db-update-chevron" aria-hidden="true">›</span></span></button>
     </div>
     <button class="ux-settings-btn" id="ux-settings-btn" type="button" aria-label="表示・データ設定" aria-expanded="false" aria-controls="ux-settings-panel">⚙️</button>
     <div class="ux-settings-panel" id="ux-settings-panel">
@@ -1473,7 +1473,7 @@ const abilities = ABILITIES.map(a => {
   const fix = DATA_FIXES[a.id] || {};
   return overrides[a.id] ? {...a, ...fix, ...overrides[a.id]} : {...a, ...fix};
 });
-document.getElementById('db-update-info').innerHTML=`更新: 2026/08/24 ／ ${abilities.length}件 <span class="db-update-chevron" aria-hidden="true">›</span>`;
+document.getElementById('db-update-info').innerHTML=`更新: 2026/08/24 ／ ${abilities.length}件 <span class="db-update-history-link">更新履歴 <span class="db-update-chevron" aria-hidden="true">›</span></span>`;
 
 // 育成モンスター起点の仮マスター。全件自動取込時もこの形式で追加する。
 const MONSTER_MASTER=[
