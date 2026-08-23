@@ -1,5 +1,5 @@
-const CACHE_NAME = 'lmfdb-v2';
-const FILES = ['./index.html'];
+const CACHE_NAME = 'lmfdb-v3-legacy';
+const FILES = ['./index.html','./manifest.json','./icon-legacy.svg'];
 
 // インストール時にキャッシュ
 self.addEventListener('install', e => {
