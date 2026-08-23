@@ -782,7 +782,7 @@ header::after{display:none}
   color:var(--tm);text-decoration:none;font-size:20px;border:1px solid var(--bd);background:var(--s1);flex:0 0 auto}
 .ux-brand{min-width:0;flex:1}
 .h-title{font-size:16px;line-height:1.35}
-#db-update-info{font-size:11px!important;margin-top:3px!important;color:var(--tm)!important}
+#db-update-info{display:inline-flex;align-items:center;gap:4px;margin-top:3px;padding:2px 4px;border:0;border-radius:5px;background:transparent;color:var(--tm);font:inherit;font-size:11px!important;cursor:pointer;text-align:left}.db-update-chevron{font-size:10px;color:var(--ux-focus)}#db-update-info:hover{background:var(--s2);color:var(--tx)}
 .ux-preview-badge{display:inline-flex;vertical-align:2px;margin-left:5px;padding:2px 6px;border-radius:999px;
   background:rgba(56,182,255,.12);border:1px solid rgba(56,182,255,.38);color:#70c8ff;
   font-size:9px;font-weight:900;-webkit-text-fill-color:initial;letter-spacing:.03em}
@@ -798,6 +798,7 @@ header::after{display:none}
 .ux-settings-panel .data-fab:hover{background:var(--s2)}
 .ux-settings-panel #theme-btn::before{content:'画面テーマ';flex:1}
 .ux-settings-panel #data-manage-btn::before{content:'データの保存・移行';flex:1}
+.update-history-overlay{display:none;position:fixed;inset:0;z-index:650;background:rgba(0,0,0,.72);align-items:flex-end;justify-content:center}.update-history-overlay.open{display:flex}.update-history{width:100%;max-width:620px;max-height:82vh;overflow:auto;padding:18px 16px max(28px,env(safe-area-inset-bottom));border:1px solid var(--bd2);border-radius:18px 18px 0 0;background:var(--s1)}.update-history-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.update-history h2{margin:0;color:#f9a825;font-size:16px}.update-history-close{width:34px;height:34px;border:1px solid var(--bd2);border-radius:9px;background:var(--s2);color:var(--tx);font:inherit;font-size:15px;cursor:pointer}.update-history-intro{margin:7px 0 12px;color:var(--tm);font-size:11px;line-height:1.55}.update-history-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}.update-history-tab{border:1px solid var(--bd2);border-radius:9px;background:var(--s2);color:var(--tm);padding:8px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}.update-history-tab.active{border-color:#38b6ff;background:rgba(56,182,255,.16);color:#70c8ff}.update-history-panel[hidden]{display:none}.update-history-entry{padding:10px 0;border-bottom:1px solid var(--bd)}.update-history-entry:last-child{border-bottom:0}.update-history-entry time{display:block;margin-bottom:3px;color:#f9a825;font-size:10px;font-weight:800}.update-history-entry strong{display:block;color:var(--tx);font-size:12px}.update-history-entry p{margin:3px 0 0;color:var(--tm);font-size:10px;line-height:1.55}
 .display-size-setting{min-height:48px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:7px 8px 7px 12px}
 .display-size-label{font-size:13px;color:var(--tx)}
 .display-size-options{display:grid;grid-template-columns:repeat(3,34px);gap:2px;padding:3px;border-radius:10px;background:var(--s2)}
@@ -1074,7 +1075,7 @@ body.display-small #page-owned .owned-card-item{min-height:46px;padding:6px 7px}
     <a class="ux-back" href="https://line-monster-farm-tetteikouryaku.com/index.html" aria-label="LINEモンスターファーム徹底攻略に戻る" title="攻略サイトへ戻る">←</a>
     <div class="ux-brand">
       <div class="h-title" id="h-title">🐉 LMF能力DB <span class="ux-preview-badge">UX改善版</span></div>
-      <div id="db-update-info">更新: 2026/08/18 ／ 1165件</div>
+      <button id="db-update-info" type="button" aria-haspopup="dialog" aria-controls="update-history-overlay" title="更新履歴を見る">更新: 2026/08/24 ／ 読み込み中 <span class="db-update-chevron" aria-hidden="true">›</span></button>
     </div>
     <button class="ux-settings-btn" id="ux-settings-btn" type="button" aria-label="表示・データ設定" aria-expanded="false" aria-controls="ux-settings-panel">⚙️</button>
     <div class="ux-settings-panel" id="ux-settings-panel">
@@ -1098,6 +1099,28 @@ body.display-small #page-owned .owned-card-item{min-height:46px;padding:6px 7px}
     <button class="ptab" data-page="guide"><span class="nav-icon">💡</span><span>ガイド</span></button>
   </div>
 </header>
+
+<div class="update-history-overlay" id="update-history-overlay" role="dialog" aria-modal="true" aria-labelledby="update-history-title">
+  <div class="update-history">
+    <div class="update-history-head"><h2 id="update-history-title">📝 更新履歴</h2><button class="update-history-close" id="update-history-close" type="button" aria-label="更新履歴を閉じる">✕</button></div>
+    <p class="update-history-intro">更新日をタップすると、追加・変更内容を確認できます。</p>
+    <div class="update-history-tabs" role="tablist" aria-label="更新履歴の種類">
+      <button class="update-history-tab active" id="history-tab-system" type="button" role="tab" aria-selected="true" aria-controls="history-system">システム</button>
+      <button class="update-history-tab" id="history-tab-abilities" type="button" role="tab" aria-selected="false" aria-controls="history-abilities">能力更新</button>
+    </div>
+    <section class="update-history-panel" id="history-system" role="tabpanel" aria-labelledby="history-tab-system">
+      <article class="update-history-entry"><time datetime="2026-08-24">2026/08/24</time><strong>育成モンスターから能力を探す機能を試作追加</strong><p>オーラ・モン類・主血統ごとに、対象能力をタブで切り替えて探せます。</p></article>
+      <article class="update-history-entry"><time datetime="2026-08-24">2026/08/24</time><strong>マイセット・デッキ編成を使いやすく改善</strong><p>カード選択で能力候補を自動追加。レンタル枠は未所持カードも選択できます。</p></article>
+      <article class="update-history-entry"><time datetime="2026-08-18">2026/08/18</time><strong>ロード秘伝への採用数を見える化</strong><p>目安件数と採用済み能力の数を、マイセット内で確認できるようにしました。</p></article>
+      <article class="update-history-entry"><time datetime="2026-08-18">2026/08/18</time><strong>ライトモード・チュートリアルを調整</strong><p>文字の見やすさと、使い方ガイドの表示・導線を改善しました。</p></article>
+    </section>
+    <section class="update-history-panel" id="history-abilities" role="tabpanel" aria-labelledby="history-tab-abilities" hidden>
+      <article class="update-history-entry"><time datetime="2026-08-18">2026/08/18</time><strong>デミウルゴスを追加</strong><p>イベント能力「炎獄の造物主 II」を追加しました。</p></article>
+      <article class="update-history-entry"><time datetime="2026-08-18">2026/08/18</time><strong>セラフィナ・モノダス関連能力を追加</strong><p>イベント能力と閃き能力をデータベースへ追加しました。</p></article>
+      <article class="update-history-entry"><time datetime="2026-08-18">2026/08/18</time><strong>テオス関連能力を追加</strong><p>「テオスフォーム」「テオスアディション」を追加しました。</p></article>
+    </section>
+  </div>
+</div>
 
 
 <!-- OWNED CARDS PAGE -->
@@ -1450,7 +1473,7 @@ const abilities = ABILITIES.map(a => {
   const fix = DATA_FIXES[a.id] || {};
   return overrides[a.id] ? {...a, ...fix, ...overrides[a.id]} : {...a, ...fix};
 });
-document.getElementById('db-update-info').textContent='更新: 2026/08/18 ／ 1165件';
+document.getElementById('db-update-info').innerHTML=`更新: 2026/08/24 ／ ${abilities.length}件 <span class="db-update-chevron" aria-hidden="true">›</span>`;
 
 // 育成モンスター起点の仮マスター。全件自動取込時もこの形式で追加する。
 const MONSTER_MASTER=[
@@ -3406,6 +3429,25 @@ settingsBtn.addEventListener('click',e=>{
 settingsPanel.addEventListener('click',e=>e.stopPropagation());
 document.addEventListener('click',closeSettings);
 
+// 更新履歴
+const updateHistoryOverlay=document.getElementById('update-history-overlay');
+const updateHistoryTrigger=document.getElementById('db-update-info');
+function closeUpdateHistory(){updateHistoryOverlay.classList.remove('open');updateHistoryTrigger.focus();}
+function selectUpdateHistoryTab(kind){
+  const system=kind==='system';
+  document.getElementById('history-system').hidden=!system;
+  document.getElementById('history-abilities').hidden=system;
+  document.getElementById('history-tab-system').classList.toggle('active',system);
+  document.getElementById('history-tab-abilities').classList.toggle('active',!system);
+  document.getElementById('history-tab-system').setAttribute('aria-selected',String(system));
+  document.getElementById('history-tab-abilities').setAttribute('aria-selected',String(!system));
+}
+updateHistoryTrigger.addEventListener('click',()=>{selectUpdateHistoryTab('system');updateHistoryOverlay.classList.add('open');});
+document.getElementById('update-history-close').addEventListener('click',closeUpdateHistory);
+updateHistoryOverlay.addEventListener('click',e=>{if(e.target===updateHistoryOverlay)closeUpdateHistory();});
+document.getElementById('history-tab-system').addEventListener('click',()=>selectUpdateHistoryTab('system'));
+document.getElementById('history-tab-abilities').addEventListener('click',()=>selectUpdateHistoryTab('abilities'));
+
 // データ管理モーダル
 
 document.getElementById('data-manage-btn').addEventListener('click', e=>{
@@ -3607,7 +3649,7 @@ document.getElementById('ux-filter-reset').addEventListener('click',()=>{
   updateFilterDot(); updateActiveFilterBar(); updateClearFtagsBtn(); render();
 });
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){ closeFilterSheet(); closeSettings(); }
+  if(e.key==='Escape'){ closeFilterSheet(); closeSettings(); if(updateHistoryOverlay.classList.contains('open')) closeUpdateHistory(); }
 });
 
 function updateFilterDot(){
