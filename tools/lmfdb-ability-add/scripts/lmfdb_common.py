@@ -8,6 +8,7 @@ index.html は単一ファイル製 PWA なので、能力データ(ABILITIES)�
 経緯で余分な `;` が大量に並んでいるが、これも保持する。
 """
 
+import html as html_lib
 import json
 import re
 import sys
@@ -136,6 +137,28 @@ def set_update_info(html, date_str, count):
         return html[: m.start()] + new + html[m.end() :]
     raise LmfdbError('id="db-update-info" の更新表示を検出できませんでした')
 
+
+# 改善版の「能力更新」タブ。新しい履歴を先頭へ積む。
+UPDATE_HISTORY_ABILITIES_RE = re.compile(
+    r'(<section class="update-history-panel" id="history-abilities"[^>]*>)(.*?)(\s*</section>)',
+    re.DOTALL,
+)
+
+
+def add_update_history(html, date_str, title, description):
+    """能力更新履歴に1件追加する。表示文字列はHTMLエスケープして安全に保持する。"""
+    m = UPDATE_HISTORY_ABILITIES_RE.search(html)
+    if not m:
+        raise LmfdbError('id="history-abilities" の能力更新履歴を検出できませんでした')
+    date_display = html_lib.escape(date_str, quote=True)
+    safe_title = html_lib.escape(title, quote=False)
+    safe_description = html_lib.escape(description, quote=False)
+    entry = (
+        '\n      <article class="update-history-entry"><time datetime="%s">%s</time>'
+        '<strong>%s</strong><p>%s</p></article>'
+        % (date_display, date_display, safe_title, safe_description)
+    )
+    return html[:m.start()] + m.group(1) + entry + m.group(2) + m.group(3) + html[m.end():]
 
 DATA_FIXES_RE = re.compile(r"const DATA_FIXES\s*=\s*\{(.*?)\n\};", re.DOTALL)
 

@@ -47,6 +47,7 @@ from lmfdb_common import (  # noqa: E402
     VALID_SOURCES,
     LmfdbError,
     add_card_to_list,
+    add_update_history,
     dump_abilities,
     get_card_list,
     get_update_info,
@@ -76,6 +77,8 @@ def parse_args():
     ap.add_argument("--date", help="更新日 YYYY/MM/DD（既定: 今日）")
     ap.add_argument("--no-date-update", action="store_true",
                     help="更新日を書き換えない（件数のみ更新）")
+    ap.add_argument("--history-title", help="更新履歴の見出し（既定: カード名から自動生成）")
+    ap.add_argument("--history-desc", help="更新履歴の説明（既定: 入手先・件数から自動生成）")
     ap.add_argument("--no-card-list", action="store_true",
                     help="SSR_CARDS等への新カード追加を行わない")
     ap.add_argument("--allow-new-tags", action="store_true",
@@ -112,6 +115,19 @@ def collect_entries(args):
         raise LmfdbError("追加する能力が0件です")
     return [dict(e) for e in entries]
 
+
+def make_history_text(entries, title_override=None, desc_override=None):
+    """今回の追加内容から、能力更新履歴の見出し・説明を自動生成する。"""
+    cards = list(dict.fromkeys(e["card"] for e in entries))
+    if len(cards) == 1:
+        title = "%s関連能力を追加" % cards[0]
+    elif len(cards) == 2:
+        title = "%s・%s関連能力を追加" % (cards[0], cards[1])
+    else:
+        title = "%s・%sほか%d枚の関連能力を追加" % (cards[0], cards[1], len(cards) - 2)
+    sources = list(dict.fromkeys(e["source"] for e in entries))
+    description = "%s能力を%d件追加しました。" % ("・".join(sources), len(entries))
+    return title_override or title, desc_override or description
 
 def validate_entry(e, index, existing_ids, allow_new_tags):
     """1件分の入力を検証する。問題があれば例外。"""
@@ -204,6 +220,11 @@ def main():
         date_str = args.date or datetime.date.today().strftime("%Y/%m/%d")
     new_html = set_update_info(new_html, date_str, len(new_data))
 
+    # 能力更新履歴（能力追加のたび必ず同時に記録する）
+    history_title, history_desc = make_history_text(
+        added, args.history_title, args.history_desc
+    )
+    new_html = add_update_history(new_html, date_str, history_title, history_desc)
     # 新カードをレアリティ別リストへ
     card_added = []
     if not args.no_card_list:
@@ -227,6 +248,8 @@ def main():
         for rarity, card in card_added:
             print("  + %s_CARDS に '%s' を追加" % (rarity, card))
     print("更新表示: %s ／ %d件" % (date_str, len(new_data)))
+
+    print("更新履歴: %s — %s" % (history_title, history_desc))
 
     if args.dry_run:
         print("\n--- dry-run（書き込みなし）差分プレビュー ---")
