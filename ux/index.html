@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="能力DB">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<link rel="manifest" href="manifest-ux.json">
+<link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>LMF能力DB UX改善版</title>
 <style>
@@ -3725,7 +3725,7 @@ document.getElementById('dup-cards-overlay').addEventListener('click', e=>{
     document.getElementById('dup-cards-overlay').classList.remove('open');
 });
 
-if(location.pathname.endsWith('/lmfdb-ux-preview.html')) location.replace('./ux/');
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 
 </script>
 

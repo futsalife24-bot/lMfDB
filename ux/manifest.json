@@ -3,14 +3,14 @@
   "name": "LMF能力DB（UX改善版）",
   "short_name": "LMF能力DB",
   "description": "LINEモンスターファーム能力データベース（UX改善版）",
-  "start_url": "./ux/",
-  "scope": "./ux/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b0a14",
   "theme_color": "#0b0a14",
   "orientation": "portrait",
   "icons": [
-    {"src":"ux/icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"ux/icon-512.png","sizes":"512x512","type":"image/png"}
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png"}
   ]
 }
