@@ -151,12 +151,13 @@ def add_update_history(html, date_str, title, description):
     if not m:
         raise LmfdbError('id="history-abilities" の能力更新履歴を検出できませんでした')
     date_display = html_lib.escape(date_str, quote=True)
+    date_attr = html_lib.escape(date_str.replace("/", "-"), quote=True)
     safe_title = html_lib.escape(title, quote=False)
     safe_description = html_lib.escape(description, quote=False)
     entry = (
         '\n      <article class="update-history-entry"><time datetime="%s">%s</time>'
         '<strong>%s</strong><p>%s</p></article>'
-        % (date_display, date_display, safe_title, safe_description)
+        % (date_attr, date_display, safe_title, safe_description)
     )
     return html[:m.start()] + m.group(1) + entry + m.group(2) + m.group(3) + html[m.end():]
 
