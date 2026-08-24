@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# lMfDB index.html のエラーチェック。
+# lMfDB UX改善版（ux/index.html）のエラーチェック。
 #
-#   bash tools/lmfdb-ability-add/scripts/check.sh [index.html]
+#   bash tools/lmfdb-ability-add/scripts/check.sh [ux/index.html]
 #
 # 全項目通れば「✅ 全項目クリア」を出して終了コード 0、
 # ひとつでも落ちれば終了コード 1。
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-HTML="${1:-index.html}"
+HTML="${1:-ux/index.html}"
 
 if [ ! -f "$HTML" ]; then
   echo "❌ ファイルが見つかりません: $HTML"

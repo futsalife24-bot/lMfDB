@@ -3,7 +3,7 @@
 #
 #   bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: 〇〇の能力を追加" [file ...]
 #
-# ファイルを省略した場合は index.html のみをステージする。
+# ファイルを省略した場合は ux/index.html（本運用）だけをステージする。
 # push は失敗時に 2s / 4s / 8s / 16s のバックオフで最大4回リトライする。
 set -uo pipefail
 
@@ -17,7 +17,7 @@ shift || true
 
 FILES=("$@")
 if [ ${#FILES[@]} -eq 0 ]; then
-  FILES=("index.html")
+  FILES=("ux/index.html")
 fi
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || {
@@ -28,9 +28,9 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 echo "リポジトリ: $REPO_ROOT"
 echo "ブランチ  : $BRANCH"
 
-# コミット前チェック（index.html が対象に含まれるときのみ）
+# コミット前チェック（ux/index.html が対象に含まれるときのみ）
 for f in "${FILES[@]}"; do
-  if [ "$(basename "$f")" = "index.html" ]; then
+  if [ "$f" = "ux/index.html" ]; then
     echo
     echo "── コミット前チェック ──"
     if ! bash "$(dirname "${BASH_SOURCE[0]}")/check.sh" "$f"; then

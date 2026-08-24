@@ -4,6 +4,13 @@
 (`.claude/skills/lmfdb-ability-add/SKILL.md`) と Codex の `AGENTS.md` は
 どちらもここを参照する。
 
+## 0. UX改善版本運用
+
+- 能力データの唯一の正本は **`ux/index.html`**。能力の追加・修正・検証・commit対象はすべてここ。
+- ルートの `index.html` はUX改善版へ案内する公開入口。能力データを追加・修正しない。
+- 以下の旧記述に出る `index.html` は、能力データ作業では `ux/index.html` と読み替える。
+- `add_ability.py` と `check.sh` の既定対象も `ux/index.html`。
+
 ---
 
 ## 0. 大前提
@@ -260,7 +267,7 @@ python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json --dr
 python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json
 
 # 4) チェック（「✅ 全項目クリア」が出るまで直す）
-bash tools/lmfdb-ability-add/scripts/check.sh index.html
+bash tools/lmfdb-ability-add/scripts/check.sh ux/index.html
 
 # 5) チェック成功後は自動で commit + push
 bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: ロクショウの能力を追加"

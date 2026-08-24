@@ -20,6 +20,11 @@ UPDATE_INFO_RE = re.compile(
     r'(<div id="db-update-info"[^>]*>)更新:\s*([0-9/]+)\s*／\s*([0-9]+)件(</div>)'
 )
 
+# UX改善版は件数を ${abilities.length} で動的表示する。
+UPDATE_INFO_JS_RE = re.compile(
+    r"(document\.getElementById\('db-update-info'\)\.innerHTML=`更新:\s*)([0-9/]+)(\s*／\s*\$\{abilities\.length\}件)"
+)
+
 # カード名リスト（レアリティごと）。新カード追加時はここにも足す。
 CARD_LIST_RE = {
     "SSR": re.compile(r"(const SSR_CARDS\s*=\s*\[)(.*?)(\];)", re.DOTALL),
@@ -110,19 +115,26 @@ def replace_abilities(html, data):
 
 
 def get_update_info(html):
-    """(日付文字列, 件数int) を返す。見つからなければ (None, None)。"""
+    """(日付文字列, 件数intまたはNone) を返す。見つからなければ (None, None)。"""
     m = UPDATE_INFO_RE.search(html)
-    if not m:
-        return None, None
-    return m.group(2), int(m.group(3))
+    if m:
+        return m.group(2), int(m.group(3))
+    m = UPDATE_INFO_JS_RE.search(html)
+    if m:
+        return m.group(2), None  # UX改善版は件数を実行時に算出する
+    return None, None
 
 
 def set_update_info(html, date_str, count):
     m = UPDATE_INFO_RE.search(html)
-    if not m:
-        raise LmfdbError('id="db-update-info" の更新表示を検出できませんでした')
-    new = "%s更新: %s ／ %d件%s" % (m.group(1), date_str, count, m.group(4))
-    return html[: m.start()] + new + html[m.end() :]
+    if m:
+        new = "%s更新: %s ／ %d件%s" % (m.group(1), date_str, count, m.group(4))
+        return html[: m.start()] + new + html[m.end() :]
+    m = UPDATE_INFO_JS_RE.search(html)
+    if m:
+        new = "%s%s%s" % (m.group(1), date_str, m.group(3))
+        return html[: m.start()] + new + html[m.end() :]
+    raise LmfdbError('id="db-update-info" の更新表示を検出できませんでした')
 
 
 DATA_FIXES_RE = re.compile(r"const DATA_FIXES\s*=\s*\{(.*?)\n\};", re.DOTALL)

@@ -151,7 +151,7 @@ def check_update_info(data, html):
     if date_str is None:
         err('id="db-update-info" の更新表示が見つかりません')
         return
-    if count != len(data):
+    if count is not None and count != len(data):
         err("更新表示の件数(%d件)がデータ件数(%d件)と一致しません" % (count, len(data)))
     if not re.fullmatch(r"\d{4}/\d{2}/\d{2}", date_str):
         warn("更新日の書式が YYYY/MM/DD ではありません: %r" % date_str)
@@ -207,7 +207,8 @@ def main():
     print("対象ファイル: %s" % args.html)
     print("総件数: %d ／ 最大ID: %s" % (len(data), max(ids) if ids else "-"))
     date_str, count = get_update_info(html)
-    print("更新表示: %s ／ %s件" % (date_str, count))
+    count_label = str(count) if count is not None else "動的"
+    print("更新表示: %s ／ %s件" % (date_str, count_label))
 
     if warns and not args.quiet:
         print()

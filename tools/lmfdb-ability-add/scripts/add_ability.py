@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""lMfDB の index.html に能力を追加する。
+"""lMfDB のUX改善版（ux/index.html）に能力を追加する。
 
 使い方:
     # JSONファイルから追加（配列でも単体オブジェクトでも可）
@@ -60,11 +60,11 @@ from lmfdb_common import (  # noqa: E402
 
 def parse_args():
     ap = argparse.ArgumentParser(
-        description="index.html に能力を追加する",
+        description="UX改善版（ux/index.html）に能力を追加する",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
-    ap.add_argument("--html", default="index.html", help="対象HTML（既定: index.html）")
+    ap.add_argument("--html", default="ux/index.html", help="対象HTML（既定: ux/index.html）")
     ap.add_argument("--json", help="追加する能力のJSON。'-' で標準入力")
     ap.add_argument("--name")
     ap.add_argument("--desc")

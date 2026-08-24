@@ -1,6 +1,6 @@
 name: check
 
-# index.html は GitHub Pages でそのまま公開されるため、
+# ux/index.html は GitHub Pagesの本運用PWAのため、
 # 壊れたまま main に入らないよう push / PR ごとに check.sh を走らせる。
 on:
   push:
@@ -21,5 +21,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: index.html をチェック
-        run: bash tools/lmfdb-ability-add/scripts/check.sh index.html
+      - name: UX改善版をチェック
+        run: bash tools/lmfdb-ability-add/scripts/check.sh ux/index.html

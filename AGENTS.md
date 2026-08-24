@@ -1,5 +1,11 @@
 # AGENTS.md — lMfDB
 
+> ## UX改善版本運用（2026/08/24〜）
+>
+> 能力データの唯一の正本は **`ux/index.html`**。能力の追加・修正・検証・CI・commit対象はすべてこのファイルに限定する。
+> ルートの `index.html` はUX改善版へ案内する公開入口であり、能力データは更新しない。
+> 以下の旧記述にある `index.html` は、能力データ作業では `ux/index.html` と読み替える。
+
 LINEモンスターファーム能力DB。**`index.html` 一枚に全機能が入った PWA**
 （HTML + CSS + JS + データが全部この中）。ビルド工程は無く、`main` に push した
 ものがそのまま GitHub Pages で公開される。
@@ -49,7 +55,7 @@ python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json --dr
 python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json
 
 # チェック（「✅ 全項目クリア」が出るまで直す）
-bash tools/lmfdb-ability-add/scripts/check.sh index.html
+bash tools/lmfdb-ability-add/scripts/check.sh ux/index.html
 
 # チェック成功後は自動で commit + push
 bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: 〇〇の能力を追加"
@@ -88,7 +94,7 @@ JSON に書き起こしてから `add_ability.py` に渡す。
 
 ## 絶対に守ること
 
-- `index.html` の `ABILITIES`（1行の巨大 JSON 配列）を**手で編集しない**。
+- `ux/index.html` の `ABILITIES`（1行の巨大 JSON 配列）を**手で編集しない**。
   必ず `add_ability.py` を通す。
 - 既存能力の `id` を変えない・欠番を再利用しない（localStorage が参照している）。
 - `ABILITIES` の閉じ括弧直後に並ぶ大量の `;` を消さない。
@@ -99,7 +105,7 @@ JSON に書き起こしてから `add_ability.py` に渡す。
 - `rarity` は `SSR` / `MR` / `SR` / `その他` のみ。
 - **`check.sh` が通る前に push しない。** チェック成功後は、明示的な追加承認なしで
   `git_commit_push.sh` を実行する。
-- 壊したら `git checkout -- index.html` で戻してやり直す。
+- 壊したら `git checkout -- ux/index.html` で戻してやり直す。
 
 ## コミット規約
 
