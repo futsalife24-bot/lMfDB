@@ -57,6 +57,7 @@ from lmfdb_common import (  # noqa: E402
     set_update_info,
     write_html,
 )
+from export_abilities import render_export, write_export_atomic  # noqa: E402
 
 
 def parse_args():
@@ -84,6 +85,8 @@ def parse_args():
     ap.add_argument("--allow-new-tags", action="store_true",
                     help="未知のタグをエラーにしない")
     ap.add_argument("--dry-run", action="store_true", help="書き込まずに差分を表示")
+    ap.add_argument("--abilities-json", default="data/abilities.json",
+                    help="同期する能力JSON（既定: data/abilities.json）")
     return ap.parse_args()
 
 
@@ -257,8 +260,21 @@ def main():
         print(dump_abilities(added))
         return 0
 
-    write_html(args.html, new_html)
-    print("\n✅ %s に書き込みました。次に check.sh を実行してください。" % args.html)
+    # HTMLを書き換える前に、実効データへ DATA_FIXES を適用したJSONを完全生成・検証する。
+    # JSON書き込みが失敗した場合はHTMLを元へ戻し、能力追加全体を失敗扱いにする。
+    try:
+        export_content = render_export(new_html)
+        write_html(args.html, new_html)
+        try:
+            write_export_atomic(args.abilities_json, export_content)
+        except (OSError, json.JSONDecodeError, LmfdbError):
+            write_html(args.html, html)
+            raise
+    except (OSError, json.JSONDecodeError, LmfdbError) as e:
+        print("\n❌ 能力JSONの同期に失敗したため、能力追加を完了しませんでした: %s" % e)
+        return 1
+    print("\n✅ %s と %s に書き込みました。次に check.sh を実行してください。"
+          % (args.html, args.abilities_json))
     return 0
 
 

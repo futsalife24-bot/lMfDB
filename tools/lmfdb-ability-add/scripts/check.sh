@@ -17,7 +17,7 @@ fi
 
 fail=0
 
-echo "── [1/4] データ整合性チェック ──"
+echo "── [1/5] データ整合性チェック ──"
 if python3 "$SCRIPT_DIR/validate.py" "$HTML"; then
   echo "  ✅ データ整合性 OK"
 else
@@ -25,7 +25,15 @@ else
 fi
 
 echo
-echo "── [2/4] HTML 構造チェック ──"
+echo "── [2/5] 能力JSON同期チェック ──"
+if python3 "$SCRIPT_DIR/export_abilities.py" --html "$HTML" --check; then
+  echo "  ✅ 能力JSON同期 OK"
+else
+  fail=1
+fi
+
+echo
+echo "── [3/5] HTML 構造チェック ──"
 python3 - "$HTML" <<'PY'
 import re, sys
 html = open(sys.argv[1], encoding="utf-8").read()
@@ -48,7 +56,7 @@ PY
 [ $? -ne 0 ] && fail=1
 
 echo
-echo "── [3/4] JavaScript 構文チェック ──"
+echo "── [4/5] JavaScript 構文チェック ──"
 if command -v node >/dev/null 2>&1; then
   python3 - "$HTML" <<'PY' > /tmp/lmfdb_check_$$.js
 import re, sys
@@ -79,7 +87,7 @@ else
 fi
 
 echo
-echo "── [4/4] PWA 付帯ファイルチェック ──"
+echo "── [5/5] PWA 付帯ファイルチェック ──"
 dir="$(dirname "$HTML")"
 pwa_ok=1
 for f in manifest.json sw.js; do
