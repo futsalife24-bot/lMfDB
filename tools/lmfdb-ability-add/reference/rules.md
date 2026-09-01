@@ -257,6 +257,11 @@ PY
 # 0) 最新化（必ず先にやる）
 git pull --rebase origin main
 
+# 0.5) 育成モンスター一覧を確認（能力追加依頼ごとに必須）
+python3 tools/lmfdb-ability-add/scripts/sync_monsters.py --dry-run
+# 新規掲載があれば内容を確認し、--dry-run を外して追加する
+python3 tools/lmfdb-ability-add/scripts/sync_monsters.py
+
 # 1) 追加内容を JSON にまとめる
 cat > /tmp/new.json <<'JSON'
 [
@@ -287,6 +292,18 @@ bash tools/lmfdb-ability-add/scripts/git_commit_push.sh "add: ロクショウの
 `add_ability.py` は書き込みと同時に、画面下の
 `更新: YYYY/MM/DD ／ N件` 表示の**日付と件数を自動で更新**する。
 日付を変えたくないときは `--no-date-update`、明示指定は `--date 2026/07/01`。
+
+### 育成モンスター更新の判断ルール
+
+- 能力追加の依頼をトリガーに、毎回 `sync_monsters.py --dry-run` を実行する。
+- 比較先は `https://line-monster-farm-tetteikouryaku.com/monsters.html` とする。
+- 新規モンスターが掲載済みなら、`name` / `aura` / `type` / `primary` の4項目を
+  取得し、能力追加と同じ作業内で `MONSTER_MASTER` へ追加する。
+- 比較先が未更新、詳細ページが未公開、または4項目に曖昧さがある場合のみ、
+  ユーザーへスクショ等の情報提供を依頼する。既存情報から勝手に推測しない。
+- 新規モンスターが無ければ正常扱いとし、能力追加を続行する。
+- モンスター追加時は「システム」更新履歴にも追加内容を記録し、能力更新と同じ
+  commit / push に含める。
 
 ---
 

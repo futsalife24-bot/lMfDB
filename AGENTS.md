@@ -38,6 +38,7 @@ CI があるので壊れたまま main に入ることは無いが、**ローカ
 | スクリプト | 役割 |
 |---|---|
 | `add_ability.py` | 能力の追加。ID採番・書式検証・更新表示・能力更新履歴・カードリストの同期まで自動 |
+| `sync_monsters.py` | 育成モンスター一覧を攻略サイトと比較し、新規モンスターを追加 |
 | `check.sh` | エラーチェック。「✅ 全項目クリア」が出れば合格 |
 | `git_commit_push.sh` | **チェック成功後に自動実行する** commit + push |
 | `validate.py` | `check.sh` が内部で呼ぶ検証本体 |
@@ -49,10 +50,23 @@ CI があるので壊れたまま main に入ることは無いが、**ローカ
   `add_ability.py` がカード名・入手先・追加件数から、見出しと説明を自動生成して先頭へ記録する。
 - 特別な表現が必要な場合のみ、`--history-title` と `--history-desc` で上書きする。
   履歴を省略するオプションは設けない。
+
+### 育成モンスター同期（能力追加時に必須）
+
+- **能力追加の依頼を受けたら、同時に育成モンスターの更新も確認する。**
+- 正本の比較先は `https://line-monster-farm-tetteikouryaku.com/monsters.html`。
+- `sync_monsters.py --dry-run` で `MONSTER_MASTER` と比較し、新規掲載があれば
+  名前・オーラ・モン類・主血統を取得して、能力と同じ作業内で自動追加する。
+- 比較先に新規モンスターがまだ掲載されていない、または4項目のどれかが欠ける場合に
+  限ってユーザーへ情報提供を依頼する。推測で補完しない。
+- 新規モンスターが無ければ、能力追加だけをそのまま続行する。
 ### 手順
 
 ```bash
 git pull --rebase origin main
+
+# 育成モンスターの更新確認（差分があれば、確認後に --dry-run を外して追加）
+python3 tools/lmfdb-ability-add/scripts/sync_monsters.py --dry-run
 
 # 追加内容を JSON にまとめて dry-run
 python3 tools/lmfdb-ability-add/scripts/add_ability.py --json /tmp/new.json --dry-run
