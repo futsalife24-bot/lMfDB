@@ -3747,5 +3747,20 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').cat
 
 
 
+
+<!-- Anonymous daily access counts; never sends account/save data or page URL. -->
+<script>
+(()=>{'use strict';try{
+  const query=new URLSearchParams(location.search);
+  if(location.origin!=='https://futsalife24-bot.github.io'||!['/lMfDB/ux/','/lMfDB/ux/index.html'].includes(location.pathname)||window.top!==window.self||query.get('developer')==='1'||query.get('analytics')==='off'||navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true)return;
+  let sent=false;
+  function count(){if(sent||document.visibilityState!=='visible')return;sent=true;
+    let visitor=null;try{const key='app-analytics-lmfdb-visitor';visitor=localStorage.getItem(key);if(!/^[a-f0-9]{32}$/.test(visitor||'')){visitor=crypto.randomUUID().replaceAll('-','');localStorage.setItem(key,visitor)}}catch{visitor=null}
+    try{void fetch('https://swarm-front.melosalife-24.workers.dev/api/analytics/collect/lmfdb',{method:'POST',credentials:'omit',referrerPolicy:'no-referrer',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({visitor})}).catch(()=>{})}catch{}
+    document.removeEventListener('visibilitychange',count);
+  }
+  document.addEventListener('visibilitychange',count);count();
+}catch{}})();
+</script>
 </body>
 </html>
