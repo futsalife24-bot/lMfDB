@@ -3765,7 +3765,7 @@ const adminKey='app-analytics-admin';
   let sent=false;
   function count(){if(sent||document.visibilityState!=='visible')return;sent=true;
     let visitor=null;try{const key='app-analytics-lmfdb-visitor';visitor=localStorage.getItem(key);if(!/^[a-f0-9]{32}$/.test(visitor||'')){visitor=crypto.randomUUID().replaceAll('-','');localStorage.setItem(key,visitor)}}catch{visitor=null}
-    try{void fetch('https://swarm-front.melosalife-24.workers.dev/api/analytics/collect/lmfdb',{method:'POST',credentials:'omit',referrerPolicy:'no-referrer',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({visitor,admin:isAnalyticsAdmin()})}).catch(()=>{})}catch{}
+    try{void fetch('https://project-hub.melosalife-24.workers.dev/api/analytics/collect/lmfdb',{method:'POST',credentials:'omit',referrerPolicy:'no-referrer',keepalive:true,headers:{'Content-Type':'text/plain'},body:JSON.stringify({visitor,admin:isAnalyticsAdmin()})}).catch(()=>{})}catch{}
     document.removeEventListener('visibilitychange',count);
   }
   document.addEventListener('visibilitychange',count);count();
